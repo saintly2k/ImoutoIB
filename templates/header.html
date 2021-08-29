@@ -1,0 +1,32 @@
+<title><?php echo $title; ?></title>
+
+<!--- LOAD THEME IMMEDIATELY --->
+<script>
+if (localStorage.theme !== undefined) {
+document.documentElement.setAttribute("data-stylesheet", localStorage.theme);
+}
+</script>
+
+<!--- SETTINGS --->
+<script>
+<?php if ($captcha_requires = true) { echo 'var captcha_required = true;'; } ?>
+var install_location = '<?php echo $prefix_folder; ?>';
+var default_theme = '<?php echo $default_theme ?>';
+</script>
+
+<?php 
+	echo '<link rel="icon" type="image/png" href="' . $prefix_folder  . '/assets/img/favicon.png"/>';
+?>
+
+<?php 
+	foreach ($config['css'] as $css) {
+		echo '<link rel="stylesheet" type="text/css" href="' . $prefix_folder . '/assets/css/' . $css . '.css">';
+	}
+?>
+
+<?php 
+	foreach ($config['js'] as $js) {
+		echo '<script type="text/javascript" src="' . $prefix_folder . '/assets/js/' . $js . '"></script>';
+	}
+?>
+

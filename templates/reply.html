@@ -1,0 +1,11 @@
+<div class="post-arrows">&gt;&gt;</div>
+<div class="post reply">
+<div class="post-info">
+		<input type="checkbox" name="<?php echo $post_number_reply; ?>" value="delete">
+		<?php if ($reply_subject != '') { echo '<span class="subject">' . $reply_subject . '&nbsp;</span>'; }?>
+		<?php if ($reply_email != '') { echo '<a href="mailto:' . $reply_email . '">';}?><span class="<?php if($reply_email != '') { echo 'link '; } ?>name"><?php echo $reply_name; ?></span>&nbsp;<?php if ($reply_email != '') { echo '</a>'; }?>
+		<span class="post-time" data-timestamp="<?php echo $reply_time;?>" data-tooltip="<?php echo timeConvert($reply_time, $time_method_hover); ?>"><?php echo timeConvert($reply_time, $time_method); ?>&nbsp;</span>
+		<span class="post-number"><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_reply; ?>">No.</a><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_reply; ?>"><?php echo $post_number_reply; ?></a>&nbsp;</span>
+	</div>
+	<blockquote class="post-content"><?php echo $reply_body; ?></blockquote>
+</div>

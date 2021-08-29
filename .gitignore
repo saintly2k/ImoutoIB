@@ -1,0 +1,4 @@
+*error_log
+uploads/*
+database/boards/*
+.gitattributes

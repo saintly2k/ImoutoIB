@@ -1,0 +1,28 @@
+<div class="thread <?php echo $post_number_op ?>">
+
+<div class="post op <?php echo $post_number_op ?>">
+	<div class="post-info">
+		<input type="checkbox" name="<?php echo $post_number_op; ?>" value="delete">
+		<?php if ($op_subject != '') { echo '<span class="subject">' . $op_subject . '&nbsp;</span>'; }?>
+		<?php if ($op_email != '') { echo '<a href="mailto:' . $op_email . '">';}?><span class="<?php if($op_email != '') { echo 'link '; } ?>name"><?php echo $op_name; ?></span>&nbsp;<?php if ($op_email != '') { echo '</a>'; }?>
+		<span class="post-time" data-timestamp="<?php echo $op_time;?>" data-tooltip="<?php echo timeConvert($op_time, $time_method_hover); ?>"><?php echo timeConvert($op_time, $time_method); ?>&nbsp;</span>
+		<span class="post-number"><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>">No.</a><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>"><?php echo $post_number_op; ?></a>&nbsp;</span>
+		<?php 
+			if ($current_page === 'index') { 
+				echo '&nbsp;<span>[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '">Reply</a>]</span>';
+			}
+		?>
+	</div>
+	<blockquote class="post-content">
+		<?php echo $op_body; ?>
+	<?php 
+		if (($current_page == 'index') && ($replies_omitted > 1)) {
+		echo '<br><br><div class="omitted"> ' . $replies_omitted . ' Replies omitted. Click <a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op . '">here</a> to view.</div>'; 
+		} elseif (($current_page == 'index') && ($replies_omitted > 0)) { 
+		echo '<br><br><div class="omitted"> ' . $replies_omitted . ' Reply omitted. Click <a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op . '">here</a> to view.</div>'; 
+		}
+	?>
+	</blockquote>
+</div>
+
+</div>

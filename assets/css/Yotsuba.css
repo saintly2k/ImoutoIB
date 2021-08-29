@@ -1,0 +1,72 @@
+html[data-stylesheet="Yotsuba"] body {
+  background: #ffe;
+  color: #800;
+}
+
+html[data-stylesheet="Yotsuba"] div#post-form th {
+  background-color: #ea8;
+  color: #800;
+  font-weight: 700;
+  border: 1px solid #800;
+}
+
+html[data-stylesheet="Yotsuba"] span.subject {
+  color: red;
+}
+html[data-stylesheet="Yotsuba"] a, html[data-stylesheet="Yotsuba"] a:visited {
+  color: #00e;
+}
+html[data-stylesheet="Yotsuba"] span.link.name {
+  color: #00e;
+}
+html[data-stylesheet="Yotsuba"] a:hover, html[data-stylesheet="Yotsuba"] a span.link.name:hover, html[data-stylesheet="Yotsuba"] .post-number a:hover {
+  color: #d00;
+}
+
+html[data-stylesheet="Yotsuba"] div.main {
+  border-color: #800;
+}
+
+html[data-stylesheet="Yotsuba"] div.main h2 {
+  background: #fca;
+  color: #800;
+}
+
+html[data-stylesheet="Yotsuba"] div.main a {
+  color: #800;
+}
+
+html[data-stylesheet="Yotsuba"] div.main a:hover {
+  color: red;
+  text-decoration: underline;
+}
+
+html[data-stylesheet="Yotsuba"] div.main.first h2 {
+  background: #800;
+  color: #fff;
+}
+
+html[data-stylesheet="Yotsuba"] div.main.first {
+  color: #000;
+}
+
+html[data-stylesheet="Yotsuba"] hr {
+  border-color: #800;
+}
+
+html[data-stylesheet="Yotsuba"] input[type="text"]:focus, html[data-stylesheet="Yotsuba"] input[type="password"]:focus, html[data-stylesheet="Yotsuba"] input:not([type]):focus, html[data-stylesheet="Yotsuba"] textarea:focus {
+  border-color: #ea8;
+}
+
+html[data-stylesheet="Yotsuba"] .post-number a {
+  color: #800;
+}
+
+html[data-stylesheet="Yotsuba"] .post.reply {
+  background: #f0e0d6;
+  border-color: #d9bfb7;
+}
+
+html[data-stylesheet="Yotsuba"] div.post-arrows {
+  color: #e0bfb7;
+}

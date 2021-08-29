@@ -1,0 +1,90 @@
+html[data-stylesheet="Tomorrow"] body {
+  background: #1d1f21;
+  color: #c5c8c6;
+}
+
+html[data-stylesheet="Tomorrow"] div#post-form th {
+  background-color: #282a2e;
+  color: #c5c8c6;
+  font-weight: 700;
+  border: 1px solid #111;
+}
+
+html[data-stylesheet="Tomorrow"] span.subject {
+  color: #b294bb;
+}
+html[data-stylesheet="Tomorrow"] span.name {
+  color: #00c36a;
+}
+html[data-stylesheet="Tomorrow"] a, html[data-stylesheet="Tomorrow"] a:visited {
+  color: #81a2be;
+}
+html[data-stylesheet="Tomorrow"] span.link.name {
+  color: #81a2be;
+}
+html[data-stylesheet="Tomorrow"] a:hover, html[data-stylesheet="Tomorrow"] a span.link.name:hover, html[data-stylesheet="Tomorrow"] span.post-number a:hover {
+  color: #5f89ac;
+}
+
+html[data-stylesheet="Tomorrow"] div.main {
+  border-color: #000;
+  background: #282a2e;
+}
+
+html[data-stylesheet="Tomorrow"] div.main h2 {
+  background: #1d1d21;
+  color: #c5c8c6;
+  border-bottom: 1px solid #111;
+}
+
+html[data-stylesheet="Tomorrow"] div.main a {
+  color: #81a2be;
+}
+
+html[data-stylesheet="Tomorrow"] div.main a:hover {
+  color: #5f89ac;
+}
+
+html[data-stylesheet="Tomorrow"] div.main.first h2 {
+  background: #1d1d21;
+  color: #c5c8c6;
+}
+
+html[data-stylesheet="Tomorrow"] div.main.first {
+  color: #c5c8c6;
+}
+
+html[data-stylesheet="Tomorrow"] hr {
+  border-color: #282a2e;
+}
+
+html[data-stylesheet="Tomorrow"] input[type="text"]:focus, html[data-stylesheet="Tomorrow"] input[type="password"]:focus, html[data-stylesheet="Tomorrow"] input:not([type]):focus, html[data-stylesheet="Tomorrow"] textarea:focus {
+  border-color: #515151;
+}
+
+html[data-stylesheet="Tomorrow"] input[type="text"], html[data-stylesheet="Tomorrow"] input[type="password"], html[data-stylesheet="Tomorrow"] textarea {
+  background: #282a2e;
+  border-color:  #000;
+  color: #c5c8c6;
+}
+
+html[data-stylesheet="Tomorrow"] input[type="checkbox"], html[data-stylesheet="Tomorrow"] input[type="submit"], html[data-stylesheet="Tomorrow"] input[type="file"], html[data-stylesheet="Tomorrow"] button, html[data-stylesheet="Tomorrow"] select {
+    filter: brightness(80%);
+}
+
+html[data-stylesheet="Tomorrow"] .page-info {
+  color: #c5c8c6;
+}
+
+html[data-stylesheet="Tomorrow"] .post-number a {
+  color: #c5c8c6;
+}
+
+html[data-stylesheet="Tomorrow"] .post.reply {
+  background: #282a2e;
+  border-color: #282a2e;
+}
+
+html[data-stylesheet="Tomorrow"] div.post-arrows {
+  color: #c5c8c6;
+}

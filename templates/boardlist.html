@@ -1,0 +1,22 @@
+<div id="boardlist">
+[<?php
+	echo '<a href="' . $prefix_folder . '/' . $main_file . '">';
+	echo 'Home</a>';
+?>
+]&nbsp;
+
+[<?php	
+	foreach ($config['boards'] as $boards) {
+		if ($boards['hidden'] === 0) {
+			if ($boards['url'] != array_key_first($config['boards'])) {
+		        echo ' / ';
+		    }
+		 	echo '<a href="' . $prefix_folder . '/' . $main_file . '?board=';
+			echo $boards['url'];
+			echo '">' . $boards["title"] . '</a>';
+		}
+	}
+
+?>
+]
+</div>

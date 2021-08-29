@@ -1,0 +1,35 @@
+<hr>
+
+<div class="abovefooter">
+&nbsp;
+	<div class="float-right">
+		<select id="themes">
+		<?php
+		foreach($config['css'] as $theme) {
+			echo '<option value="' . $theme . '">' . $theme . '</option>';
+		}
+		?>
+		<select>
+		<noscript>
+			<style>select#themes { display: none; }</style>
+		<?php
+		foreach($config['css'] as $theme) {
+			echo '&nbsp;[<a href="' . $prefix_folder . $main_file . '/?board=' . $current_board . '&thread=' . $current_thread . '&theme=' . $theme . '">' . $theme . '</a>]';
+		}
+		?>
+		</noscript>
+	</div>
+</div>
+
+<div class="footer">
+	<p>ImoutoIB</p>
+	<?php 
+		if ($config['generated_in'] === true) {
+			$end_time = microtime(true);
+			$generation_time = round($end_time - $start_time, 5);
+			echo '<p class="small">Page generated in ' . $generation_time . ' seconds.</p>';
+		}
+	?>
+
+	
+</div>
