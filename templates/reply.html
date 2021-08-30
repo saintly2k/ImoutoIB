@@ -2,38 +2,39 @@
 <div class="post reply" data-postid="<?php echo $post_number_reply; ?>">
 	<div class="post-info">
 
-	<?php if ($post_buttons == true) {
-		echo '
-		<details>
-		    <summary></summary>
-		    <form name="post_button" action="' . $prefix_folder . '/delete-report.php" method="post">
-			    <table>
-			    	<tbody>
-			    		<tr>
-							<td>
-								<input type="password" id="password_' . $post_number_reply . '" name="password" maxlength="256" autocomplete="off" placeholder="Password">
-								<input type="submit" name="delete" value="Delete">
-								<label for="file_' . $post_number_reply . '"><input type="checkbox" id="file_' . $post_number_reply . '" name="file">File only</label>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input type="text" id="reason_' . $post_number_reply . '" name="report" maxlength="256" autocomplete="off" value="" placeholder="Reason">
-								<input type="submit" name="report" value="Report">
-								<label for="global_' . $post_number_reply . '"><input type="checkbox" id="global_' . $post_number_reply . '" name="global"></input>Global</label>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</form>
-			</details>';
-		}?>
-
 		<input type="checkbox" id="post_<?php echo $post_number_reply; ?>" name="post_<?php echo $post_number_reply; ?>" value="<?php echo $post_number_reply; ?>">
 		<?php if ($reply_subject != '') { echo '<span class="subject">' . $reply_subject . '&nbsp;</span>'; }?>
 		<?php if (($reply_email != '') && ($show_email != false)) { echo '<a href="mailto:' . $reply_email . '">';}?><span class="<?php if(($reply_email != '') && ($show_email != false)) { echo 'link '; } ?>name"><?php echo $reply_name; ?></span>&nbsp;<?php if (($reply_email != '') && ($show_email != false)) { echo '</a>'; }?>
 		<span class="post-time" data-timestamp="<?php echo $reply_time;?>" data-tooltip="<?php echo timeConvert($reply_time, $time_method_hover); ?>"><?php echo timeConvert($reply_time, $time_method); ?>&nbsp;</span>
 		<span class="post-number"><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_reply; ?>">No.</a><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_reply; ?>"><?php echo $post_number_reply; ?></a>&nbsp;</span>
+
+		<?php if ($post_buttons == true) {
+			echo '
+				<details>
+				    <summary></summary>
+				    <form name="post_button" action="' . $prefix_folder . '/delete-report.php" method="post">
+					    <table>
+					    	<tbody>
+					    		<tr>
+									<td>
+										<input type="password" id="password_' . $post_number_reply . '" name="password" maxlength="256" placeholder="Password">
+										<input type="submit" name="delete" value="Delete">
+										<label for="file_' . $post_number_reply . '"><input type="checkbox" id="file_' . $post_number_reply . '" name="file">File only</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input type="text" id="reason_' . $post_number_reply . '" name="report" maxlength="256" autocomplete="off" value="" placeholder="Reason">
+										<input type="submit" name="report" value="Report">
+										<label for="global_' . $post_number_reply . '"><input type="checkbox" id="global_' . $post_number_reply . '" name="global"></input>Global</label>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+					</details>';
+		}?>
+
 	</div>
 	<blockquote class="post-content"><?php echo $reply_body; ?></blockquote>
 </div>

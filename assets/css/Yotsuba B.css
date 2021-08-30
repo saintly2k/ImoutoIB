@@ -282,19 +282,14 @@ label {
 }
 
 div.post details {
-  float: right;
+	display: inline;
 }
 div.post details summary {
-  margin-top: -2px;
-  font-size: 14pt
+  font-size: 16px;
 }
 
 div.post details table {
 	position: absolute;
 	background: #d6daf0;
 	border: 1px solid #b7c5d9;
-}
-
-.post-info details form table input[type="submit"] {
-    width: 50px;
 }

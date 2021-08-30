@@ -57,4 +57,4 @@ I basically reinvented the wheel except instead of making it nice and round I ma
 
 License
 --------
-See [LICENSE.md](http://github.com/ithrts/ImoutoIB/blob/master/README.md).
+See [LICENSE.md](http://github.com/ithrts/ImoutoIB/blob/master/LICENSE.md).

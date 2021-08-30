@@ -7,11 +7,40 @@
 		<?php if (($op_email != '') && ($show_email != false)) { echo '<a href="mailto:' . $op_email . '">';}?><span class="<?php if(($op_email != '') && ($show_email != false)) { echo 'link '; } ?>name"><?php echo $op_name; ?></span>&nbsp;<?php if ($op_email != '') { echo '</a>'; }?>
 		<span class="post-time" data-timestamp="<?php echo $op_time;?>" data-tooltip="<?php echo timeConvert($op_time, $time_method_hover); ?>"><?php echo timeConvert($op_time, $time_method); ?>&nbsp;</span>
 		<span class="post-number"><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>">No.</a><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>"><?php echo $post_number_op; ?></a>&nbsp;</span>
+
+		<?php if ($post_buttons == true) {
+			echo '
+				<details>
+				    <summary></summary>
+				    <form name="post_button" action="' . $prefix_folder . '/delete-report.php" method="post">
+					    <table>
+					    	<tbody>
+					    		<tr>
+									<td>
+										<input type="password" id="password_' . $post_number_op . '" name="password" maxlength="256" placeholder="Password">
+										<input type="submit" name="delete" value="Delete">
+										<label for="file_' . $post_number_op . '"><input type="checkbox" id="file_' . $post_number_op . '" name="file">File only</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input type="text" id="reason_' . $post_number_op . '" name="report" maxlength="256" autocomplete="off" value="" placeholder="Reason">
+										<input type="submit" name="report" value="Report">
+										<label for="global_' . $post_number_op . '"><input type="checkbox" id="global_' . $post_number_op . '" name="global"></input>Global</label>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+					</details>';
+		}?>
+
 		<?php 
 			if ($current_page === 'index') { 
 				echo '&nbsp;<span>[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '">Reply</a>]</span>';
 			}
 		?>
+
 	</div>
 	<blockquote class="post-content">
 		<?php echo $op_body; ?>
