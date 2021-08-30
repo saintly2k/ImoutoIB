@@ -30,10 +30,11 @@ if ((!isset($_GET["board"])) || ($_GET["board"] == '')) {
 	echo '</head>';
 	echo '<body class="frontpage">';
 	include $path . '/templates/boardlist.html';
-	include $path . '/templates/frontpage.html';
+	include $path . '/templates/pages/frontpage.html';
 	include $path . '/templates/footer.html';
 	echo '</body>';
 	echo '</html>';
+	exit();
 }
 
 // IF BOARD EXISTS
@@ -77,7 +78,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 	echo '<head>';
 	include $path . '/templates/header.html';
 	echo '</head>';
-	echo '<body current_page="' . $current_page . '">';
+	echo '<body class="' . $current_page . '">';
 	include $path . '/templates/boardlist.html';
 	include $path . '/templates/page-info.html';
 	include $path . '/templates/post-form.html';

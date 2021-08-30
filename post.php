@@ -3,13 +3,19 @@
 require dirname(__FILE__) . '/require.php';
 
 
-//CLEANUP
-$post_board = htmlspecialchars($_POST['board']);
-
-$post_name = htmlspecialchars($_POST['name']);
-$post_email = htmlspecialchars($_POST['email']);
-$post_subject = htmlspecialchars($_POST['subject']);
-$post_body = htmlspecialchars($_POST['body']);
+//POST FIELDS
+	$post_board = htmlspecialchars($_POST['board']);
+	$post_name = htmlspecialchars($_POST['name']);
+	if ($disable_email !== true) {
+		$post_email = htmlspecialchars($_POST['email']);
+	} else { 
+		$post_email = '';
+	}
+	if ($post_email == 'sage') {
+		$_POST['sage'] = true;
+	}
+	$post_subject = htmlspecialchars($_POST['subject']);
+	$post_body = htmlspecialchars($_POST['body']);
 
 //Requirements met?
 
@@ -27,7 +33,7 @@ if ($captcha_required == true) {
 }
 
 if ($post_name === '') {
-	$post_name = 'Anonymous';
+	$post_name = $default_name;
 }
 if (strlen($post_name) > 256) {
 	error('Name too long. Max 256.');
@@ -118,7 +124,7 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 			$counter = file_get_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/counter.php');
 			$newcount = $counter + 1;
 			//save it as last bumped if not sage tho
-			if ($post_email != 'sage') {
+			if (!isset($_POST['sage'])) {
 			file_put_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . '/bumped.php', $counter);
 			}
 			//save it as last post number

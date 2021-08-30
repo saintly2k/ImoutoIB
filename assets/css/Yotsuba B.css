@@ -130,6 +130,10 @@ input[type="text"], input[type="password"], textarea {
 input[type="text"]:focus, input[type="password"]:focus, input:not([type]):focus, textarea:focus {
 	border: 1px solid #98e;
 }
+input[type="file"] {
+	width: 260px;
+	text-overflow: ellipsis;
+}
 
 textarea {
 	width: 275px;
@@ -275,4 +279,22 @@ details summary {
 label {
 	user-select: none;
 	font-size: 10pt;
+}
+
+div.post details {
+  float: right;
+}
+div.post details summary {
+  margin-top: -2px;
+  font-size: 14pt
+}
+
+div.post details table {
+	position: absolute;
+	background: #d6daf0;
+	border: 1px solid #b7c5d9;
+}
+
+.post-info details form table input[type="submit"] {
+    width: 50px;
 }
