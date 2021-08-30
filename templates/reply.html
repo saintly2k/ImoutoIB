@@ -15,6 +15,9 @@
 				    <form name="post_button" action="' . $prefix_folder . '/delete-report.php" method="post">
 					    <table>
 					    	<tbody>
+					    		<input type="hidden" name="board" value="' . $current_board . '"/>
+					    		<input type="hidden" name="thread" value="' . $post_number_op . '"/>
+					    		<input type="hidden" name="reply" value="' . $post_number_reply . '"/>
 					    		<tr>
 									<td>
 										<input type="password" id="password_' . $post_number_reply . '" name="password" maxlength="256" placeholder="Password">
@@ -24,7 +27,7 @@
 								</tr>
 								<tr>
 									<td>
-										<input type="text" id="reason_' . $post_number_reply . '" name="report" maxlength="256" autocomplete="off" value="" placeholder="Reason">
+										<input type="text" id="reason_' . $post_number_reply . '" name="reason" maxlength="256" autocomplete="off" value="" placeholder="Reason">
 										<input type="submit" name="report" value="Report">
 										<label for="global_' . $post_number_reply . '"><input type="checkbox" id="global_' . $post_number_reply . '" name="global"></input>Global</label>
 									</td>

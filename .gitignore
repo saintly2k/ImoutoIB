@@ -1,3 +1,5 @@
 *error_log
 uploads/*
 database/boards/*
+database/reports/*
+database/reportsglobal/*
