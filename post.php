@@ -97,6 +97,7 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 	$create_OP .= '$op_subject = "' . $post_subject . '";';
 	$create_OP .= '$op_body = "' . $post_body . '";';
 	$create_OP .= '$op_password = "' . $post_password . '";';
+	$create_OP .= '$op_ip = "' . crypt($_SERVER['REMOTE_ADDR'] , $secure_hash) . '";';
 	$create_OP .= '$op_time = "' . time() . '"; ?>';
 
 	//SAVE POST INFORMATION
@@ -139,6 +140,7 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 		$create_reply .= '$reply_subject = "' . $post_subject . '";';
 		$create_reply .= '$reply_body = "' . $post_body . '";';
 		$create_reply .= '$reply_password = "' . $post_password . '";';
+		$create_reply .= '$reply_ip = "' . crypt($_SERVER['REMOTE_ADDR'] , $secure_hash) . '";';
 		$create_reply .= '$reply_time = "' . time() . '"; ?>';
 
 		//SAVE POST INFORMATION
