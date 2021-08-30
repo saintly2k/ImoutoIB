@@ -10,14 +10,21 @@
 	<?php if ($current_page === 'thread') { echo '<input type="hidden" id="thread_number" name="thread_number" value="' . $post_number_op . '">'; } ?>
 	<?php if ($current_page === 'index') { echo '<input type="hidden" id="index" name="index" value="index">'; } ?>
 
-	<tr>
-		<th>Name</th>
-		<td><input type="text" name="name" size="25" maxlength="256" autocomplete="off"></td>
-	</tr>
-	<tr>
-		<th>Email</th>
-		<td><input type="text" name="email" size="25" maxlength="256" autocomplete="off"></td>
-	</tr>
+	
+	<?php if ($forced_anon !== true) { 
+		echo '
+			<tr>
+				<th>Name</th>
+				<td><input type="text" name="name" size="25" maxlength="256" autocomplete="off" placeholder="' . $default_name . '"></td>
+			</tr>'; } 
+	?>
+	<?php if ($disable_email !== true) { 
+	echo '
+		<tr>
+			<th>Email</th>
+			<td><input type="text" name="email" size="25" maxlength="256" autocomplete="off"></td>
+		</tr>'; }
+	?>
 		<tr>
 		<th>Subject</th>
 		<td><input type="text" name="subject" size="25" maxlength="256" autocomplete="off">&nbsp;<?php echo '<input type="submit" name="post" value="'; if ($current_page == 'index') { echo 'Submit'; } if ($current_page == 'thread') { echo 'Reply'; } if ($current_page != 'thread' && $current_page != 'index') { echo 'Locked'; } if ($current_page != 'thread' && $current_page != 'index') { echo '" disabled>';} else { echo '">';}?></td>
@@ -46,7 +53,7 @@
 	    	</tr>
 	    	<tr>
 	    		<th>Options</th>
-	    		<td><label for="checkbox1"><input type="checkbox" id="checkbox1" name="checkbox1"> Spoiler Image</label> <label for="checkbox2"><input type="checkbox" id="checkbox2" name="checkbox2"> No Bump</label></td>
+	    		<td><label for="checkbox1"><input type="checkbox" id="checkbox1" name="checkbox1"> Spoiler Image</label> <label for="sage"><input type="checkbox" id="sage" name="sage"> No Bump</label></td>
 	    	</tr>
 	    </table>
 	</details>

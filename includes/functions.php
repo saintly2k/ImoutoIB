@@ -61,7 +61,7 @@ function timeConvert($unix, $method = false) {
 		return date('Y-m-d\TH:i:sO', $unix);
 	}
 	elseif ($method === 'human') {
-		return date('jS F (D), Y, G:i', $unix);
+		return date('jS F H:i (D), Y', $unix);
 	}
 	elseif ($method === 'since') {
 		return timeago($unix);

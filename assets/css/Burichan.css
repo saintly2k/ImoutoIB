@@ -1,0 +1,56 @@
+html[data-stylesheet="Burichan"] body {
+  font-family: times new roman,serif;
+  font-size: initial;
+  background: #eef2ff;
+  color: #000;
+}
+
+html[data-stylesheet="Burichan"] div#post-form th {
+  border: none;
+  font-size: 12pt;
+  padding-left: 0;
+}
+html[data-stylesheet="Burichan"] a, html[data-stylesheet="Burichan"] a:visited {
+  text-decoration: underline;
+}
+html[data-stylesheet="Burichan"] span.link.name {
+  color: #00e;
+}
+html[data-stylesheet="Burichan"] a:hover, html[data-stylesheet="Burichan"] a span.link.name:hover, html[data-stylesheet="Burichan"] .post-number a:hover {
+  color: #d00;
+}
+
+html[data-stylesheet="Burichan"] div.main a:hover {
+  color: red;
+  text-decoration: underline;
+}
+
+html[data-stylesheet="Burichan"] input[type="text"]:focus, html[data-stylesheet="Burichan"] input[type="password"]:focus, html[data-stylesheet="Burichan"] input:not([type]):focus, html[data-stylesheet="Burichan"] textarea:focus {
+  border-color: #ea8;
+}
+
+html[data-stylesheet="Burichan"] .post-number a {
+  color: #000;
+  text-decoration: none;
+}
+
+html[data-stylesheet="Burichan"] .post.reply {
+  border: none;
+}
+
+html[data-stylesheet="Burichan"] div.post-arrows, html[data-stylesheet="Burichan"] div.omitted {
+  color: #000;
+}
+
+html[data-stylesheet="Burichan"] #boardlist {
+  font-size: 12pt;
+}
+
+html[data-stylesheet="Burichan"] h1 {
+  font-family: times new roman,serif;
+  letter-spacing: 0;
+}
+
+html[data-stylesheet="Burichan"] hr {
+  border-top: 2px solid grey;
+}

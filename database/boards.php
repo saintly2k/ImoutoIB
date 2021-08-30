@@ -5,7 +5,7 @@
 
 $config['boards']['test'] = array(
 	'url' => 'test',
-	'title' => 'Test',
+	'title' => 'test',
 	'description' => 'QA? I\'m not getting paid!!',
 	'locked' => 0,
 	'hidden' => 0
@@ -13,7 +13,7 @@ $config['boards']['test'] = array(
 
 $config['boards']['d'] = array(
 	'url' => 'd',
-	'title' => 'Demo',
+	'title' => 'demo',
 	'description' => 'Just a second test board...',
 	'locked' => 0,
 	'hidden' => 0
@@ -21,8 +21,8 @@ $config['boards']['d'] = array(
 
 $config['boards']['2d'] = array(
 	'url' => '2d',
-	'title' => '2D Girls',
-	'description' => 'We don\'t need hurtful 3DPD.',
+	'title' => '2d media',
+	'description' => 'Because less is more.',
 	'locked' => 0,
 	'hidden' => 0
 );

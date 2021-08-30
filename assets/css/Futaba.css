@@ -1,0 +1,91 @@
+html[data-stylesheet="Futaba"] body {
+  font-family: times new roman,serif;
+  font-size: initial;
+  background: #ffe;
+  color: #800;
+}
+
+html[data-stylesheet="Futaba"] div#post-form th {
+  background-color: #ea8;
+  color: #800;
+  border: none;
+  font-size: 12pt;
+  padding-left: 0;
+}
+
+html[data-stylesheet="Futaba"] span.subject {
+  color: red;
+}
+html[data-stylesheet="Futaba"] a, html[data-stylesheet="Futaba"] a:visited {
+  color: #00e;
+  text-decoration: underline;
+}
+html[data-stylesheet="Futaba"] span.link.name {
+  color: #00e;
+}
+html[data-stylesheet="Futaba"] a:hover, html[data-stylesheet="Futaba"] a span.link.name:hover, html[data-stylesheet="Futaba"] .post-number a:hover {
+  color: #d00;
+}
+
+html[data-stylesheet="Futaba"] div.main {
+  border-color: #800;
+}
+
+html[data-stylesheet="Futaba"] div.main h2 {
+  background: #fca;
+  color: #800;
+}
+
+html[data-stylesheet="Futaba"] div.main a {
+  color: #800;
+}
+
+html[data-stylesheet="Futaba"] div.main a:hover {
+  color: red;
+  text-decoration: underline;
+}
+
+html[data-stylesheet="Futaba"] div.main.first h2 {
+  background: #800;
+  color: #fff;
+}
+
+html[data-stylesheet="Futaba"] div.main.first {
+  color: #000;
+}
+
+html[data-stylesheet="Futaba"] input[type="text"]:focus, html[data-stylesheet="Futaba"] input[type="password"]:focus, html[data-stylesheet="Futaba"] input:not([type]):focus, html[data-stylesheet="Futaba"] textarea:focus {
+  border-color: #ea8;
+}
+
+html[data-stylesheet="Futaba"] .post-number a {
+  color: #800;
+  text-decoration: none;
+}
+
+html[data-stylesheet="Futaba"] .post.reply {
+  background: #f0e0d6;
+  border: none;
+}
+
+html[data-stylesheet="Futaba"] div.post-arrows, html[data-stylesheet="Futaba"] div.omitted, html[data-stylesheet="Futaba"] div.page-info  {
+  color: #800;
+}
+
+html[data-stylesheet="Futaba"] #boardlist {
+  font-size: 12pt;
+}
+
+html[data-stylesheet="Futaba"] h1 {
+  font-family: times new roman,serif;
+  letter-spacing: 0;
+}
+
+html[data-stylesheet="Futaba"] hr {
+  border-top: 2px solid grey;
+}
+
+html[data-stylesheet="Futaba"] div.post details table {
+  background: #f0e0d6;
+  border: 1px solid #d9bfb7;
+}
