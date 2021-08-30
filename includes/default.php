@@ -7,8 +7,10 @@ $main_file = 'main.php'; //leave empty if using handlers like apache to hide fil
 $post_file = 'post.php'; //i cant imagine any reason to change this, but i suppose it could be in a different folder if you want to
 
 $site_name = 'ImoutoIB';
-
+$domain = ''; //MUST BE SET FOR COOKIES
 $captcha_required = false;
+
+$secure_hash = "SQp3FaEgyMyHe3=Zc!-vS%ya6W!JAt+9fqwdbGk&ev!hbG!nSMgN_KUbLrmRpCQy"; //Will be used to hash your post passwords. You should change this.
 
 $time_method = 'since'; //(iso:iso8601 unix:numberstamp since:howlongsince human:humanreadable
 $time_method_hover = "human"; //unix will always be in data-timestamp for potential js use
@@ -22,6 +24,7 @@ $show_email = true; //shows email in post name
 $config['display_banner'] = true;
 
 $post_buttons = true; //adds a no-JS friendly post button on each post for delete/report using html5 details
+
 
 // STYLESHEETS
 $config['css'][] = 'Yotsuba B'; //mandatory, foundation for all other styles.

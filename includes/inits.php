@@ -28,17 +28,31 @@ if (!isset($_GET["page"])) {
 if (!isset($_GET["board"])) {
 	$_GET["board"] = '';
 }
+
+if ($prefix_folder == '') {
+	$cookie_location = '/';
+} else {
+	$cookie_location = $prefix_folder;
+}
+
+
 // SET THEME COOKIE FOR NO-JS USERS (CUZ IM COOL LIKE DAT)
 if (!isset($_COOKIE["theme"])) {
-	setcookie("theme", $config['css'][0], time() + (60 * 60 * 24 * 365 )); // 1 year expiry, default to first theme in default.php.
+	setcookie("theme", $config['css'][0], 0,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
 }
 if (isset($_GET["theme"])) {
 	unset($_COOKIE["theme"]);
-	setcookie("theme", htmlspecialchars($_GET["theme"]), time() + (60 * 60 * 24 * 365 ));
+	setcookie("theme", htmlspecialchars($_GET["theme"]), 0, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
 }
-$current_theme = ''; //prevent some cookie blockers throwing notice errors
+	$current_theme = ''; //prevent some cookie blockers throwing notice errors
 if (isset($_COOKIE["theme"])) {
-$current_theme = $_COOKIE["theme"];
+	$current_theme = $_COOKIE["theme"];
+}
+
+if (isset(($_POST['password'])) && (($_POST['password']) !== '')) {
+	$post_password = crypt(htmlspecialchars($_POST['password']), $secure_hash);
+} else {
+	$post_password = crypt((rand() + time()),$secure_hash); //sets a random hashed password
 }
 
 ?>
