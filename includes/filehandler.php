@@ -7,6 +7,13 @@ $isAudio_ = '';
 $isVideo_ = '';
 $isDownload_ = '';
 
+$file_type = '';
+$original_filename = '';
+$new_filename = '';
+$upload_resolution = '';
+//$isSpoiler_ = '';
+$filesize_ = '';
+
 
 function isAllowedFile($file_upload, $array) {
 	if (in_array($file_upload, $array)) {
@@ -22,6 +29,7 @@ function isAllowedFile($file_upload, $array) {
 	    //echo "No file selected"; 
 	} else {
 
+		$filesize_ = $_FILES['file']['size'];
 	    $filename_ = $_FILES["file"]["name"];
 	    $tmpname_ = $_FILES["file"]["tmp_name"];
 		$fileext_ = '.' . pathinfo($filename_, PATHINFO_EXTENSION);
@@ -52,10 +60,19 @@ function isAllowedFile($file_upload, $array) {
 		    	echo 'This is an invalid image MIME...';
 		    	exit();
 			}
+			//is valid resolution?
+			$imagedetails_ = getimagesize($_FILES['file']['tmp_name']);
+			$width_ = $imagedetails_[0];
+			$height_ = $imagedetails_[1];
+			if ($image_max_res < $width_ || $image_max_res < $height_) {
+				echo 'Maximum image resolution is ' . $image_max_res . 'x' . $image_max_res . '.';
+		    	exit();
+			}
 
-			//TODO check image dimensions
+			$upload_resolution = $width_ . 'x' . $height_;
 
 			$isImage_ = true;
+			$file_type = 'image';
 		}
 
 		//OK EVERYTHING CHECKS OUT FOR THIS FILE. PROCEED WITH POSTING
@@ -70,18 +87,32 @@ function isAllowedFile($file_upload, $array) {
 		}
 
 		//MOVE AND RENAME FILE
-		$original_filename = $filename_;
 
-		if ($filename_method == 'unix') {
-			$new_filename = time() . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT) . $fileext_;
+		if (strlen($filename_) < $max_filename) {
+        	$original_filename = $filename_;
+        } else {
+        	$original_filename = $substr($filename_, 0, 128) . $fileext_)); //cut to 
+        }
+
+		
+
+		function getFilename ($method, $ext_) {
+			if ($method == 'unix') {
+				return time() . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT) . $ext_;
+			}
+			if ($method == 'uniq') {
+				return uniqid() . time() . $ext_;
+			}
 		}
-		if ($filename_method == 'uniq') {
-			$new_filename = uniqid() . time() . $fileext_;
-		}
+
+		$new_filename = getFilename($filename_method, $fileext_);
+
 
 		move_uploaded_file($_FILES['file']['tmp_name'], __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_filename);
 
 }
+
+//SAVE POST INFORMATION is in post.php
 
 
 

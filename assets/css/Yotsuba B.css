@@ -34,6 +34,20 @@ a:hover, .post-number a:hover {
 	color: #d00;
 }
 
+div.file-info a {
+	text-decoration: underline;
+}
+
+div.post-image {
+	float: left;
+	margin: 4px 10px 0px 15px;
+}
+
+div.post-image img {
+    max-width: 250px;	/* TEMPORARY UNTIL THUMBNAILS FIXED */
+    max-height: 250px;  /* TEMPORARY UNTIL THUMBNAILS FIXED */
+}
+
 p {
 	margin: 0;
 	padding: 0;
