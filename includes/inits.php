@@ -43,13 +43,13 @@ if ($prefix_folder == '') {
 
 // SET THEME COOKIE FOR NO-JS USERS (CUZ IM COOL LIKE DAT)
 if (!isset($_COOKIE["theme"])) {
-	setcookie("theme", $config['css'][0], 0,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+	setcookie("theme", $default_theme, 0,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
 }
 if (isset($_GET["theme"])) {
 	unset($_COOKIE["theme"]);
 	setcookie("theme", htmlspecialchars($_GET["theme"]), 0, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
 }
-	$current_theme = ''; //prevent some cookie blockers throwing notice errors
+	$current_theme = $default_theme;
 if (isset($_COOKIE["theme"])) {
 	$current_theme = $_COOKIE["theme"];
 }

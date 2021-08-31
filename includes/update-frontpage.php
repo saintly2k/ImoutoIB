@@ -29,10 +29,8 @@ if (isset($post_board)) {
 			}
 		}
 
-		var_dump($all_ips_);
-		//count unique
-		$uniqueids_ = count(array_unique($all_ips_)); 
-		echo $uniqueids_;
+	//count unique
+	$uniqueids_ = count(array_unique($all_ips_)); 
 
 	$frontpage_ = '<?php ';
 	$frontpage_ .= '$frontpage_uniqueids' . '=' . $uniqueids_ . ';';
