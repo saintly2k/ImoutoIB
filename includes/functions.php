@@ -101,7 +101,7 @@ function PostSuccess($redirect = false, $auto = true) {
 	}
 
 	if (($redirect !== false) && $auto == true) {
-	echo '<meta http-equiv="refresh" content="2; URL=' . $redirect . '" />';
+	//echo '<meta http-equiv="refresh" content="2; URL=' . $redirect . '" />';
 	}
 
 	echo '</head>';
@@ -110,7 +110,19 @@ function PostSuccess($redirect = false, $auto = true) {
 	echo '</body>';
 	echo '</html>';
 
-	exit();
+	//exit();
+}
+
+function UpdateOP($database_folder, $board, $thread, $page, $replies, $bumped, $uniqueids) {
+	$info_ = '<?php ';
+	$info_ .= '$info_page' . '=' . '""' . ';';
+	$info_ .= '$info_replies' . '=' . $replies . ';';
+	$info_ .= '$info_bumped' . '=' . $bumped . ';';
+	$info_ .= '$info_uniqueids' . '=' . $uniqueids . ';';
+	$info_ .= '?>';
+
+	file_put_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/' . 'info.php', $info_);
+
 }
 
 ?>

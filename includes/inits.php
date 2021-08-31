@@ -13,6 +13,11 @@ $current_thread = '';
 $board_title = '$board_title';
 $board_description = '$board_title';
 $post_number_op = '';
+$frontpage_active = 0;
+$reply = '';
+$reply_ip ='';
+$op = '';
+$op_ip = '';
 
 if ($config['generated_in'] === true) {
 	$start_time = microtime(true);

@@ -50,7 +50,11 @@ echo '</table>';
 	<h2>Stats</h2>
 	<div class="stats">
 		<div><b>Total Posts:</b> <?php echo $total_posts; ?></div>
-		<div><b>Unique Posters:</b> I'm not a fed!!</div>
+		<div><b>Unique Posters:</b> 
+			<?php 
+				@include __dir__ . '/../../' . $database_folder . '/frontpage.php'; 
+				echo $frontpage_uniqueids;
+			?></div>
 		<div><b>Active Content:</b> 0...</div>
 	</div>
 </div>
