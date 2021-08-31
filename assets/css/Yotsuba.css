@@ -19,7 +19,12 @@ html[data-stylesheet="Yotsuba"] a, html[data-stylesheet="Yotsuba"] a:visited {
 html[data-stylesheet="Yotsuba"] span.link.name {
   color: #00e;
 }
-html[data-stylesheet="Yotsuba"] a:hover, html[data-stylesheet="Yotsuba"] a span.link.name:hover, html[data-stylesheet="Yotsuba"] .post-number a:hover {
+
+html[data-stylesheet="Yotsuba"] div.main a, html[data-stylesheet="Yotsuba"] #boardlist a {
+  color: #800;
+}
+
+html[data-stylesheet="Yotsuba"] a:hover, html[data-stylesheet="Yotsuba"] a span.link.name:hover, html[data-stylesheet="Yotsuba"] .post-number a:hover, html[data-stylesheet="Yotsuba"] #boardlist a:hover {
   color: #d00;
 }
 
@@ -29,10 +34,6 @@ html[data-stylesheet="Yotsuba"] div.main {
 
 html[data-stylesheet="Yotsuba"] div.main h2 {
   background: #fca;
-  color: #800;
-}
-
-html[data-stylesheet="Yotsuba"] div.main a {
   color: #800;
 }
 
