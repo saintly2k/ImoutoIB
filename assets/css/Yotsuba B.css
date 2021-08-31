@@ -1,6 +1,6 @@
 body {
 	font-family: arial,helvetica,sans-serif;
-	background: #eef2ff;
+	background: #eef2ff url('img/fade-yotsuba-b.png') top center repeat-x;
 	font-size: 10pt;
 }
 
@@ -125,6 +125,11 @@ input[type="text"], input[type="password"], textarea {
 	border: 1px solid #aaa;
 	width: 200px;
 	padding: 2px;
+}
+
+#post-form textarea {
+	min-width: 200px;
+	min-height: 50px;
 }
 
 input[type="text"]:focus, input[type="password"]:focus, input:not([type]):focus, textarea:focus {

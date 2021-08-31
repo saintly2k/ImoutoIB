@@ -1,7 +1,7 @@
 <?php if ($current_page === 'thread') { echo '<div class="postingmode">Posting mode: Reply</div>'; } ?>
 <?php if ($current_page != ('thread') && $current_page != ('index')) { echo '<style>#post-form { display: none; }</style><div class="blotter">(Locked!)</div>'; } ?>
 <div id="post-form">
-<form name="post" action="<?php echo $prefix_folder;  ?>/post.php" method="post">
+<form enctype="multipart/form-data" name="post" action="<?php echo $prefix_folder;  ?>/post.php" method="post">
 	<table>
 
 	<!-- Hidden Inputs --->
@@ -53,7 +53,14 @@
 	    	</tr>
 	    	<tr>
 	    		<th>Options</th>
-	    		<td><label for="spoiler"><input type="checkbox" id="spoiler" name="spoiler" autocomplete="off"> Spoiler Image</label> <label for="sage"><input type="checkbox" id="sage" name="sage" autocomplete="off"> No Bump</label></td>
+	    		<td>
+	    			<?php if ($spoiler_enabled == true) { echo '
+	    				<label for="spoiler"><input type="checkbox" id="spoiler" name="spoiler" autocomplete="off"> Spoiler Image</label>
+	    				<div class="small">You may also type <i>spoiler</i> in the email field.</div>
+	    				'; }?>
+	    			<label for="sage"><input type="checkbox" id="sage" name="sage" autocomplete="off"> No Bump</label>
+	    			<div class="small">You may also type <i>sage</i> in the email field.</div>
+	    		</td>
 	    	</tr>
 	    </table>
 	</details>

@@ -17,6 +17,10 @@ require dirname(__FILE__) . '/require.php';
 	$post_subject = htmlspecialchars($_POST['subject']);
 	$post_body = htmlspecialchars($_POST['body']);
 
+	if (isset($_POST['file'])) {
+
+	}
+
 //Requirements met?
 
 if ($captcha_required == true) {
@@ -76,6 +80,9 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 		error('This board shouldn\'t exist...');
 	}
 	//IF NOT EXIST, CREATE DIRECTORY
+	if (!file_exists(__dir__ . '/' . $database_folder . '/boards')) {
+		mkdir(__dir__ . '/' . $database_folder . '/boards', 0755, true);
+	}
 	if ((!file_exists(__dir__ . '/' . $database_folder . '/boards/' . $post_board) && (isset($config['boards'][$post_board])) === true)) {
 		mkdir(__dir__ . '/' . $database_folder . '/boards/' . $post_board, 0755, true);
 	}
@@ -88,6 +95,8 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 	}
 	//CREATE THREAD FOLDER
 	$counter = file_get_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/counter.php');
+	//CHECK FOR AND HANDLE FILES
+	include __dir__ . '/includes/filehandler.php';
 	$current_count = $counter;
 	mkdir(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . $current_count, 0755, true); //create thread folder
 
@@ -122,8 +131,12 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 	//thread exists?
 	if (($post_is_thread == 'thread') && (file_exists(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . '/OP.php'))) {
 		//THREAD EXISTS
+
+
 		//CREATE/INCREASE COUNTER+LAST BUMPED. to do: (reset bump on post deletion by user or mod, do elsewhere)
 			$counter = file_get_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/counter.php');
+		//CHECK FOR AND HANDLE FILES
+			include __dir__ . '/includes/filehandler.php';
 			$newcount = $counter + 1;
 			//save it as last bumped if not sage tho
 			if (!isset($_POST['sage'])) {
@@ -146,11 +159,10 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 		//SAVE POST INFORMATION
 		$current_count = $counter;
 		file_put_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . '/' . $current_count . '.php', $create_reply);
-		//i guess maybe saving the new counter here would make more sense, but it wont break, RIGHT?????
-		//redirect
+
 		PostSuccess($prefix_folder . $main_file . '/?board=' . $post_board . '&thread=' . $post_thread_number . '#' . $current_count, true);
 		}
 }
 
-error('No existing Board or Thread selected to post in.<br>For now this will show up if you try to post a reply as I haven\'t written the handler for replies.');
+error('This shouldn\'t happen!');
 ?>

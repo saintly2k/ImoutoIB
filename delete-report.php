@@ -5,6 +5,11 @@ require 'require.php';
 
 //if captcha required?
 
+if (empty($_POST)) {
+	echo 'No post request received.';
+	exit();
+}
+
 //cleanse
 if (isset($_POST["delete"])) {
 	$delrep_delete = htmlspecialchars($_POST["delete"]);
