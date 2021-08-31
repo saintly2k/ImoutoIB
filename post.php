@@ -118,7 +118,11 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 	$newcount = $counter + 1;
 	file_put_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/counter.php', $newcount);
 
+	//
+
+	UpdateOP($database_folder, $post_board, $current_count, 1, 0, $current_count, 1); //information about thread and replies
 	PostSuccess($prefix_folder . $main_file . '/?board=' . $post_board . '&thread=' . $counter . '#' . $counter, true);
+	
 	}
 
 if ((isset($post_board)) && (isset($_POST['thread']))) {
@@ -160,9 +164,40 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 		$current_count = $counter;
 		file_put_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . '/' . $current_count . '.php', $create_reply);
 
+		//how many replies do we have?
+			//FIND REPLIES
+		$replies_ = [];
+		$replies_ = glob(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . "/*");
+		$reply_counter = 0;
+		foreach ($replies_ as $reply) {
+			if (basename($reply) != ('OP.php') && basename($reply) != ('info.php') && basename($reply) != ('bumped.php')) {
+				$reply_counter += 1;
+			}
+		}
+		//how many unique posters do we have?
+		$ip_counter = 1;
+		$ips_ = [];
+
+		//Get OP IP
+		include (__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . "/OP.php");
+		$ips_ = [];
+		$ips_[] = $op_ip;
+		//Get replies ips
+		foreach ($replies_ as $reply) {
+		include ($reply);
+		$ips_[] = $reply_ip;
+		}
+		$ip_counter = count(array_unique($ips_)); 
+
+
+		UpdateOP($database_folder, $post_board, $post_thread_number, 0, $reply_counter, $current_count, $ip_counter);
 		PostSuccess($prefix_folder . $main_file . '/?board=' . $post_board . '&thread=' . $post_thread_number . '#' . $current_count, true);
+		
 		}
 }
 
-error('This shouldn\'t happen!');
+include __dir__ . '/includes/update-frontpage.php';
+
+
+error('This shouldn\'t happen..');
 ?>

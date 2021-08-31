@@ -19,7 +19,7 @@ function isAllowedFile($file_upload, $array) {
 
 //function handleFile() 
 	if(!isset($_FILES['file']) || $_FILES['file']['error'] == UPLOAD_ERR_NO_FILE) {
-	    echo "No file selected"; 
+	    //echo "No file selected"; 
 	} else {
 
 	    $filename_ = $_FILES["file"]["name"];
@@ -59,30 +59,29 @@ function isAllowedFile($file_upload, $array) {
 		}
 
 		//OK EVERYTHING CHECKS OUT FOR THIS FILE. PROCEED WITH POSTING
+
+		//DOES UPLOAD FOLDER EXIST?
+		if (!file_exists(__dir__ . '/../' . $uploads_folder)) {
+			mkdir(__dir__ . '/../' . $uploads_folder, 0755, true);
+		}
+		//DOES BOARD FOLDER EXIST?
+		if (!file_exists(__dir__ . '/../' . $uploads_folder . '/' . $post_board)) {
+			mkdir(__dir__ . '/../' . $uploads_folder . '/' . $post_board, 0755, true);
+		}
+
+		//MOVE AND RENAME FILE
+		$original_filename = $filename_;
+
+		if ($filename_method == 'unix') {
+			$new_filename = time() . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT) . $fileext_;
+		}
+		if ($filename_method == 'uniq') {
+			$new_filename = uniqid() . time() . $fileext_;
+		}
+
+		move_uploaded_file($_FILES['file']['tmp_name'], __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_filename);
+
 }
-
-
-//DOES UPLOAD FOLDER EXIST?
-if (!file_exists(__dir__ . '/../' . $uploads_folder)) {
-	mkdir(__dir__ . '/../' . $uploads_folder, 0755, true);
-}
-//DOES BOARD FOLDER EXIST?
-if (!file_exists(__dir__ . '/../' . $uploads_folder . '/' . $post_board)) {
-	mkdir(__dir__ . '/../' . $uploads_folder . '/' . $post_board, 0755, true);
-}
-
-//MOVE AND RENAME FILE
-$original_filename = $filename_;
-
-if ($filename_method == 'unix') {
-	$new_filename = time() . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT) . $fileext_;
-}
-if ($filename_method == 'uniq') {
-	$new_filename = uniqid() . time() . $fileext_;
-}
-
-move_uploaded_file($_FILES['file']['tmp_name'], __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_filename);
-
 
 
 

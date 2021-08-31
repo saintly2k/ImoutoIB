@@ -163,6 +163,11 @@ input[name="captcha"] {
     font-weight: 700;
 }
 
+.thread-stats {
+	position: absolute;
+	right: 15px;
+}
+
 .abovefooter {
 	height: 30px;
 }

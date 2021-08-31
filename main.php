@@ -83,8 +83,12 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 	include $path . '/templates/page-info.html';
 	include $path . '/templates/post-form.html';
 
+		//get thread info
 	if (htmlspecialchars($_GET["thread"]) != '') {
+	include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . "/info.php";
+	$thread_stats = '<span class="thread-stats">Replies: ' . $info_replies . ' Posters: ' . $info_uniqueids . '</span>';
 		echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
+		echo $thread_stats;
 		echo '<hr>';
 	}
 
@@ -93,6 +97,12 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 		if (htmlspecialchars($_GET["thread"]) === "") {
 
 		//if zero threads aka new board
+		if (!file_exists(__dir__ . '/' . $database_folder . '/boards/' . $current_board)) {
+			echo 'This board has no threads yet.';
+			include $path . '/templates/footer.html';
+			exit();
+		}
+
 		if (file_get_contents(__dir__ . '/' . $database_folder . '/boards/' . $current_board . '/counter.php') === "1") {
 			echo 'This board has no threads yet.';
 			include $path . '/templates/footer.html';
@@ -134,7 +144,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			//SORTING
 				$replies = [];
 				foreach ($replies_full as $reply) {
-					if ((basename($reply) != ('OP.php') && basename($reply) != ('bumped.php'))) {
+					if (basename($reply) != ('OP.php') && basename($reply) != ('info.php') && basename($reply) != ('bumped.php')) {
 							$replies[] = basename($reply, '.php');
 					}
 				}
@@ -172,6 +182,8 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 	if ((htmlspecialchars($_GET["thread"]) !== '') && (file_exists(__dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"])))) {
 	include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"]) . '/OP.php';
 	$post_number_op = htmlspecialchars($_GET["thread"]);
+
+	//show thread
 	include $path . '/templates/thread.html';
 	}
 	//set current_thread 
@@ -193,7 +205,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 	//SORTING
 		$replies = [];
 		foreach ($replies_full as $reply) {
-			if ((basename($reply) != ('OP.php') && basename($reply) != ('bumped.php'))) {
+			if (basename($reply) != ('OP.php') && basename($reply) != ('info.php') && basename($reply) != ('bumped.php')) {
 				$replies[] = basename($reply, '.php');
 			}
 		}
@@ -210,6 +222,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 	if (htmlspecialchars($_GET["thread"]) != '') {
 		echo '<hr>';
 		echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
+		echo $thread_stats;
 	}
 	include $path . '/templates/footer.html';
 	echo '</body>';
