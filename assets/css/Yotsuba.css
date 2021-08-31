@@ -1,5 +1,5 @@
 html[data-stylesheet="Yotsuba"] body {
-  background: #ffe;
+  background: #ffe url('img/fade-yotsuba.png') top center repeat-x;
   color: #800;
 }
 

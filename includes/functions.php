@@ -72,6 +72,16 @@ function timeConvert($unix, $method = false) {
 
 }
 
+function formatBytes($size) {
+    $units = array(' B', ' KB', ' MB', ' GB', ' TB');
+    for ($i = 0; $size >= 1000 && $i < 4; $i++)
+        $size /= 1000;   
+    if($units[$i] == ' B' || $units[$i] == ' KB')
+        return round($size, 0).$units[$i];
+    else
+        return round($size, 1).$units[$i];
+}
+
 function PostSuccess($redirect = false, $auto = true) {
 
 	//TO DO: redirect to $post_board+thread parameter
