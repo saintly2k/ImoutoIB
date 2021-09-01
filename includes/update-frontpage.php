@@ -31,15 +31,16 @@ if (isset($post_board)) {
 
 	//count unique
 	$uniqueids_ = count(array_unique($all_ips_)); 
+	$active_content = getTotalSize($path . '/' . $uploads_folder);
 
 	$frontpage_ = '<?php ';
 	$frontpage_ .= '$frontpage_uniqueids' . '=' . $uniqueids_ . ';';
-	$frontpage_ .= '$frontpage_active' . '= 0;';
+	$frontpage_ .= '$frontpage_active' . '= ' . $active_content . ';';
 	$frontpage_ .= '?>';
 
 	file_put_contents(__dir__ . '/../' . $database_folder . '/frontpage.php', $frontpage_);
 
-	exit();
+	//exit();
 
 	}
 ?>

@@ -37,6 +37,11 @@ function dir_is_empty($dir) {
 	return TRUE;
 }
 
+function getExt($name) {
+	$n = strrpos($name,".");
+	return ($n===false) ? "" : substr($name,$n+1);
+}
+
 function timeago($unix) { //blatantly taken and modified from https://phppot.com/php/php-time-ago-function/
 	   $timestamp = $unix;	
 	   $strTime = array("second", "minute", "hour", "day", "month", "year");
@@ -60,11 +65,17 @@ function timeConvert($unix, $method = false) {
 	if ($method === 'iso') {
 		return date('Y-m-d\TH:i:sO', $unix);
 	}
-	elseif ($method === 'human') {
-		return date('jS F H:i (D), Y', $unix);
+	elseif ($method === 'human') { //universally readable without DMY or MDY standard
+		return date('d F Y (D) H:i:s', $unix);
+	}
+	elseif ($method === 'compact') {
+		return date('d/m/Y (D) H:i:s', $unix);
 	}
 	elseif ($method === 'since') {
 		return timeago($unix);
+	}
+	elseif ($method === 'compactsince') {
+		return date('d/m/Y (D) H:i:s', $unix) . ' (' . timeago($unix) . ')';
 	}
 	elseif ($method === false) {
 		return $unix;
@@ -123,6 +134,45 @@ function UpdateOP($database_folder, $board, $thread, $page, $replies, $bumped, $
 
 	file_put_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/' . 'info.php', $info_);
 
+}
+
+//https://stackoverflow.com/a/18568222
+
+function getTotalSize($dir)
+{
+    $dir = rtrim(str_replace('\\', '/', $dir), '/');
+
+    if (is_dir($dir) === true) {
+        $totalSize = 0;
+        $os        = strtoupper(substr(PHP_OS, 0, 3));
+        // If on a Unix Host (Linux, Mac OS)
+        if ($os !== 'WIN') {
+            $io = popen('/usr/bin/du -sb ' . $dir, 'r');
+            if ($io !== false) {
+                $totalSize = intval(fgets($io, 80));
+                pclose($io);
+                return $totalSize;
+            }
+        }
+        // If on a Windows Host (WIN32, WINNT, Windows)
+        if ($os === 'WIN' && extension_loaded('com_dotnet')) {
+            $obj = new \COM('scripting.filesystemobject');
+            if (is_object($obj)) {
+                $ref       = $obj->getfolder($dir);
+                $totalSize = $ref->size;
+                $obj       = null;
+                return $totalSize;
+            }
+        }
+        // If System calls did't work, use slower PHP 5
+        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir));
+        foreach ($files as $file) {
+            $totalSize += $file->getSize();
+        }
+        return $totalSize;
+    } else if (is_file($dir) === true) {
+        return filesize($dir);
+    }
 }
 
 ?>

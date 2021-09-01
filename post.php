@@ -14,6 +14,9 @@ require dirname(__FILE__) . '/require.php';
 	if ($post_email == 'sage') {
 		$_POST['sage'] = true;
 	}
+	if ($post_email == 'spoiler') {
+		$isSpoiler_ = true;
+	}
 	$post_subject = htmlspecialchars($_POST['subject']);
 	$post_body = htmlspecialchars($_POST['body']);
 
@@ -61,9 +64,16 @@ if (isset($_POST['index'])) {
 
 //IF NEW REPLY
 if (isset($_POST['thread'])) {
-	if ($config['reply_body_min'] !== false) {
+	
+	if(!isset($_FILES['file']) || $_FILES['file']['error'] == UPLOAD_ERR_NO_FILE) {
 		if (strlen($post_body) < $config['reply_body_min']) {
 			error('Reply too short. Min: 10.');
+		}
+	} else {
+		if ($config['reply_file_only'] == false) {
+			if (strlen($post_body) < $config['reply_body_min']) {
+				error('Reply too short. Min: 10.');
+			}
 		}
 	}
 	if (strlen($post_body) > $config['reply_body_max']) {
@@ -106,6 +116,10 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 	$create_OP .= '$op_subject = "' . $post_subject . '";';
 	$create_OP .= '$op_body = "' . $post_body . '";';
 	$create_OP .= '$op_password = "' . $post_password . '";';
+
+	$create_OP .= '$op_file = array( array("' . $file_type . '","' . $new_filename . '","' . $original_filename . '","' . $upload_resolution . '","' . $filesize_ . '","' . $isSpoiler_ . '") );'; //array in array to prepare for multifiles later, easy upgrade i guess
+
+
 	$create_OP .= '$op_ip = "' . crypt($_SERVER['REMOTE_ADDR'] , $secure_hash) . '";';
 	$create_OP .= '$op_time = "' . time() . '"; ?>';
 
@@ -121,6 +135,7 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 	//
 
 	UpdateOP($database_folder, $post_board, $current_count, 1, 0, $current_count, 1); //information about thread and replies
+	include __dir__ . '/includes/update-frontpage.php';
 	PostSuccess($prefix_folder . $main_file . '/?board=' . $post_board . '&thread=' . $counter . '#' . $counter, true);
 	
 	}
@@ -157,6 +172,9 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 		$create_reply .= '$reply_subject = "' . $post_subject . '";';
 		$create_reply .= '$reply_body = "' . $post_body . '";';
 		$create_reply .= '$reply_password = "' . $post_password . '";';
+
+		$create_reply .= '$reply_file = array( array("' . $file_type . '","' . $new_filename . '","' . $original_filename . '","' . $upload_resolution . '","' . $filesize_ . '","' . $isSpoiler_ . '") );'; //array in array to prepare for multifiles later, easy upgrade i guess
+
 		$create_reply .= '$reply_ip = "' . crypt($_SERVER['REMOTE_ADDR'] , $secure_hash) . '";';
 		$create_reply .= '$reply_time = "' . time() . '"; ?>';
 
@@ -191,12 +209,11 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 
 
 		UpdateOP($database_folder, $post_board, $post_thread_number, 0, $reply_counter, $current_count, $ip_counter);
+		include __dir__ . '/includes/update-frontpage.php';
 		PostSuccess($prefix_folder . $main_file . '/?board=' . $post_board . '&thread=' . $post_thread_number . '#' . $current_count, true);
 		
 		}
 }
-
-include __dir__ . '/includes/update-frontpage.php';
 
 
 error('This shouldn\'t happen..');

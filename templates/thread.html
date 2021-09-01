@@ -1,12 +1,49 @@
 <div class="thread <?php echo $post_number_op ?>">
 
 <div class="post op <?php echo $post_number_op ?>" data-postid="<?php echo $post_number_op; ?>">
+	<?php 
+	if ($op_file != '') {
+		if ($op_file[0][0] == 'image') {
+			echo '<div class="post-file">';
+				echo '<div class="file-info">';
+				if ($original_filename == true && strlen($op_file[0][2]) > $max_filename ) {
+					echo 'File: <a title="' . $op_file[0][2] . '" href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][1] . '">';
+					echo substr($op_file[0][2], 0, $max_filename) . '(...).' . getExt($op_file[0][2]);
+					echo '</a>';
+				} elseif ($original_filename == true) {
+					echo 'File: <a href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][1] . '">';
+					echo $op_file[0][2];
+					echo '</a>';	
+				} else {
+					echo 'File: <a href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][1] . '">';
+					echo $op_file[0][1];
+					echo '</a>';
+				}
+
+				echo ' (' . formatBytes($op_file[0][4]) . ', ' . $op_file[0][3] . ')';
+				echo '</div>';
+				echo '<div class="post-image">';
+					echo '<a href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][1] . '">';
+						if ($op_file[0][5] != "1") {
+						echo '<img src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][1] . '"/>';
+						} else {
+						echo '<img  src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_spoiler . '"/>';
+						}
+					echo '</a>';
+				echo '</div>';
+			echo '</div>';
+			//reset images
+			$op_file = false;
+		}
+	}
+	
+	?>
 	<div class="post-info">
 		<input type="checkbox" id="post_<?php echo $post_number_op; ?>" name="post_<?php echo $post_number_op; ?>" value="<?php echo $post_number_op; ?>">
 		<?php if ($op_subject != '') { echo '<span class="subject">' . $op_subject . '&nbsp;</span>'; }?>
 		<?php if (($op_email != '') && ($show_email != false)) { echo '<a href="mailto:' . $op_email . '">';}?><span class="<?php if(($op_email != '') && ($show_email != false)) { echo 'link '; } ?>name"><?php echo $op_name; ?></span>&nbsp;<?php if ($op_email != '') { echo '</a>'; }?>
 		<span class="post-time" data-timestamp="<?php echo $op_time;?>" data-tooltip="<?php echo timeConvert($op_time, $time_method_hover); ?>"><?php echo timeConvert($op_time, $time_method); ?>&nbsp;</span>
-		<span class="post-number"><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>">No.</a><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>"><?php echo $post_number_op; ?></a>&nbsp;</span>
+		<span class="post-number"><a name="<?php echo $post_number_op; ?>" href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>">No.</a><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>"><?php echo $post_number_op; ?></a>&nbsp;</span>
 
 		<?php if ($post_buttons == true) {
 			echo '

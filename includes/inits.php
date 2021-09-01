@@ -19,6 +19,10 @@ $reply_ip ='';
 $op = '';
 $op_ip = '';
 
+$isSpoiler_ = '';
+$reply_file = '';
+$op_file = '';
+
 if ($config['generated_in'] === true) {
 	$start_time = microtime(true);
 }

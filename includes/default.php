@@ -12,8 +12,8 @@ $captcha_required = false;
 
 $secure_hash = "SQp3FaEgyMyHe3=Zc!-vS%ya6W!JAt+9fqwdbGk&ev!hbG!nSMgN_KUbLrmRpCQy"; //Will be used to hash your post passwords. You should change this.
 
-$time_method = 'since'; //(iso:iso8601 unix:numberstamp since:howlongsince human:humanreadable
-$time_method_hover = "human"; //unix will always be in data-timestamp for potential js use
+$time_method = 'compactsince'; //(iso:iso8601 unix:numberstamp since:howlongsince human:easy readable without MDY DMY confusion, compact uses DMY because MDY is a sin.
+$time_method_hover = "human"; //iso, human, compact, since, compactsince
 
 $forced_anon = false;
 $default_name = 'Anonymous';
@@ -22,6 +22,7 @@ $disable_email = false; //Disables the email field. Checkboxes will still work.
 $show_email = true; //shows email in post name
 
 $max_filesize = 1024*1000*8; //default 8mb
+$max_filename = 28; //longer than this will be trimmed visually, absolute max is set to 512 at which point it is trimmed when saved as well. you can see untrimmed below 512 by hovering over name
 
 $thumb_method =  'GD'; //i probably wont implement any others
 $thumb_ext = '.jpg'; //add support for transparent png, would use webp if apple stops shilling HEIC already and enables webp+webm support
@@ -29,6 +30,8 @@ $thumb_res_op =  250; //250x250
 $thumb_res_reply =  125; //125x125
 $thumb_spoiler = 'spoiler.png';
 $spoiler_enabled = true;
+
+$original_filename = true;
 
 $image_max_res = 9999; //9999x9999
 
@@ -65,6 +68,8 @@ $config['css'][] = 'Burichan';
 $config['css'][] = 'Futaba';
 
 $config['css'][] = 'Tomorrow';
+$config['css'][] = 'Late';
+$config['css'][] = 'Kind';
 
 $default_theme = 'Yotsuba';
 
@@ -76,7 +81,8 @@ $config['js'][] = 'main.js'; //mandatory
 $config['post_body_min'] = 10; //minimum characters, 0 to allow
 $config['post_body_max'] = 4000; //maximum characters
 
-$config['reply_body_min'] = false; //allow replies with only images
+$config['reply_file_only'] = true; //allows zero text if contains file
+$config['reply_body_min'] = 10; //minimum characters
 $config['reply_body_max'] = 4000; //maximum characters
 
 

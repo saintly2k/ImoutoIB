@@ -1,0 +1,32 @@
+html[data-stylesheet="Kind"] body {
+  background: linear-gradient(to bottom, white, rgba(195,225,255,100) 10%);
+  min-height: calc(99vh - 8px);
+  color: #000;
+}
+
+html[data-stylesheet="Kind"] div#post-form th {
+  background-color: #F5FFFC;
+  color: #000;
+  font-weight: 700;
+  border: 1px solid #F5FFFC;
+}
+
+html[data-stylesheet="Kind"] div.page-info .small {
+	color: 000;
+}
+
+html[data-stylesheet="Kind"] div.post.reply {
+  background: #D7F0F5 !important;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  border-top-right-radius: 6px;
+}
+
+html[data-stylesheet="Kind"] span.name {
+  color: #af0a0f;
+}
+
+html[data-stylesheet="Kind"] div.post details table {
+  background: #d7f0f5;
+  border: 1px solid #000;
+}
