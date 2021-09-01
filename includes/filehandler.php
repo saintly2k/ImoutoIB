@@ -88,10 +88,10 @@ function isAllowedFile($file_upload, $array) {
 
 		//MOVE AND RENAME FILE
 
-		if (strlen($filename_) < $max_filename) {
+		if (strlen($filename_) < 512) {
         	$original_filename = $filename_;
         } else {
-        	$original_filename = $substr($filename_, 0, 128) . $fileext_)); //cut to 
+        	$original_filename = substr($filename_, 0, 512) . '(...)' . $fileext_; //cut to 512 for saving purposes
         }
 
 		

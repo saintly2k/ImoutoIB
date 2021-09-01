@@ -64,9 +64,16 @@ if (isset($_POST['index'])) {
 
 //IF NEW REPLY
 if (isset($_POST['thread'])) {
-	if ($config['reply_body_min'] !== false) {
+	
+	if(!isset($_FILES['file']) || $_FILES['file']['error'] == UPLOAD_ERR_NO_FILE) {
 		if (strlen($post_body) < $config['reply_body_min']) {
 			error('Reply too short. Min: 10.');
+		}
+	} else {
+		if ($config['reply_file_only'] == false) {
+			if (strlen($post_body) < $config['reply_body_min']) {
+				error('Reply too short. Min: 10.');
+			}
 		}
 	}
 	if (strlen($post_body) > $config['reply_body_max']) {
@@ -128,6 +135,7 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 	//
 
 	UpdateOP($database_folder, $post_board, $current_count, 1, 0, $current_count, 1); //information about thread and replies
+	include __dir__ . '/includes/update-frontpage.php';
 	PostSuccess($prefix_folder . $main_file . '/?board=' . $post_board . '&thread=' . $counter . '#' . $counter, true);
 	
 	}
@@ -201,12 +209,11 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 
 
 		UpdateOP($database_folder, $post_board, $post_thread_number, 0, $reply_counter, $current_count, $ip_counter);
+		include __dir__ . '/includes/update-frontpage.php';
 		PostSuccess($prefix_folder . $main_file . '/?board=' . $post_board . '&thread=' . $post_thread_number . '#' . $current_count, true);
 		
 		}
 }
-
-include __dir__ . '/includes/update-frontpage.php';
 
 
 error('This shouldn\'t happen..');

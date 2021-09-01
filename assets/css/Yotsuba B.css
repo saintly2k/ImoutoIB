@@ -40,12 +40,19 @@ div.file-info a {
 
 div.post-image {
 	float: left;
-	margin: 4px 10px 0px 15px;
+	margin: 4px 10px 10px 15px;
 }
 
 div.post-image img {
     max-width: 250px;	/* TEMPORARY UNTIL THUMBNAILS FIXED */
     max-height: 250px;  /* TEMPORARY UNTIL THUMBNAILS FIXED */
+    min-width: 16px;
+	min-height: 16px;
+}
+
+div.post.reply .post-image img {
+    max-width: 125px;	/* TEMPORARY UNTIL THUMBNAILS FIXED */
+    max-height: 125px;	/* TEMPORARY UNTIL THUMBNAILS FIXED */
 }
 
 p {
