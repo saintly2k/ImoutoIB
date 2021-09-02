@@ -64,7 +64,11 @@ if (isset($_POST['index'])) {
 
 //IF NEW REPLY
 if (isset($_POST['thread'])) {
-	
+	//get thread info
+	include (__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . htmlspecialchars($_POST['thread_number']) . "/info.php");
+	if ($info_locked == 1) {
+		error('This thread is locked...');
+	}
 	if(!isset($_FILES['file']) || $_FILES['file']['error'] == UPLOAD_ERR_NO_FILE) {
 		if (strlen($post_body) < $config['reply_body_min']) {
 			error('Reply too short. Min: 10.');
@@ -96,9 +100,13 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 	if ((!file_exists(__dir__ . '/' . $database_folder . '/boards/' . $post_board) && (isset($config['boards'][$post_board])) === true)) {
 		mkdir(__dir__ . '/' . $database_folder . '/boards/' . $post_board, 0755, true);
 	}
+
+	if ($config['boards'][$post_board]['locked'] == 1) {
+		error('This board is locked. Sneaky.');
+	}
+
 	//IS THIS OUR FIRST THREAD?
 	
-
 	// if no file in folder
 	if (dir_is_empty(__dir__ . '/' . $database_folder . '/boards/' . $post_board)) {
 		file_put_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/counter.php', 1); //create post count

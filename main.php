@@ -66,7 +66,11 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 	echo '<body class="' . $current_page . '">';
 	include $path . '/templates/boardlist.html';
 	include $path . '/templates/page-info.html';
+	if ($config['boards'][$current_board]['locked'] != 1) {
 	include $path . '/templates/post-form.html';
+	} else {
+		echo '<div class="blotter">This board is locked by the board owner.</div><hr>';
+	}
 	echo '[<a href="#bottom">Bottom</a>]&nbsp;';
 	echo '<hr>';
 
@@ -108,6 +112,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 		//SHOW THEM
 		foreach (array_keys($threads) as $key => $value) {
 			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/OP.php';
+			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/info.php';
 			$post_number_op = $threads[$key]['id'];
 
 			//SHOW REPLIES TO THREADS ON INDEX (im gonna need a lot of changes here later for sorting and maximum, configurable recents.php updated by post.php for performance?)
@@ -190,6 +195,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 		//IF DOES EXIST
 			$current_page = "thread";
 			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"]) . '/OP.php';
+			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"]) . '/info.php';
 			$post_number_op = htmlspecialchars($_GET["thread"]);
 			if ($op_subject == '') {
 				$title = '/' . $current_board . '/' . ' - ' . substr($op_body,0,30) . ' - ' . $config['boards'][$current_board]['title'] . ' - ' . $site_name;

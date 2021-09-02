@@ -47,9 +47,39 @@ function isAllowedFile($file_upload, $array) {
 		}
 
 	  	//is audio, video, or downloads?
-		if (isAllowedFile($fileext_, $config['allowed_ext']['audio']) === true || isAllowedFile($fileext_, $config['allowed_ext']['video']) === true || isAllowedFile($fileext_, $config['allowed_ext']['downloads']) === true) {
+		if (isAllowedFile($fileext_, $config['allowed_ext']['video']) === true || isAllowedFile($fileext_, $config['allowed_ext']['downloads']) === true) {
 			echo 'havent coded these files yet lol but i will';
 			exit();
+		}
+
+		// IS THIS AUDIO?
+		if (isAllowedFile($fileext_, $config['allowed_ext']['audio']) === true) {
+
+			$info = new finfo(FILEINFO_MIME);
+			$type = $info->buffer(file_get_contents($_FILES['file']['tmp_name']));
+			$type = preg_replace('/;(.*)/', '', $type);
+			
+			switch ($type) {
+			    case 'audio/mpeg':
+			    break;
+			  	case 'audio/mp3':
+			    break;
+			    case 'audio/ogg':
+			    break;
+			    case 'audio/wav':
+			    break;
+			    case 'audio/x-matroska':
+			    break;
+			    case 'audio/mp4':
+			    break;
+			    default:
+			        error('Format not supported!');
+			        exit();
+			    break;
+			}
+
+			$isAudio_ = true;
+			$file_type = "audio";
 		}
 
 
@@ -157,7 +187,7 @@ function isAllowedFile($file_upload, $array) {
 				$new_thumb = imagecreatetruecolor($new_width, $new_height);
 				$color = imagecolorallocate($new_thumb, $thumbnail_bg_red, $thumbnail_bg_green, $thumbnail_bg_blue);
 				imagefill($new_thumb, 0, 0, $color);
-				imagealphablending($new_thumb, false);
+				imagealphablending($new_thumb, true);
 				imagesavealpha($new_thumb, true);
 				imagecopyresampled($new_thumb, $old_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 				ImageJpeg($new_thumb, __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_thumbname);
@@ -167,7 +197,7 @@ function isAllowedFile($file_upload, $array) {
 				$new_thumb = imagecreatetruecolor($new_width, $new_height);
 				$color = imagecolorallocate($new_thumb, $thumbnail_bg_red, $thumbnail_bg_green, $thumbnail_bg_blue);
 				imagefill($new_thumb, 0, 0, $color);
-				imagealphablending($new_thumb, false);
+				imagealphablending($new_thumb, true);
 				imagesavealpha($new_thumb, true);
 				imagecopyresampled($new_thumb, $old_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 				ImageJpeg($new_thumb, __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_thumbname);
@@ -177,7 +207,7 @@ function isAllowedFile($file_upload, $array) {
 				$new_thumb = imagecreatetruecolor($new_width, $new_height);
 				$color = imagecolorallocate($new_thumb, $thumbnail_bg_red, $thumbnail_bg_green, $thumbnail_bg_blue);
 				imagefill($new_thumb, 0, 0, $color);
-				imagealphablending($new_thumb, false);
+				imagealphablending($new_thumb, true);
 				imagesavealpha($new_thumb, true);
 				imagecopyresampled($new_thumb, $old_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 				ImageJpeg($new_thumb, __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_thumbname);
@@ -187,9 +217,6 @@ function isAllowedFile($file_upload, $array) {
 
 
 		move_uploaded_file($_FILES['file']['tmp_name'], __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_filename);
-
-		//move thumbnail too
-
 
 		
 }
