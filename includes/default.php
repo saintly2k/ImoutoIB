@@ -31,6 +31,10 @@ $thumb_res_reply =  125; //125x125
 $thumb_spoiler = 'spoiler.png';
 $spoiler_enabled = true;
 
+$thumbnail_bg_red = 255;  //rgb - yotsuba default, 238,242,255 for yotsuba b.
+$thumbnail_bg_green = 255;  //can probably make a toggle for transparent png thumbnails
+$thumbnail_bg_blue = 238; //for those who dont mind bandwidth
+
 $original_filename = true;
 
 $image_max_res = 9999; //9999x9999

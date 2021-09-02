@@ -69,13 +69,13 @@ function timeConvert($unix, $method = false) {
 		return date('d F Y (D) H:i:s', $unix);
 	}
 	elseif ($method === 'compact') {
-		return date('d/m/Y (D) H:i:s', $unix);
+		return date('d/m/y (D) H:i:s', $unix);
 	}
 	elseif ($method === 'since') {
 		return timeago($unix);
 	}
 	elseif ($method === 'compactsince') {
-		return date('d/m/Y (D) H:i:s', $unix) . ' (' . timeago($unix) . ')';
+		return date('d/m/y (D) H:i:s', $unix) . ' (' . timeago($unix) . ')';
 	}
 	elseif ($method === false) {
 		return $unix;

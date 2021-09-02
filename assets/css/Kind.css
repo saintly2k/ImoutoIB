@@ -1,5 +1,5 @@
 html[data-stylesheet="Kind"] body {
-  background: linear-gradient(to bottom, white, rgba(195,225,255,100) 10%);
+  background: #c3e1ff url('img/fade-kind.png') top center repeat-x;
   min-height: calc(99vh - 8px);
   color: #000;
 }

@@ -14,7 +14,7 @@ require dirname(__FILE__) . '/require.php';
 	if ($post_email == 'sage') {
 		$_POST['sage'] = true;
 	}
-	if ($post_email == 'spoiler') {
+	if ($post_email == 'spoiler' || isset($_POST['spoiler'])) {
 		$isSpoiler_ = true;
 	}
 	$post_subject = htmlspecialchars($_POST['subject']);
@@ -117,7 +117,7 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 	$create_OP .= '$op_body = "' . $post_body . '";';
 	$create_OP .= '$op_password = "' . $post_password . '";';
 
-	$create_OP .= '$op_file = array( array("' . $file_type . '","' . $new_filename . '","' . $original_filename . '","' . $upload_resolution . '","' . $filesize_ . '","' . $isSpoiler_ . '") );'; //array in array to prepare for multifiles later, easy upgrade i guess
+	$create_OP .= '$op_file = array( array("' . $file_type . '","' . $new_filename . '","' . $original_filename . '","' . $upload_resolution . '","' . $filesize_ . '","' . $isSpoiler_ . '", "'.$new_thumbname.'","'.$thmb_res.'") );'; //array in array to prepare for multifiles later, easy upgrade i guess
 
 
 	$create_OP .= '$op_ip = "' . crypt($_SERVER['REMOTE_ADDR'] , $secure_hash) . '";';
@@ -173,7 +173,7 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 		$create_reply .= '$reply_body = "' . $post_body . '";';
 		$create_reply .= '$reply_password = "' . $post_password . '";';
 
-		$create_reply .= '$reply_file = array( array("' . $file_type . '","' . $new_filename . '","' . $original_filename . '","' . $upload_resolution . '","' . $filesize_ . '","' . $isSpoiler_ . '") );'; //array in array to prepare for multifiles later, easy upgrade i guess
+		$create_reply .= '$reply_file = array( array("' . $file_type . '","' . $new_filename . '","' . $original_filename . '","' . $upload_resolution . '","' . $filesize_ . '","' . $isSpoiler_ . '", "'.$new_thumbname.'","'.$thmb_res.'") );'; //array in array to prepare for multifiles later, easy upgrade i guess
 
 		$create_reply .= '$reply_ip = "' . crypt($_SERVER['REMOTE_ADDR'] , $secure_hash) . '";';
 		$create_reply .= '$reply_time = "' . time() . '"; ?>';
