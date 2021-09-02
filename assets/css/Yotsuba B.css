@@ -9,20 +9,24 @@ body {
 	font-size: 12px;
 }
 
-span.name {
+.name {
 	color: #117743;
 	font-weight: 700;
 }
 
-span.link.name {
+.link.name {
 	color: #0f0c5d;
 	font-weight: 700;
 	text-decoration: underline;
 }
 
-span.subject {
+.subject {
 	color: #0f0c5d;
 	font-weight: 700;
+}
+
+.icon {
+	margin-left: 4px;
 }
 
 a, a:visited {

@@ -19,11 +19,11 @@ $config['boards']['d'] = array(
 	'hidden' => 0
 );
 
-$config['boards']['2d'] = array(
-	'url' => '2d',
-	'title' => '2d media',
-	'description' => 'Because less is more.',
-	'locked' => 0,
+$config['boards']['1'] = array(
+	'url' => '1',
+	'title' => '1GET',
+	'description' => '1st!!',
+	'locked' => 1,
 	'hidden' => 0
 );
 

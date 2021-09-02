@@ -2,8 +2,8 @@
 
 <div class="post op <?php echo $post_number_op ?>" data-postid="<?php echo $post_number_op; ?>">
 	<?php 
-	if ($op_file != '') {
-		if ($op_file[0][0] == 'image') {
+	if ($op_file[0][0] != '') {
+		
 			echo '<div class="post-file">';
 				echo '<div class="file-info">';
 				if ($original_filename == true && strlen($op_file[0][2]) > $max_filename ) {
@@ -19,7 +19,7 @@
 					echo $op_file[0][1];
 					echo '</a>';
 				}
-
+				if ($op_file[0][0] == 'image') {
 				echo ' (' . formatBytes($op_file[0][4]) . ', ' . $op_file[0][3] . ')';
 				echo '</div>';
 				echo '<div class="post-image">';
@@ -31,15 +31,25 @@
 						if ($op_file[0][5] != "1") {
 						echo '<img width="'.$thmb_width.'" height="'.$thmb_height.'" src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][6] . '"/>';
 						} else {
-						echo '<img width="'.$thumb_op_reply.'" height="'.$thumb_op_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_spoiler . '"/>';
+						echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_spoiler . '"/>';
 						}
 					echo '</a>';
 				echo '</div>';
+				}
+				if ($op_file[0][0] == 'audio') {
+					echo '</div>';
+					echo '<div class="post-image">';
+					echo '<a href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][1] . '">';
+					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_audio . '"/>';
+					echo '</a>';
+					echo '</div>';
+				}
 			echo '</div>';
-			//reset images
-			$op_file = false;
 		}
-	}
+		
+
+		//reset files
+		$op_file = false;
 	
 	?>
 	<div class="post-info">
@@ -47,7 +57,16 @@
 		<?php if ($op_subject != '') { echo '<span class="subject">' . $op_subject . '&nbsp;</span>'; }?>
 		<?php if (($op_email != '') && ($show_email != false)) { echo '<a href="mailto:' . $op_email . '">';}?><span class="<?php if(($op_email != '') && ($show_email != false)) { echo 'link '; } ?>name"><?php echo $op_name; ?></span>&nbsp;<?php if ($op_email != '') { echo '</a>'; }?>
 		<span class="post-time" data-timestamp="<?php echo $op_time;?>" data-tooltip="<?php echo timeConvert($op_time, $time_method_hover); ?>"><?php echo timeConvert($op_time, $time_method); ?>&nbsp;</span>
-		<span class="post-number"><a name="<?php echo $post_number_op; ?>" href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>">No.</a><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>"><?php echo $post_number_op; ?></a>&nbsp;</span>
+		<span class="post-number"><a name="<?php echo $post_number_op; ?>" href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>">No.</a><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>"><?php echo $post_number_op; ?></a></span>
+
+		<?php 
+		if ($info_locked == 1) {
+			echo '<span title="Locked." class="icon"><img src="'. $prefix_folder .'/assets/img/locked.gif"/></span>';
+		}
+		if ($info_sticky == 1) {
+			echo '<span title="Pinned." class="icon"><img src="'. $prefix_folder .'/assets/img/sticky.gif"/></span>';
+		}
+		?>
 
 		<?php if ($post_buttons == true) {
 			echo '
@@ -94,3 +113,9 @@
 </div>
 
 </div>
+
+<?php 
+//reset stuff
+$info_locked = false;
+$info_sticky = false;
+?>
