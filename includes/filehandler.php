@@ -62,14 +62,14 @@ function isAllowedFile($file_upload, $array) {
 			}
 			//is valid resolution?
 			$imagedetails_ = getimagesize($_FILES['file']['tmp_name']);
-			$width_ = $imagedetails_[0];
-			$height_ = $imagedetails_[1];
-			if ($image_max_res < $width_ || $image_max_res < $height_) {
+			$width = $imagedetails_[0];
+			$height = $imagedetails_[1];
+			if ($image_max_res < $width || $image_max_res < $height) {
 				echo 'Maximum image resolution is ' . $image_max_res . 'x' . $image_max_res . '.';
 		    	exit();
 			}
 
-			$upload_resolution = $width_ . 'x' . $height_;
+			$upload_resolution = $width . 'x' . $height;
 
 			$isImage_ = true;
 			$file_type = 'image';
@@ -105,11 +105,93 @@ function isAllowedFile($file_upload, $array) {
 			}
 		}
 
+
 		$new_filename = getFilename($filename_method, $fileext_);
+		$new_thumbname = 'thmb_' . preg_replace('/.[^.]*$/', '', $new_filename) . '.jpg';
+
+		//thumbnail?
+		if ($isImage_ == true) {
+        	if (isset($_POST['index'])) {
+        		$new_height = $thumb_res_op;
+		    } else {
+		    	$new_height = $thumb_res_reply;
+		    }
+
+		    $new_width = floor( $width * ( $new_height / $height ) );
+
+		    $ratio = $width / $height;
+
+		    if (isset($_POST['thread'])) { //resize again if width too big
+				if ($new_width > $thumb_res_reply) {
+					$new_width = $thumb_res_reply;
+					$new_height =  $new_width / $ratio;
+				}
+			}
+			if (isset($_POST['index'])) {
+				if ($new_width > $thumb_res_op) {
+					$new_width = $thumb_res_op;
+					$new_height = $new_width / $ratio;
+				}
+			}
+
+			//prevent 0px from resized weirdass files (like 1x1000)
+			if ($new_width == 0) {
+				$new_width = 1;
+			}
+			if ($new_height == 0) {
+				$new_height = 1;
+			}
+		    
+		    $thmb_res = $new_width . 'x' . $new_height;
+
+			if ($fileext_ == '.jpg' || $fileext_ == '.jpeg') {
+				$old_image = ImageCreateFromJPEG($_FILES['file']['tmp_name']);
+				$new_thumb = imagecreatetruecolor($new_width, $new_height);
+				$color = imagecolorallocate($new_thumb, $thumbnail_bg_red, $thumbnail_bg_green, $thumbnail_bg_blue);
+				imagefill($new_thumb, 0, 0, $color);
+				imagecopyresampled($new_thumb, $old_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+				ImageJpeg($new_thumb, __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_thumbname);
+			}
+			if ($fileext_ == '.png') {
+				$old_image = ImageCreateFromPNG($_FILES['file']['tmp_name']);
+				$new_thumb = imagecreatetruecolor($new_width, $new_height);
+				$color = imagecolorallocate($new_thumb, $thumbnail_bg_red, $thumbnail_bg_green, $thumbnail_bg_blue);
+				imagefill($new_thumb, 0, 0, $color);
+				imagealphablending($new_thumb, false);
+				imagesavealpha($new_thumb, true);
+				imagecopyresampled($new_thumb, $old_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+				ImageJpeg($new_thumb, __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_thumbname);
+			}
+			if ($fileext_ == '.gif') {
+				$old_image = ImageCreateFromGIF($_FILES['file']['tmp_name']);
+				$new_thumb = imagecreatetruecolor($new_width, $new_height);
+				$color = imagecolorallocate($new_thumb, $thumbnail_bg_red, $thumbnail_bg_green, $thumbnail_bg_blue);
+				imagefill($new_thumb, 0, 0, $color);
+				imagealphablending($new_thumb, false);
+				imagesavealpha($new_thumb, true);
+				imagecopyresampled($new_thumb, $old_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+				ImageJpeg($new_thumb, __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_thumbname);
+			}
+			if ($fileext_ == '.webp') {
+				$old_image = ImageCreateFromWEBP($_FILES['file']['tmp_name']);
+				$new_thumb = imagecreatetruecolor($new_width, $new_height);
+				$color = imagecolorallocate($new_thumb, $thumbnail_bg_red, $thumbnail_bg_green, $thumbnail_bg_blue);
+				imagefill($new_thumb, 0, 0, $color);
+				imagealphablending($new_thumb, false);
+				imagesavealpha($new_thumb, true);
+				imagecopyresampled($new_thumb, $old_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+				ImageJpeg($new_thumb, __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_thumbname);
+			}
+
+		}
 
 
 		move_uploaded_file($_FILES['file']['tmp_name'], __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_filename);
 
+		//move thumbnail too
+
+
+		
 }
 
 //SAVE POST INFORMATION is in post.php

@@ -24,10 +24,14 @@
 				echo '</div>';
 				echo '<div class="post-image">';
 					echo '<a href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][1] . '">';
+
+						$thmb_width = preg_replace('/x[^x]*$/', '', $op_file[0][7]);
+						$thmb_height = preg_replace('/^[^x]*x/', '', $op_file[0][7]);
+
 						if ($op_file[0][5] != "1") {
-						echo '<img src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][1] . '"/>';
+						echo '<img width="'.$thmb_width.'" height="'.$thmb_height.'" src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][6] . '"/>';
 						} else {
-						echo '<img  src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_spoiler . '"/>';
+						echo '<img width="'.$thumb_op_reply.'" height="'.$thumb_op_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_spoiler . '"/>';
 						}
 					echo '</a>';
 				echo '</div>';

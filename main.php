@@ -67,6 +67,8 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 	include $path . '/templates/boardlist.html';
 	include $path . '/templates/page-info.html';
 	include $path . '/templates/post-form.html';
+	echo '[<a href="#bottom">Bottom</a>]&nbsp;';
+	echo '<hr>';
 
 			//if zero threads aka new board
 		if (!file_exists(__dir__ . '/' . $database_folder . '/boards/' . $current_board)) {
@@ -131,6 +133,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 				$replies_omitted = 0;
 			}
 
+			echo '<div data-thread="' . $post_number_op . '" class="container">';
 			//SHOW THREADS
 			include $path . '/templates/thread.html';
 			//SHOW SHOW REPLIES
@@ -139,11 +142,13 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 				$post_number_reply = $replies[$value];
 				include $path . '/templates/reply.html';
 		   	}
-
+		   	echo '</div>';
 			if ($key != array_key_last($threads)) {
-		        echo '<hr>';
+		        echo '<hr data-thread="' . $post_number_op . '">';
 		    }
 	   	}
+	echo '<hr>';
+	echo '[<a href="#top">Top</a>]&nbsp;';
 	include $path . '/templates/footer.html';
 	echo '</body>';
 	echo '</html>';
@@ -176,6 +181,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			echo '<hr>';
 			echo '<div class="message">This thread doesn\'t exist.. Did the glowies get it — or worse, a janny??<br><img style="height: 500px;width: 500px;margin-top: 5px;" src="'. $prefix_folder . '/assets/img/404.png" width="" height=""></div><style>.message { margin-top: 0!important }</style>';
 			echo '<div class="message">[<a href="' . $prefix_folder . $main_file . '?board=' . $current_board . '">Return</a>]</div>';
+			echo '<hr>';
 			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
 			include $path . '/templates/footer.html';
 			exit();
@@ -200,12 +206,13 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			include $path . '/templates/post-form.html';
 			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . "/info.php";
 			$thread_stats = '<span class="thread-stats">Replies: ' . $info_replies . ' Posters: ' . $info_uniqueids . '</span>';
-			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
+			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;[<a href="#bottom">Bottom</a>]&nbsp;';
 			echo $thread_stats;
 			echo '<hr>';
 	
 			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"]) . '/OP.php';
 			$post_number_op = htmlspecialchars($_GET["thread"]);
+			echo '<div data-thread="' . $post_number_op . '" class="container">'; //start thread
 			include $path . '/templates/thread.html';
 			$current_thread = $post_number_op;
 
@@ -228,9 +235,10 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 				$post_number_reply = $replies[$value];
 				include $path . '/templates/reply.html';
 		   	}
+		   	echo '</div>'; //end thread
 
 			echo '<hr>';
-			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
+			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;[<a href="#top">Top</a>]&nbsp;';
 			echo $thread_stats;
 			include $path . '/templates/footer.html';
 			echo '</body>';

@@ -23,6 +23,8 @@ $isSpoiler_ = '';
 $reply_file = '';
 $op_file = '';
 
+$frontpage_uniqueids = '0';
+
 if ($config['generated_in'] === true) {
 	$start_time = microtime(true);
 }
