@@ -36,9 +36,9 @@
 
 	</div>
 
-		<?php 
-	if ($reply_file != '') {
-		if ($reply_file[0][0] == 'image') {
+	<?php 
+	if ($reply_file[0][0] != '') {
+		
 			echo '<div class="post-file">';
 				echo '<div class="file-info">';
 				if ($original_filename == true && strlen($reply_file[0][2]) > $max_filename ) {
@@ -50,10 +50,11 @@
 					echo $reply_file[0][2];
 					echo '</a>';	
 				} else {
-					echo 'File: <a href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][1] . '">';
-					echo $op_file[0][1];
+					echo 'File: <a href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '">';
+					echo $reply_file[0][1];
 					echo '</a>';
 				}
+				if ($reply_file[0][0] == 'image') {
 				echo ' (' . formatBytes($reply_file[0][4]) . ', ' . $reply_file[0][3] . ')';
 				echo '</div>';
 				echo '<div class="post-image">';
@@ -61,19 +62,53 @@
 
 						$thmb_width = preg_replace('/x[^x]*$/', '', $reply_file[0][7]);
 						$thmb_height = preg_replace('/^[^x]*x/', '', $reply_file[0][7]);
+						$full_width = preg_replace('/x[^x]*$/', '', $reply_file[0][3]);
+						$full_height = preg_replace('/^[^x]*x/', '', $reply_file[0][3]);
 
 						if ($reply_file[0][5] != "1") {
-						echo '<img width="'.$thmb_width.'" height="'.$thmb_height.'" src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][6] . '"/>';
+						echo '<img id="'.$post_number_reply.'" class="thumb" width="'.$thmb_width.'" height="'.$thmb_height.'" src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][6] . '"/>';
 						} else {
-						echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_spoiler . '"/>';
+						echo '<img id="'.$post_number_reply.'" class="thumb" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_spoiler . '"/>';
 						}
+						echo '<img id="'.$post_number_reply.'" class="expand" style="display:none;" width="'.$full_width.'" height="'.$full_height.'" src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '"/>';
+						//image full
+
 					echo '</a>';
 				echo '</div>';
+				}
+				if ($reply_file[0][0] == 'audio') {
+					echo ' (' . formatBytes($reply_file[0][4]) . ')';
+					echo '</div>';
+					echo '<div class="post-image">';
+					echo '<a href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '">';
+					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_audio . '"/>';
+					echo '</a>';
+					echo '</div>';
+				}
+				if ($reply_file[0][0] == 'video') {
+					echo ' (' . formatBytes($reply_file[0][4]) . ')';
+					echo '</div>';
+					echo '<div class="post-image">';
+					echo '<a href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '">';
+					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_video . '"/>';
+					echo '</a>';
+					echo '</div>';
+				}
+				if ($reply_file[0][0] == 'download') {
+					echo ' (' . formatBytes($reply_file[0][4]) . ')';
+					echo '</div>';
+					echo '<div class="post-image">';
+					echo '<a href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '">';
+					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_download . '"/>';
+					echo '</a>';
+					echo '</div>';
+				}
 			echo '</div>';
-			//reset images
-			$reply_file = false;
 		}
-	}
+		
+
+		//reset files
+		$reply_file = false;
 	
 	?>
 
