@@ -46,10 +46,10 @@ function isAllowedFile($file_upload, $array) {
 			exit();
 		}
 
-	  	//is audio, video, or downloads?
-		if (isAllowedFile($fileext_, $config['allowed_ext']['video']) === true || isAllowedFile($fileext_, $config['allowed_ext']['downloads']) === true) {
-			echo 'havent coded these files yet lol but i will';
-			exit();
+	  	//is downloads?
+		if (isAllowedFile($fileext_, $config['allowed_ext']['downloads']) === true) {
+			$isDownload_ = true;
+			$file_type = 'download';
 		}
 
 		// IS THIS AUDIO?
@@ -59,6 +59,7 @@ function isAllowedFile($file_upload, $array) {
 			$type = $info->buffer(file_get_contents($_FILES['file']['tmp_name']));
 			$type = preg_replace('/;(.*)/', '', $type);
 			
+			//dunno if im gonna add anything here
 			switch ($type) {
 			    case 'audio/mpeg':
 			    break;
@@ -81,6 +82,37 @@ function isAllowedFile($file_upload, $array) {
 			$isAudio_ = true;
 			$file_type = "audio";
 		}
+
+		// IS THIS VIDEO?
+		if (isAllowedFile($fileext_, $config['allowed_ext']['video']) === true) {
+
+			$info = new finfo(FILEINFO_MIME);
+			$type = $info->buffer(file_get_contents($_FILES['file']['tmp_name']));
+			$type = preg_replace('/;(.*)/', '', $type);
+			
+			//this is where something like imagemagick support could be added
+			switch ($type) {
+			    case 'video/x-msvideo': //.avi
+			    break;
+			  	case 'video/mp4': //mp4
+			    break;
+			    case 'video/mpeg': //mpeg
+			    break;
+			    case 'video/ogg': //.ogv
+			    break;
+			    case 'video/webm': //.webm
+			    break;
+			    case 'video/x-matroska': //.mkv
+			    break;
+			    default:
+			        error('Format not supported!');
+			        exit();
+			    break;
+			}
+
+			$isVideo_ = true;
+			$file_type = "video";
+		}		
 
 
 	    //IS THIS IMAGE?

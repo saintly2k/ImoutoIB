@@ -30,8 +30,8 @@ $thumb_res_op =  250; //250x250
 $thumb_res_reply =  125; //125x125
 $thumb_spoiler = 'spoiler.png';
 $thumb_audio = 'audio.png';
-$thumb_video = 'spoiler.png';
-$thumb_downloadable = 'spoiler.png';
+$thumb_video = 'video.png';
+$thumb_download = 'download.png';
 $spoiler_enabled = true;
 
 $thumbnail_bg_red = 255;  //rgb - yotsuba default, 238,242,255 for yotsuba b.
@@ -58,8 +58,15 @@ $config['allowed_ext']['audio'][] = '.ogg';
 
 $config['allowed_ext']['video'][] = '.mp4';
 $config['allowed_ext']['video'][] = '.webm';
+$config['allowed_ext']['video'][] = '.ogv';
+$config['allowed_ext']['video'][] = '.avi';
+$config['allowed_ext']['video'][] = '.mkv';
 
 $config['allowed_ext']['downloads'][] = '.pdf';
+$config['allowed_ext']['downloads'][] = '.txt';
+$config['allowed_ext']['downloads'][] = '.zip';
+$config['allowed_ext']['downloads'][] = '.rar';
+$config['allowed_ext']['downloads'][] = '.7z';
 
 
 
@@ -78,7 +85,7 @@ $config['css'][] = 'Tomorrow';
 $config['css'][] = 'Late';
 $config['css'][] = 'Kind';
 
-$default_theme = 'Yotsuba';
+$default_theme = 'Futaba';
 
 // JAVASCRIPTS
 $config['js'][] = 'main.js'; //mandatory
