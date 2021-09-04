@@ -1,0 +1,112 @@
+@font-face {
+	font-family: 'submona';
+	src: url('fonts/submona.woff') format('woff');
+}
+
+html[data-stylesheet="Kareha"] body {
+  background: url(data:image/gif;base64,R0lGODdhPAA8AJkAANCznMWtmbOektzApiwAAAAAPAA8AAAC/5SPqcvtCJ6c1IUAsgZ48wuG4qV1njYMZxmkbjYGQpipJeDmuo7zdYoTRSwiRGuFg3lio4HpswF9SJzhobpMSXsZAVQoS6KcpoH3MsPIZsAtVWAbDoVYziuZ3nhhnavWVASVFkYVNdbixKbH0mXQQ8I0FdERVnOi4tXWcqFVZXKAqAbJNEoTdUT28vSlZvUoFRmpxIdh87LXw1Z4cAc5wzFIulIbt+FS6MELVBJsMPK7utqTAmfrbAPoqAlCVknaOkWsclej7VzlRyYJAhc+slTllDNFbZBIq+10I3WGJks77cc4bCSgAcsUp1SESd9+hRv4Q9wiT/aWwWIHMEQaXP/GyNn52EEfjIrYoGGkpVHaGEuF2kTZiFASvm8qp+2YR4xlophqHEKpcwlFOWjO0IB6cGRQMBlMm86oAFXBnzVRHcwbs2xFDkQ8lt28aSzMPHWFCHHNKkaDo44etk5LM7DerFJ/6hSTM6xSWrUkgGDieOIIl46IgNJxl7JwrnY34tzViuQiw2c1+k662wmoVhqC3yD29YOPLnhIbqBE9hOl0tBmLht6VDqy5NPPOKmQYabFRko+I7OAtEQYoTZeTAaLPQslI3d8RHPWzXiQpc3DlnsD468Wy+g1p58S9WTL7yItG5E5DgPtxOa/v7u5sgSOP62ARWr+GFimUcEsurX/wraQcslVFxgVIdhSgg243GZfW7EBAo+BCwqFW3L+hSYGf0pYhAsT9ghESFo7CHRXNIq5ch86cCxw0FI0ZXdOEQlQtQCNMjqjwIvi6YgaSV/9qENIQA75VXCzxdBIgJ005NBF2rBz23MxKKVMN/14otYezXyYR4bAuccOfFFK80lZfWDAESAGAhQOAlvpFU1yKUmnJikuUjXNc5J0GSZT0iUE3gf9+IejRwO+duYay+3DzkWBIPSYkZHYc1h7NLGB0IEjPahHP0Zl9A4TrW2TJVmBYNTneJfSkGmKoi1ayjmqIjlZcaGwFxxtbjB1ymd2ihVprgaWEqqHUzZajSYFKYq3J7FgZneqn1zAgtxIomQEqilTFjcYcibimlodUjrKrXqyOWqZFAUAADs=);
+  background-color: #C5AD99;
+  font-family: Mona, 'MS PGothic', 'submona' !important;
+  font-size: 12pt;
+}
+
+html[data-stylesheet="Kareha"] div#boardlist {
+  background: #fff;
+  padding: 6px 0 4px 10px;
+  margin: -10px -8px 10px -8px;
+  font-weight: 700;
+}
+
+html[data-stylesheet="Kareha"] div#boardlist a, html[data-stylesheet="Kareha"] a {
+  color: blue;
+}
+
+html[data-stylesheet="Kareha"] div.post img {
+  display: none;
+}
+
+html[data-stylesheet="Kareha"] hr {
+  border-top: 2px solid #000;
+}
+
+html[data-stylesheet="Kareha"] div.container {
+  background: #EFEFEF;
+  padding: 8px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  max-width: 95%;
+}
+
+html[data-stylesheet="Kareha"] div.post.reply {
+  background: #EFEFEF;
+  border: none;
+}
+
+html[data-stylesheet="Kareha"] .post-arrows {
+  display:none;
+}
+
+html[data-stylesheet="Kareha"] .page-info, html[data-stylesheet="Kareha"] .post-number a {
+  color: #000;
+}
+
+html[data-stylesheet="Kareha"] .page-info h1 {
+ font-family: inherit;
+}
+
+html[data-stylesheet="Kareha"] .post-info input {
+  display: none;
+}
+
+html[data-stylesheet="Kareha"] .post-info table input {
+  display: table;
+}
+
+html[data-stylesheet="Kareha"] .subject {
+  color: red;
+}
+
+html[data-stylesheet="Kareha"] div#post-form {
+  background: #CFC;
+  border: 1px solid #333;
+  border-radius: 8px;
+  width: 80%;
+}
+
+html[data-stylesheet="Kareha"] div#post-form form {
+  width: 80%;
+  padding: 20px;
+  margin: auto;
+}
+
+html[data-stylesheet="Kareha"] div#post-form form tr td textarea {
+  width: 500px;
+}
+
+html[data-stylesheet="Kareha"] div#post-form form tr th {
+  background: none;
+  border: none;
+}
+
+html[data-stylesheet="Kareha"] div.main {
+  border: 1px solid #333;
+}
+
+html[data-stylesheet="Kareha"] div.main, html[data-stylesheet="Kareha"] div.main h2 {
+  background: #CFC;
+  border-radius: 8px;
+}
+
+html[data-stylesheet="Kareha"] div.postingmode {
+  background: none;
+  color: #000;
+}
+
+html[data-stylesheet="Kareha"] div.post details table {
+  background: #efefef;
+  border: 2px solid #333;
+  border-radius: 8px;
+}
+
+
+

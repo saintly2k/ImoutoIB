@@ -93,6 +93,11 @@ html[data-stylesheet="Late"] .post.reply {
   border-radius: 3px;
 }
 
+html[data-stylesheet="Late"] div.post details table {
+  background: #000;
+  border: 1.5px solid #a0a0a0;
+  border-radius: 3px;
+}
 
 html[data-stylesheet="Late"] .post-time, html[data-stylesheet="Late"] .post-number {
   font-weight: 700;

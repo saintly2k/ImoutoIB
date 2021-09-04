@@ -70,14 +70,16 @@
 	}?>
 
 	<?php
-	echo '<tr>';
-	echo '<th>File</th>';
-	if ($info_locked == 1) {
-	echo '<td><input type="file" name="file" id="upload" disabled></td>';
-	} else {
-	echo '<td><input type="file" name="file" id="upload"></td>';
+	if ($allow_files == true) {
+		echo '<tr>';
+		echo '<th>File</th>';
+		if ($info_locked == 1) {
+		echo '<td><input type="file" name="file" id="upload" disabled></td>';
+		} else {
+		echo '<td><input type="file" name="file" id="upload"></td>';
+		}
+		echo '</tr>';
 	}
-	echo '</tr>';
 	?>
 	</table>
 	<details>
@@ -90,10 +92,13 @@
 	    	<tr>
 	    		<th>Options</th>
 	    		<td>
-	    			<?php if ($spoiler_enabled == true) { echo '
+	    			<?php echo $allow_files;
+	    			if (($spoiler_enabled == true) && ($allow_files == true)) {
+	    				echo '
 	    				<label for="spoiler"><input type="checkbox" id="spoiler" name="spoiler" autocomplete="off"> Spoiler Image</label>
 	    				<div class="small">You may also type <i>spoiler</i> in the email field.</div>
-	    				'; }?>
+	    				'; }
+	    			?>
 	    			<label for="sage"><input type="checkbox" id="sage" name="sage" autocomplete="off"> No Bump</label>
 	    			<div class="small">You may also type <i>sage</i> in the email field.</div>
 	    		</td>

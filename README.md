@@ -4,27 +4,24 @@ ImoutoIB - Terrible imageboard software.
 But anon-san — if it's so terrible, Why should I use it?
 ------------
 
-Well for starters it has:
-
-- No support...
-- No database?
-- No glowies!
-- Lacks so much in features that it will work on just about anything. Uwah!
+You probably shouldn't. It's not equipped to handle huge userbases. For a small community it will do just fine.
+- No support.
+- No database.
+- No Glowies! JS is not a requirement. Captcha and theme selection works without. IP's are hashed before storage. This does not prevent ISP's or your default server configuration from tracking access logs, use your brain before posting or use Tor.
+- Supports both imageboards and textboards.
+- Lacks so much in features that it will work on just about anything.
 - Will probably break at random — oh well!
-- but most important of all!! It has soul...
-
-I think that last one is a selling point!
-
-![Imouto...](https://i.imgur.com/TYhmmlW.jpg "Imouto...")
-
+- It has soul..?
 
 Requirements
 ------------
 If even your shared hosting can't run this, you're being scammed or you messed up. 
 
-Anyways, use PHP 7. Might work on 5 or 8, I don't know!!! QA is for people getting paid...
+Here's a reliable [host](https://www.hostwinds.com/7694-2.html) you can use.
 
-No database needed.
+Use PHP 7. Might work on 5 or 8, I don't know. QA is for people getting paid.
+
+No database setup needed.
 
 Installation
 -------------
@@ -37,23 +34,22 @@ If hosted in root directory, go to includes/custom.php change $prefix_folder fro
 
 If not using apache with included htaccess to remove main.php, add 'main.php' to $main_file.
 
-Edit /database/boards.php to create/edit/delete boards and /database/users.php to create/edit/delete users. (I guess I could have a mod.php default username+pw to allow this to be unnecessary later?)
+Edit /database/boards.php to create/edit/delete boards.
+
+Any changes you want to make should be done in includes/custom.php, It will overwrite the default configuration. Consider the default config a documentation of some sort.
+
+If you want to create different configurations per board you can go to any database/boards/board folder and create a config.php file. <?php $default_name = "Technology Enthusiast" ?> 
+It will be automatically read and used when viewing or posting on that specific board.
 
 Upgrade
 -------
 
-\>Implying I'm gonna upgrade this soykaf software.
-
-Just replace everything except database folder and your custom.php file. 
-
-You didn't change any of the templates, RIGHT?!
+Like I'm gonna upgrade this soykaf software. You're on your own.
 
 Support
 --------
 
 Gambare!!!
-
-I basically reinvented the wheel except instead of making it nice and round I made it a square.
 
 License
 --------

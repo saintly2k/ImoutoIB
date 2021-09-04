@@ -8,7 +8,8 @@ $post_file = 'post.php'; //i cant imagine any reason to change this, but i suppo
 
 $site_name = 'ImoutoIB';
 $domain = '3dpd.moe'; //MUST BE SET FOR COOKIES
-$captcha_required = false;
+$captcha_required = true; //there is no anti-flood setting so you really should...
+$boardlist = "title"; //"url" for a shortening boardlist.
 
 $secure_hash = "SQp3FaEgyMyHe3=Zc!-vS%ya6W!JAt+9fqwdbGk&ev!hbG!nSMgN_KUbLrmRpCQy"; //Will be used to hash your post passwords. You should change this.
 
@@ -43,8 +44,8 @@ $original_filename = true;
 $image_max_res = 9999; //9999x9999
 
 $uploads_folder = 'uploads';
-
 $filename_method = 'unix'; //unix = Time()+ 3 random digits 000-999 - uniqid for a random generation+time
+$allow_files = true; //false for text only board
 
 $config['allowed_ext']['img'][] = '.jpg';
 $config['allowed_ext']['img'][] = '.jpeg';
@@ -80,10 +81,12 @@ $config['css'][] = 'Yotsuba B'; //mandatory, foundation for all other styles.
 $config['css'][] = 'Yotsuba';
 $config['css'][] = 'Burichan';
 $config['css'][] = 'Futaba';
+$config['css'][] = 'Kareha';
 
 $config['css'][] = 'Tomorrow';
 $config['css'][] = 'Late';
 $config['css'][] = 'Kind';
+
 
 $default_theme = 'Futaba';
 

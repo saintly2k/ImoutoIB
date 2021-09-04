@@ -4,3 +4,4 @@ database/boards/*
 database/reports/*
 database/reportsglobal/*
 database/frontpage.php
+*config.php
