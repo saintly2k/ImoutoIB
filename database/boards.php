@@ -2,22 +2,25 @@
 
 
 //just copy paste one and edit it
+//hidden board should be up top for now
+
+$config['boards']['d'] = array(
+	'url' => 'd',
+	'title' => 'demo',
+	'description' => 'Please don\'t break me, I\'ll be sad...',
+	'locked' => 0,
+	'hidden' => 0
+);
 
 $config['boards']['test'] = array(
 	'url' => 'test',
 	'title' => 'test',
 	'description' => 'QA? I\'m not getting paid!!',
 	'locked' => 0,
-	'hidden' => 0
+	'hidden' => 1
 );
 
-$config['boards']['d'] = array(
-	'url' => 'd',
-	'title' => 'demo',
-	'description' => 'Just a second test board...',
-	'locked' => 0,
-	'hidden' => 0
-);
+
 
 $config['boards']['1'] = array(
 	'url' => '1',

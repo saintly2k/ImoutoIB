@@ -12,9 +12,15 @@
 			if ($boards['url'] != array_key_first($config['boards'])) {
 		        echo ' / ';
 		    }
-		 	echo '<a href="' . $prefix_folder . '/' . $main_file . '?board=';
-			echo $boards['url'];
-			echo '">' . $boards["url"] . '</a>';
+		    if ($boardlist == "title") {
+			 	echo '<a href="' . $prefix_folder . '/' . $main_file . '?board=';
+				echo $boards['url'];
+				echo '">' . $boards["title"] . '</a>';
+			} else {
+			 	echo '<a href="' . $prefix_folder . '/' . $main_file . '?board=';
+				echo $boards['url'];
+				echo '">' . $boards["url"] . '</a>';	
+			}
 		}
 	}
 

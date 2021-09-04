@@ -24,6 +24,10 @@ function isAllowedFile($file_upload, $array) {
 	}
 }
 
+if ($allow_files !== true && isset($_FILES['file'])) {
+		error("Files are not be uploaded on this board.");
+}
+
 //function handleFile() 
 	if(!isset($_FILES['file']) || $_FILES['file']['error'] == UPLOAD_ERR_NO_FILE) {
 	    //echo "No file selected"; 
