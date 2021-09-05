@@ -5,16 +5,43 @@
 	<div class="float-right">
 		<select id="themes">
 		<?php
-		foreach($config['css'] as $theme) {
-			echo '<option value="' . $theme . '">' . $theme . '</option>';
+		if (isset($current_board) && $current_board != '') {
+			if ($config["boards"][$current_board]["type"] == "txt") {
+				foreach($config['css_text'] as $theme) {
+					echo '<option value="' . $theme . '">' . $theme . '</option>';
+				}
+			} else {
+				foreach($config['css'] as $theme) {
+					echo '<option value="' . $theme . '">' . $theme . '</option>';
+				}
+			}
+		} else {
+				foreach($config['css'] as $theme) {
+					echo '<option value="' . $theme . '">' . $theme . '</option>';
+				}			
 		}
+
+
+
 		?>
 		<select>
 		<noscript>
 			<style>select#themes { display: none; }</style>
 		<?php
-		foreach($config['css'] as $theme) {
-			echo '&nbsp;[<a href="' . $prefix_folder . $main_file . '/?board=' . $current_board . '&thread=' . $current_thread . '&theme=' . $theme . '">' . $theme . '</a>]';
+		if (isset($current_board) && $current_board != '') {
+			if ($config["boards"][$current_board]["type"] == "txt") {
+				foreach($config['css_text'] as $theme) {
+					echo '&nbsp;[<a href="' . $prefix_folder . $main_file . '/?board=' . $current_board . '&thread=' . $current_thread . '&theme=' . $theme . '">' . $theme . '</a>]';
+				}
+			} else {
+				foreach($config['css'] as $theme) {
+					echo '&nbsp;[<a href="' . $prefix_folder . $main_file . '/?board=' . $current_board . '&thread=' . $current_thread . '&theme=' . $theme . '">' . $theme . '</a>]';
+				}
+			}
+		} else {
+			foreach($config['css'] as $theme) {
+				echo '&nbsp;[<a href="' . $prefix_folder . $main_file . '/?board=' . $current_board . '&thread=' . $current_thread . '&theme=' . $theme . '">' . $theme . '</a>]';
+			}
 		}
 		?>
 		</noscript>

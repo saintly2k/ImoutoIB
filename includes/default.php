@@ -87,8 +87,11 @@ $config['css'][] = 'Tomorrow';
 $config['css'][] = 'Late';
 $config['css'][] = 'Kind';
 
+$config['css_text'][] = 'Kareha';
+
 
 $default_theme = 'Futaba';
+$default_text_theme = 'Kareha';
 
 // JAVASCRIPTS
 $config['js'][] = 'main.js'; //mandatory
