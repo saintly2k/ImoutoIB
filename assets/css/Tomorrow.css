@@ -22,6 +22,10 @@ html[data-stylesheet="Tomorrow"] span.quote {
 html[data-stylesheet="Tomorrow"] span.rquote {
   color: #bd6890;
 }
+html[data-stylesheet="Tomorrow"] .code {
+  background: #000;
+  color: #fff;
+}
 html[data-stylesheet="Tomorrow"] a, html[data-stylesheet="Tomorrow"] a:visited {
   color: #81a2be;
 }

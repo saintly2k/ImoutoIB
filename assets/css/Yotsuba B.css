@@ -36,6 +36,24 @@ span.rquote {
   color: #e82389;
 }
 
+.code {
+	font-family: 'Submona';
+	background: #fff;
+	color: #000;
+}
+.aa {
+	font-family: 'Submona';
+}
+
+.spoiler {
+	background: #000;
+	color: #000;
+}
+
+.spoiler:hover {
+	color: #fff;
+}
+
 a, a:visited {
 	text-decoration: none;
 	color: #34345c;
