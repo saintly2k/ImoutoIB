@@ -19,6 +19,8 @@ $time_method_hover = "human"; //iso, human, compact, since, compactsince
 $forced_anon = false;
 $default_name = 'Anonymous';
 
+$display_id = true;
+
 $disable_email = false; //Disables the email field. Checkboxes will still work.
 $show_email = true; //shows email in post name
 
@@ -81,13 +83,19 @@ $config['css'][] = 'Yotsuba B'; //mandatory, foundation for all other styles.
 $config['css'][] = 'Yotsuba';
 $config['css'][] = 'Burichan';
 $config['css'][] = 'Futaba';
-$config['css'][] = 'Kareha';
 
 $config['css'][] = 'Tomorrow';
 $config['css'][] = 'Late';
 $config['css'][] = 'Kind';
 
+
+//text styles
+$config['css'][] = 'Kareha';
+$config['css'][] = 'Sankarea';
+
+//selectable styles on text boards, you may add IB styles if you want?
 $config['css_text'][] = 'Kareha';
+$config['css_text'][] = 'Sankarea';
 
 
 $default_theme = 'Futaba';

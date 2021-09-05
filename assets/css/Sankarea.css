@@ -1,0 +1,141 @@
+@font-face {
+	font-family: 'submona';
+	src: url('fonts/submona.woff') format('woff');
+}
+
+html[data-stylesheet="Sankarea"] body {
+  background: url('data:image/jpeg;base64,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');
+  background-color: #484476;
+  font-family: 'MS PGothic', 'submona' !important;
+  font-size: 12pt;
+  color: #fff;
+}
+
+html[data-stylesheet="Sankarea"] div#boardlist {
+  background: #000;
+  padding: 6px 0 4px 10px;
+  margin: -10px -8px 10px -8px;
+  font-weight: 700;
+  color: #fff;
+}
+
+html[data-stylesheet="Sankarea"] .spoiler {
+  background: #fff;
+  color: #fff;
+}
+
+html[data-stylesheet="Sankarea"] .spoiler:hover {
+  color: #000;
+}
+
+html[data-stylesheet="Sankarea"] div#boardlist a, html[data-stylesheet="Sankarea"] a {
+  color: red;
+}
+
+html[data-stylesheet="Sankarea"] div.file-info a {
+  color: #fff;
+}
+
+html[data-stylesheet="Sankarea"] div#boardlist a:hover, html[data-stylesheet="Sankarea"] a:hover, html[data-stylesheet="Sankarea"] div.file-info a:hover {
+  color: #66f;
+  text-decoration: underline;
+}
+
+html[data-stylesheet="Sankarea"] .link.name {
+  color: #2e2eff;
+}
+
+html[data-stylesheet="Sankarea"] div.post img {
+  display: none;
+}
+
+html[data-stylesheet="Sankarea"] hr {
+  border-top: 2px solid #000;
+}
+
+html[data-stylesheet="Sankarea"] div.container {
+  background: #111;
+  padding: 8px;
+  border: 3px solid #aaa;
+  border-radius: 0;
+  max-width: 95%;
+}
+
+html[data-stylesheet="Sankarea"] div.post.reply {
+  background: #111;
+  border: none;
+}
+
+html[data-stylesheet="Sankarea"] .post-arrows {
+  display:none;
+}
+
+html[data-stylesheet="Sankarea"] .page-info, html[data-stylesheet="Sankarea"] .post-number a {
+  color: #fff;
+}
+
+html[data-stylesheet="Sankarea"] .page-info h1 {
+ font-family: inherit;
+}
+
+html[data-stylesheet="Sankarea"] .post-info input {
+  display: none;
+}
+
+html[data-stylesheet="Sankarea"] .post-info table input {
+  display: table;
+}
+
+html[data-stylesheet="Sankarea"] .post-info table label input {
+  display: inline;
+}
+
+html[data-stylesheet="Sankarea"] .subject {
+  color: red;
+}
+
+html[data-stylesheet="Sankarea"] div#post-form {
+  background: #111;
+  border: none;
+  color: #fff;
+  width: 80%;
+}
+
+html[data-stylesheet="Sankarea"] div#post-form form {
+  width: 80%;
+  padding: 20px;
+  margin: auto;
+}
+
+html[data-stylesheet="Sankarea"] div#post-form form tr td textarea {
+  width: 500px;
+}
+
+html[data-stylesheet="Sankarea"] div#post-form form tr th {
+  background: none;
+  border: none;
+  color: #fff;
+}
+
+html[data-stylesheet="Sankarea"] div.main {
+  border: 3px solid #aaa;
+}
+
+html[data-stylesheet="Sankarea"] div.main, html[data-stylesheet="Sankarea"] div.main h2 {
+  background: #111;
+  border-radius: 0;
+}
+
+html[data-stylesheet="Sankarea"] div.postingmode {
+  background: none;
+  color: #fff;
+}
+
+html[data-stylesheet="Sankarea"] div.post details table {
+  background: #111;
+  border: 2px solid #aaa;
+  border-radius: 0;
+}
+
+
+
