@@ -27,7 +27,10 @@ html[data-stylesheet="Late"] span.link.name {
 html[data-stylesheet="Late"] a:hover, html[data-stylesheet="Late"] a span.link.name:hover, html[data-stylesheet="Late"] span.post-number a:hover {
   color: red;
 }
-
+html[data-stylesheet="Late"] .code {
+  background: #000;
+  color: #fff;
+}
 html[data-stylesheet="Late"] .postingmode {
   background: #000;
 }

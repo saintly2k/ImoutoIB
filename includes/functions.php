@@ -5,9 +5,25 @@ function error($error) {
 	require 'default.php'; //sets defaults
 	require 'inits.php'; //defines possibly unused variables
 	require 'custom.php'; // only change this, it will replace the default initialized settings.
+
+	require __dir__ . '/../' . $database_folder . '/boards.php';
+
 	echo '<html data-stylesheet="'. $current_theme .'">';
 	echo '<head>';
 	echo '<title>Error!</title>';
+
+	echo '<script>';
+	if (isset($_POST['board'])) {
+		if ($config['boards'][$_POST['board']]['type'] == 'txt') {
+			echo 'var board_type = "txt";';
+		} else {
+			echo 'var board_type = "img";';
+		}
+	} else {
+		echo 'var board_type = "img";';
+	}
+	echo '</script>';
+
 	echo '<link rel="icon" type="image/png" href="' . $prefix_folder  . '/assets/img/favicon.png"/>';
 	foreach ($config['css'] as $css) {
 		echo '<link rel="stylesheet" type="text/css" href="' . $prefix_folder . '/assets/css/' . $css . '.css">';
@@ -99,9 +115,19 @@ function PostSuccess($redirect = false, $auto = true) {
 	require 'default.php'; //sets defaults
 	require 'inits.php'; //defines possibly unused variables
 	require 'custom.php'; // only change this, it will replace the default initialized settings.
+	require __dir__ . '/../' . $database_folder . '/boards.php';
 
 	echo '<html data-stylesheet="'. $current_theme .'">';
 	echo '<head>';
+
+	echo '<script>';
+	if ($config['boards'][$_POST['board']]['type'] == 'txt') {
+		echo 'var board_type = "txt";';
+	} else {
+		echo 'var board_type = "img";';
+	}
+	echo '</script>';
+
 	echo '<title>Success!</title>';
 	echo '<link rel="icon" type="image/png" href="' . $prefix_folder  . '/assets/img/favicon.png"/>';
 	foreach ($config['css'] as $css) {
@@ -175,8 +201,10 @@ function getTotalSize($dir)
     }
 }
 
-function phpClean($string) {
-	$string = htmlspecialchars($string);
+function phpClean($string, $special = true) {
+	if ($special == true) {
+		$string = htmlspecialchars($string);
+	}
 	$string = preg_replace('/\\\\/','&#92;', $string); //replace backslash
 	$string = preg_replace('/\$/','&#36;', $string); //replace $
 	return $string;

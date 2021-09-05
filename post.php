@@ -50,11 +50,28 @@ if (isset($_POST['thread'])) {
 //WORDFILTERS, CITATIONS, ETC.
 	if ($post_body != '') {
 		
-		//WHITESPACE (max lines adding?)
+
+		//citations (probably gonna be a pain to fix dead links later?)
+		//todo
+		
 		//add quotes
 		$post_body = preg_replace("/^\s*&gt;.*$/m", "<span class='quote'>$0</span>", $post_body);
 		//add replyquotes
 		$post_body = preg_replace("/^\s*&lt;.*$/m", "<span class='rquote'>$0</span>", $post_body);
+
+		//AsciiArt [aa]
+		$post_body = preg_replace("/\[aa\](.+?)\[\/aa\]/ms", "<span class='aa'>$0</span>", $post_body);
+		$post_body = preg_replace("/\[aa\]/", "", $post_body);
+		$post_body = preg_replace("/\[\/aa\]/", "", $post_body);
+		//Code [code]
+		$post_body = preg_replace("/\[code\](.+?)\[\/code\]/ms", "<div class='code'>$0</div>", $post_body);
+		$post_body = preg_replace("/\[code\]/", "", $post_body);
+		$post_body = preg_replace("/\[\/code\]/", "", $post_body);
+
+		//Spoilers
+		$post_body = preg_replace("/\[spoiler\](.+?)\[\/spoiler\]/ms", "<span class='spoiler'>$0</span>", $post_body);
+		$post_body = preg_replace("/\[spoiler\]/", "", $post_body);
+		$post_body = preg_replace("/\[\/spoiler\]/", "", $post_body);
 
 		//remove newlines from start and end of string
 		$post_body = ltrim($post_body); //start
