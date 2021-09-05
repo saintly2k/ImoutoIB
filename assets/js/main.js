@@ -15,19 +15,38 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 //theme selector
-document.addEventListener("DOMContentLoaded", function(event) {
-    if (localStorage.theme == undefined) {
-      localStorage.theme = default_theme;
-    }
-    if (document.getElementById("themes") != undefined) {
-      document.getElementById("themes").onchange = function() {
-        localStorage.theme = document.getElementById("themes").value;
-        document.documentElement.setAttribute("data-stylesheet", document.getElementById("themes").value);
+if (board_type != 'txt') {
+  document.addEventListener("DOMContentLoaded", function(event) {
+      if (localStorage.theme == undefined) {
+        localStorage.theme = default_theme;
       }
-      document.getElementById("themes").value = localStorage.theme;
-    }
-    document.documentElement.setAttribute("data-stylesheet", localStorage.theme);
+      if (document.getElementById("themes") != undefined) {
+        document.getElementById("themes").onchange = function() {
+          localStorage.theme = document.getElementById("themes").value;
+          document.documentElement.setAttribute("data-stylesheet", document.getElementById("themes").value);
+        }
+        document.getElementById("themes").value = localStorage.theme;
+      }
+      document.documentElement.setAttribute("data-stylesheet", localStorage.theme);
 });
+} else {
+  document.addEventListener("DOMContentLoaded", function(event) {
+      if (localStorage.text_theme == undefined) {
+        localStorage.text_theme = default_theme; //look header.html for it changing
+      }
+      if (document.getElementById("themes") != undefined) {
+        document.getElementById("themes").onchange = function() {
+          localStorage.text_theme = document.getElementById("themes").value;
+          document.documentElement.setAttribute("data-stylesheet", document.getElementById("themes").value);
+        }
+        document.getElementById("themes").value = localStorage.text_theme;
+      }
+      document.documentElement.setAttribute("data-stylesheet", localStorage.text_theme);
+  });
+}
+
+
+
 
 document.addEventListener("DOMContentLoaded", function(event) {
   if (document.getElementById("upload")) {

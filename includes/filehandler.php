@@ -34,7 +34,7 @@ if ($allow_files !== true && isset($_FILES['file'])) {
 	} else {
 
 		$filesize_ = $_FILES['file']['size'];
-	    $filename_ = $_FILES["file"]["name"];
+	    $filename_ = htmlspecialchars($_FILES["file"]["name"]);
 	    $tmpname_ = $_FILES["file"]["tmp_name"];
 		$fileext_ = '.' . pathinfo($filename_, PATHINFO_EXTENSION);
 

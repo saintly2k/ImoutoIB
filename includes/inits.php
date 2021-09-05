@@ -54,17 +54,48 @@ if ($prefix_folder == '') {
 
 
 // SET THEME COOKIE FOR NO-JS USERS (CUZ IM COOL LIKE DAT)
-if (!isset($_COOKIE["theme"])) {
-	setcookie("theme", $default_theme, 0,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+if (isset($_GET["board"]) && htmlspecialchars($_GET["board"]) != '') {
+	if ($config["boards"][htmlspecialchars($_GET["board"])]["type"] == "txt") {
+		if (!isset($_COOKIE["text_theme"])) {
+			setcookie("text_theme", $default_theme, 0,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+		}
+		if (isset($_GET["theme"])) {
+			unset($_COOKIE["text_theme"]);
+			setcookie("text_theme", htmlspecialchars($_GET["theme"]), 0, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+		}
+			$current_theme = $default_theme;
+		if (isset($_COOKIE["text_theme"])) {
+			$current_theme = $_COOKIE["text_theme"];
+		}
+
+	} else {
+		if (!isset($_COOKIE["theme"])) {
+			setcookie("theme", $default_theme, 0,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+		}
+		if (isset($_GET["theme"])) {
+			unset($_COOKIE["theme"]);
+			setcookie("theme", htmlspecialchars($_GET["theme"]), 0, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+		}
+			$current_theme = $default_theme;
+		if (isset($_COOKIE["theme"])) {
+			$current_theme = $_COOKIE["theme"];
+		}
+	}
+} else {
+	if (!isset($_COOKIE["theme"])) {
+		setcookie("theme", $default_theme, 0,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+	}
+	if (isset($_GET["theme"])) {
+		unset($_COOKIE["theme"]);
+		setcookie("theme", htmlspecialchars($_GET["theme"]), 0, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+	}
+		$current_theme = $default_theme;
+	if (isset($_COOKIE["theme"])) {
+		$current_theme = $_COOKIE["theme"];
+	}
 }
-if (isset($_GET["theme"])) {
-	unset($_COOKIE["theme"]);
-	setcookie("theme", htmlspecialchars($_GET["theme"]), 0, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
-}
-	$current_theme = $default_theme;
-if (isset($_COOKIE["theme"])) {
-	$current_theme = $_COOKIE["theme"];
-}
+
+
 
 if (isset(($_POST['password'])) && (($_POST['password']) !== '')) {
 	$post_password = crypt(htmlspecialchars($_POST['password']), $secure_hash);
