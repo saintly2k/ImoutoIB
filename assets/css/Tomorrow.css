@@ -16,6 +16,12 @@ html[data-stylesheet="Tomorrow"] span.subject {
 html[data-stylesheet="Tomorrow"] span.name {
   color: #c5c8c6;
 }
+html[data-stylesheet="Tomorrow"] span.quote {
+  color: #b5bd68;
+}
+html[data-stylesheet="Tomorrow"] span.rquote {
+  color: #bd6890;
+}
 html[data-stylesheet="Tomorrow"] a, html[data-stylesheet="Tomorrow"] a:visited {
   color: #81a2be;
 }

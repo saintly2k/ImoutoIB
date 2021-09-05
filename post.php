@@ -20,11 +20,62 @@ require dirname(__FILE__) . '/require.php';
 	$post_subject = phpClean($_POST['subject']);
 	$post_body = phpClean($_POST['body']);
 
-	if (isset($_POST['file'])) {
 
+//CHECK SOME REQS BEFORE BODY EDIT, length. Check newlines after by scanning <br>'s
+//IF NEW REPLY
+if (isset($_POST['thread'])) {
+	//get thread info
+	include (__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . phpClean($_POST['thread_number']) . "/info.php");
+	if ($info_locked == 1) {
+		error('This thread is locked...');
+	}
+	if(!isset($_FILES['file']) || $_FILES['file']['error'] == UPLOAD_ERR_NO_FILE) {
+		if (strlen($post_body) < $config['reply_body_min']) {
+			error('Reply too short. Min: 10.');
+		}
+	} else {
+		if ($config['reply_file_only'] == false) {
+			if (strlen($post_body) < $config['reply_body_min']) {
+				error('Reply too short. Min: 10.');
+			}
+		}
+	}
+	if (strlen($post_body) > $config['reply_body_max']) {
+		error('Reply too long. Max: 4000.');
+	}
+}
+
+
+
+//WORDFILTERS, CITATIONS, ETC.
+	if ($post_body != '') {
+		
+		//WHITESPACE (max lines adding?)
+		//add quotes
+		$post_body = preg_replace("/^\s*&gt;.*$/m", "<span class='quote'>$0</span>", $post_body);
+		//add replyquotes
+		$post_body = preg_replace("/^\s*&lt;.*$/m", "<span class='rquote'>$0</span>", $post_body);
+
+		//remove newlines from start and end of string
+		$post_body = ltrim($post_body); //start
+		$post_body = rtrim($post_body); //end
+		//add newlines
+		$post_body = preg_replace('/\n/i', '<br>', $post_body);
+
+		//WORDFILTERS
+		foreach ($config['wordfilters'] as $key => $wordfilter) {
+			$post_body = preg_replace($wordfilter[0], $wordfilter[1], $post_body);
+		}
 	}
 
+
+
 //Requirements met?
+
+	//max lines?
+	if (preg_match_all('/<br>/', $post_body) > $config['max_lines']) { 
+		error('Too many new lines. Max 40.');
+	}
 
 if ($captcha_required == true) {
 	if(isset($_POST['captcha'])){
@@ -61,30 +112,6 @@ if (isset($_POST['index'])) {
 		error('Comment too short. Min: 10.');
 	} 
 }
-
-//IF NEW REPLY
-if (isset($_POST['thread'])) {
-	//get thread info
-	include (__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . phpClean($_POST['thread_number']) . "/info.php");
-	if ($info_locked == 1) {
-		error('This thread is locked...');
-	}
-	if(!isset($_FILES['file']) || $_FILES['file']['error'] == UPLOAD_ERR_NO_FILE) {
-		if (strlen($post_body) < $config['reply_body_min']) {
-			error('Reply too short. Min: 10.');
-		}
-	} else {
-		if ($config['reply_file_only'] == false) {
-			if (strlen($post_body) < $config['reply_body_min']) {
-				error('Reply too short. Min: 10.');
-			}
-		}
-	}
-	if (strlen($post_body) > $config['reply_body_max']) {
-		error('Reply too long. Max: 4000.');
-	}
-}
-
 
 
 //ARE WE POSTING?

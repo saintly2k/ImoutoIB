@@ -105,6 +105,10 @@ $config['reply_file_only'] = true; //allows zero text if contains file
 $config['reply_body_min'] = 10; //minimum characters
 $config['reply_body_max'] = 4000; //maximum characters
 
+$config['max_lines'] = 40;
+
+$config['wordfilters'][] = array('/little sister/i', 'imouto'); //regex
+
 
 //DATABASE CONFIGURATION
 $config['db']['type'] = 'flat'; // flat, mysql

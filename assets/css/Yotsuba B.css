@@ -29,6 +29,13 @@ body {
 	margin-left: 4px;
 }
 
+span.quote {
+  color: #789922;
+}
+span.rquote {
+  color: #e82389;
+}
+
 a, a:visited {
 	text-decoration: none;
 	color: #34345c;
