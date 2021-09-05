@@ -6,6 +6,18 @@
 		<?php if ($reply_subject != '') { echo '<span class="subject">' . $reply_subject . '&nbsp;</span>'; }?>
 		<?php if (($reply_email != '') && ($show_email != false)) { echo '<a href="mailto:' . $reply_email . '">';}?><span class="<?php if(($reply_email != '') && ($show_email != false)) { echo 'link '; } ?>name"><?php echo $reply_name; ?></span>&nbsp;<?php if (($reply_email != '') && ($show_email != false)) { echo '</a>'; }?>
 		<span class="post-time" data-timestamp="<?php echo $reply_time;?>" data-tooltip="<?php echo timeConvert($reply_time, $time_method_hover); ?>"><?php echo timeConvert($reply_time, $time_method); ?>&nbsp;</span>
+		<?php
+			if ($display_id == true) {
+				echo '<span class="id">ID: ';
+				if ($reply_email == "sage") {
+					echo 'Heaven';
+				} else {
+					$reply_id = crypt($reply_ip, $post_number_op . $post_number_op . $post_number_op . $post_number_op);
+					echo substr($reply_id, -8);
+				}
+				echo '</span>';
+			}
+		?>
 		<span class="post-number"><a name="<?php echo $post_number_reply; ?>" href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_reply; ?>">No.</a><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_reply; ?>"><?php echo $post_number_reply; ?></a>&nbsp;</span>
 
 		<?php if ($post_buttons == true) {

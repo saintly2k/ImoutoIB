@@ -81,6 +81,20 @@
 		<?php if ($op_subject != '') { echo '<span class="subject">' . $op_subject . '&nbsp;</span>'; }?>
 		<?php if (($op_email != '') && ($show_email != false)) { echo '<a href="mailto:' . $op_email . '">';}?><span class="<?php if(($op_email != '') && ($show_email != false)) { echo 'link '; } ?>name"><?php echo $op_name; ?></span>&nbsp;<?php if ($op_email != '') { echo '</a>'; }?>
 		<span class="post-time" data-timestamp="<?php echo $op_time;?>" data-tooltip="<?php echo timeConvert($op_time, $time_method_hover); ?>"><?php echo timeConvert($op_time, $time_method); ?>&nbsp;</span>
+		
+		<?php
+			if ($display_id == true) {
+				echo '<span class="id">ID: ';
+				if ($op_email == "sage") {
+					echo 'Heaven';
+				} else {
+					$op_id = crypt($op_ip,  $post_number_op . $post_number_op . $post_number_op . $post_number_op);
+					echo substr($op_id, -8);
+				}
+				echo '</span>';
+			}
+		?>
+
 		<span class="post-number"><a name="<?php echo $post_number_op; ?>" href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>">No.</a><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>"><?php echo $post_number_op; ?></a></span>
 
 		<?php 

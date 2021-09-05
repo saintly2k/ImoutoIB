@@ -17,6 +17,10 @@ require dirname(__FILE__) . '/require.php';
 	if ($post_email == 'spoiler' || isset($_POST['spoiler'])) {
 		$isSpoiler_ = true;
 	}
+	if (isset($_POST['sage'])) { //show sage if sage, even if email = nothing or spoiler
+		$post_email = 'sage';
+	}
+
 	$post_subject = phpClean($_POST['subject']);
 	$post_body = phpClean($_POST['body']);
 
