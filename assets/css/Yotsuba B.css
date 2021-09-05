@@ -37,12 +37,12 @@ span.rquote {
 }
 
 .code {
-	font-family: 'Submona';
+	font-family: 'MS PGothic', 'submona' !important;
 	background: #fff;
 	color: #000;
 }
 .aa {
-	font-family: 'Submona';
+	font-family: 'MS PGothic', 'submona' !important;
 }
 
 .spoiler {
