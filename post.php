@@ -4,10 +4,10 @@ require dirname(__FILE__) . '/require.php';
 
 
 //POST FIELDS
-	$post_board = htmlspecialchars($_POST['board']);
-	$post_name = htmlspecialchars($_POST['name']);
+	$post_board = phpClean($_POST['board']);
+	$post_name = phpClean($_POST['name']);
 	if ($disable_email !== true) {
-		$post_email = htmlspecialchars($_POST['email']);
+		$post_email = phpClean($_POST['email']);
 	} else { 
 		$post_email = '';
 	}
@@ -17,8 +17,8 @@ require dirname(__FILE__) . '/require.php';
 	if ($post_email == 'spoiler' || isset($_POST['spoiler'])) {
 		$isSpoiler_ = true;
 	}
-	$post_subject = htmlspecialchars($_POST['subject']);
-	$post_body = htmlspecialchars($_POST['body']);
+	$post_subject = phpClean($_POST['subject']);
+	$post_body = phpClean($_POST['body']);
 
 	if (isset($_POST['file'])) {
 
@@ -65,7 +65,7 @@ if (isset($_POST['index'])) {
 //IF NEW REPLY
 if (isset($_POST['thread'])) {
 	//get thread info
-	include (__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . htmlspecialchars($_POST['thread_number']) . "/info.php");
+	include (__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . phpClean($_POST['thread_number']) . "/info.php");
 	if ($info_locked == 1) {
 		error('This thread is locked...');
 	}
@@ -149,8 +149,8 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 	}
 
 if ((isset($post_board)) && (isset($_POST['thread']))) {
-	$post_is_thread = htmlspecialchars($_POST['thread']);
-	$post_thread_number = htmlspecialchars($_POST['thread_number']);
+	$post_is_thread = phpClean($_POST['thread']);
+	$post_thread_number = phpClean($_POST['thread_number']);
 	//board exists?
 	if (!isset($config['boards'][$post_board])) {
 		error('This board shouldn\'t exist...');

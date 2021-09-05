@@ -175,4 +175,11 @@ function getTotalSize($dir)
     }
 }
 
+function phpClean($string) {
+	$string = htmlspecialchars($string);
+	$string = preg_replace('/\\\\/','&#92;', $string); //replace backslash
+	$string = preg_replace('/\$/','&#36;', $string); //replace $
+	return $string;
+}
+
 ?>
