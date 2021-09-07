@@ -24,6 +24,9 @@ $display_id = true;
 $disable_email = false; //Disables the email field. Checkboxes will still work.
 $show_email = true; //shows email in post name
 
+$recent_replies = 5; //how many recent replies to show on index
+$threads_page = 10; //how many threads per page
+
 $max_filesize = 1024*1000*8; //default 8mb
 $max_filename = 28; //longer than this will be trimmed visually, absolute max is set to 512 at which point it is trimmed when saved as well. you can see untrimmed below 512 by hovering over name
 
