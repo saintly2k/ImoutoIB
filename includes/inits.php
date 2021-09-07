@@ -35,6 +35,10 @@ if ($config['generated_in'] === true) {
 	$start_time = microtime(true);
 }
 
+$prevlink = '';
+$all_pages = '';
+$nextlink = '';
+
 //params
 if (!isset($_GET["thread"])) {
 	$_GET["thread"] = '';

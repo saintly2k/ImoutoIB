@@ -231,6 +231,10 @@ input[name="captcha"] {
 	float: right;
 }
 
+.float-left {
+	float: left;
+}
+
 .stats {
 	display: flex;
 	justify-content: space-around;
@@ -357,4 +361,8 @@ div.post details table {
 	position: absolute;
 	background: #d6daf0;
 	border: 1px solid #b7c5d9;
+}
+
+.pager a {
+	color: inherit!important;
 }
