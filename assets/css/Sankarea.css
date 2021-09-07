@@ -94,6 +94,11 @@ html[data-stylesheet="Sankarea"] .subject {
   color: red;
 }
 
+html[data-stylesheet="Sankarea"] .code {
+  background: #333;
+  color: #fff;
+}
+
 html[data-stylesheet="Sankarea"] div#post-form {
   background: #111;
   border: none;
