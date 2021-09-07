@@ -91,13 +91,57 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 
 		//show max threads only
 		//if page = 1
+		$pages = '';
+
 		if (count($threads) > $threads_page) {
-		$total_threads = count($threads);
-		$threads = array_slice($threads, 0, $threads_page);
-		$hidden_threads = $total_threads - $threads_page;
-		echo 'There are ' . $hidden_threads . ' undisplayed threads. I\'ll make a pagination for them all...' ;
+			$total_threads = count($threads);
+			$final_page_threads = $threads_page - ($total_threads % $threads_page); //how many to offset the arrayslice by for last page
+
+			//create pages
+			$pages = ceil($total_threads / $threads_page) - 1;
+
+			if ($_GET['page'] == '') {
+			$number_page = 1;
+			} elseif (!is_numeric($_GET['page'])) {
+				error('Page number must be a number.');
+			} elseif ($_GET['page'] > $pages || $_GET['page'] < 1) {
+				error('This number is higher or lower than page count...');
+			} else {
+				$number_page = $_GET['page'];
+			}
+			$offset_ = ($number_page - 1 * $threads_page);
+			$start_ = $offset_ + 1;
+			$end_ = min(($offset_ + $threads_page), $total_threads);
+
+			    // The "back" link
+    		$prevlink = ($number_page > 1) ? '<a href="' . $prefix_folder . '/?board=' . $current_board . '&page=' . ($number_page - 1) . '" title="Previous page">Previous</a>' : '<span class="disabled">Previous</span>';
+    		$all_pages = '';
+
+    		for ($i = 0; $i < $pages; $i++) {
+    			$currentp = $i + 1;
+    			if ($currentp == $number_page) {
+    			$all_pages .= '[<a href="' . $prefix_folder . '/?board=' . $current_board . '&page=' . $currentp. '"><b>' . $currentp . '</a></b>] ';
+    			} else {
+    			$all_pages .= '[<a href="' . $prefix_folder . '/?board=' . $current_board . '&page=' . $currentp. '">' . $currentp . '</a>] ';
+    			}
+    		}
+
+    		$nextlink = ($number_page < $pages) ? '<a href="' . $prefix_folder . '/?board=' . $current_board . '&page=' . ($number_page + 1) . '" title="Next page">Next</a>' : '<span class="disabled">Next</span>';
+
+			//page 1
+			if ($number_page == 1) {
+			$threads = array_slice($threads, 0, $threads_page);
+			} elseif ($number_page == $pages) { //if final page
+				$threads = array_slice($threads, - $threads_page, $threads_page);
+				$threads = array_slice($threads, $final_page_threads);
+			} else {
+			$threads = array_slice($threads, ($threads_page * $number_page) - $threads_page);
+			$threads = array_slice($threads, 0, $threads_page);
+			}
+			//$hidden_threads = $total_threads - $threads_page;
+			//echo 'There are ' . $hidden_threads . ' undisplayed threads. I\'ll make a pagination for them all...' ;
+
 		}
-		//create extra pages?
 
 
 		//SHOW THEM
@@ -131,10 +175,6 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 
 
 	}
-
-	// TO DO: PAGINATION
-
-
 
 	// IF THREAD
 	if (htmlspecialchars($_GET["thread"]) != '') {

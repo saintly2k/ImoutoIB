@@ -1,6 +1,21 @@
 <hr>
 
 <div class="abovefooter">
+	<?php 
+	if (isset($current_board) && $current_board != '') {
+		if (isset($current_page) && $current_page == 'index' && $pages > 1) {
+			echo '<div class="float-left pager">';
+				echo '<table>';
+					echo '<tr>';
+						echo '<td>' . $prevlink . '</td>';
+						echo '<td>' . $all_pages . '</td>';
+						echo '<td>'  . $nextlink . '</td>';
+					echo '</tr>';
+				echo '</table>';
+			echo '</div>';
+		}
+	}
+	?>
 &nbsp;
 	<div class="float-right">
 		<select id="themes">
@@ -47,7 +62,7 @@
 		</noscript>
 	</div>
 </div>
-
+&nbsp;
 <div class="footer">
 	<p>ImoutoIB</p>
 	<?php 

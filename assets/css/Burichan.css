@@ -54,3 +54,20 @@ html[data-stylesheet="Burichan"] h1 {
 html[data-stylesheet="Burichan"] hr {
   border-top: 2px solid grey;
 }
+
+html[data-stylesheet="Burichan"] .pager td {
+  border: 1px solid;
+  padding: 3px;
+}
+
+html[data-stylesheet="Burichan"] .pager table {
+  border: 1px solid;
+}
+
+html[data-stylesheet="Burichan"] .pager a {
+  color: #34345c!important;
+}
+
+html[data-stylesheet="Burichan"] .pager a:hover {
+  color: #d00!important;
+}

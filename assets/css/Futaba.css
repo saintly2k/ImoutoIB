@@ -89,3 +89,20 @@ html[data-stylesheet="Futaba"] div.post details table {
   background: #f0e0d6;
   border: 1px solid #d9bfb7;
 }
+
+html[data-stylesheet="Futaba"] .pager td {
+  border: 1px solid;
+  padding: 3px;
+}
+
+html[data-stylesheet="Futaba"] .pager table {
+  border: 1px solid;
+}
+
+html[data-stylesheet="Futaba"] .pager a {
+  color: #00e!important;
+}
+
+html[data-stylesheet="Futaba"] .pager a:hover {
+  color: #d00!important;
+}
