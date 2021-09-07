@@ -192,6 +192,8 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 	//
 
 	UpdateOP($database_folder, $post_board, $current_count, 1, 0, $current_count, 1); //information about thread and replies
+	UpdateThreads($database_folder, $post_board, $current_count); //update recents.php and board bumps.
+	UpdateRecents($database_folder, $post_board, $current_count, $recent_replies);
 	include __dir__ . '/includes/update-frontpage.php';
 	PostSuccess($prefix_folder . $main_file . '/?board=' . $post_board . '&thread=' . $counter . '#' . $counter, true);
 	
@@ -266,6 +268,7 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 
 
 		UpdateOP($database_folder, $post_board, $post_thread_number, 0, $reply_counter, $current_count, $ip_counter);
+		UpdateRecents($database_folder, $post_board, $post_thread_number, $recent_replies); //update recents.php and board bumps.
 		include __dir__ . '/includes/update-frontpage.php';
 		PostSuccess($prefix_folder . $main_file . '/?board=' . $post_board . '&thread=' . $post_thread_number . '#' . $current_count, true);
 		

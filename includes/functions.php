@@ -1,7 +1,7 @@
 <?php 
 
 
-function error($error) {
+function error($error, $success = false) {
 	require 'default.php'; //sets defaults
 	require 'inits.php'; //defines possibly unused variables
 	require 'custom.php'; // only change this, it will replace the default initialized settings.
@@ -10,8 +10,11 @@ function error($error) {
 
 	echo '<html data-stylesheet="'. $current_theme .'">';
 	echo '<head>';
-	echo '<title>Error!</title>';
-
+	if ($success == false) {
+		echo '<title>Error!</title>';
+	} else {
+		echo '<title>Success!</title>';
+	}
 	echo '<script>';
 	if (isset($_POST['board'])) {
 		if ($config['boards'][$_POST['board']]['type'] == 'txt') {
@@ -34,7 +37,11 @@ function error($error) {
 
 	echo '</head>';
 	echo '<body current_page="message">';
-	echo '<div class="message">Gomen nasai... An error occurred: ' . $error . '</div>';
+	if ($success == true) {
+	echo '<div class="message">' . $error . '</div>';
+	} else {
+	echo '<div class="message">Gomen nasai... ' . $error . '</div>';		
+	}
 	echo '</body>';
 	echo '</html>';
 
@@ -160,9 +167,83 @@ function UpdateOP($database_folder, $board, $thread, $page, $replies, $bumped, $
 
 	file_put_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/' . 'info.php', $info_);
 
+	//activate updateBumps.php?
 }
 
-function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $fileonly = false, $secure_hash) {
+function UpdateRecents($database_folder, $board, $thread, $recent_replies = 5) {
+	//update recents.php in thread to sort replies, use main.php to read this from now on
+
+	//FIND REPLIES
+		$replies_full = [];
+		$replies_full = glob(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . "/*");
+	//SORTING
+		$replies = [];
+		foreach ($replies_full as $reply) {
+			if (is_numeric(basename($reply, '.php'))) {
+				$replies[] = basename($reply, '.php');
+			}
+		}
+	sort($replies);
+	$omitted = '';
+	//take only the most 
+	if (count($replies) > $recent_replies) {
+		$omitted = count($replies) - $recent_replies;
+		$replies = array_slice($replies, count($replies) - $recent_replies);
+	}
+	//ok now we have x amount of most recent replies
+	//lets add them to a file, main.php will read it and show those only instead of checking every file every view.
+
+	//organize the file
+	$recents_ = '<?php ';
+	$recents_ .= '$recents = []; ';
+	foreach ($replies as $reply) {
+		$recents_ .= '$recents[] = "' . $reply . '";';
+	}
+	$recents_ .= '$replies_omitted = "'. $omitted . '";';
+	$recents_ .= ' ?>';
+
+	//fileput recents in thread folder
+	file_put_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/recents.php' , $recents_);
+
+
+}
+
+function UpdateThreads($database_folder, $board, $thread) {
+
+	//FIND THREADS
+	$threads_full = [];
+	$threads_full = glob(__dir__ . '/../' . $database_folder . '/boards/' . $board . "/*", GLOB_ONLYDIR);
+	
+	//SORTING
+	foreach ($threads_full as $key => $thread_) {
+		$threadz= basename($thread_);
+		if (!file_exists(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . basename($thread_) . '/bumped.php')) {
+			$bumped = basename($thread_);
+		}
+		if (file_exists(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . basename($thread_) . '/bumped.php')) {
+			$bumped = file_get_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . basename($thread_) . '/bumped.php');
+		}
+		$threads[$key] = [];
+		$threads[$key]['id'] = $threadz;
+		$threads[$key]['bumped'] = $bumped;
+	}
+	$keys_ = array_column($threads, 'bumped');
+	array_multisort($keys_, SORT_DESC, $threads);
+
+	//organize the file
+	$threads_ = '<?php ';
+	$threads_ .= '$threads = []; ';
+	foreach ($threads as $key => $value) {
+		$threads_ .= '$threads["'.$key.'"]["id"] = "' . $threads[$key]['id'] . '";';
+		$threads_ .= '$threads["'.$key.'"]["bumped"] = "' . $threads[$key]['bumped'] . '";';
+	}
+	$threads_ .= ' ?>';
+
+	//fileput recents in thread folder
+	file_put_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/threads.php' , $threads_);
+}
+
+function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $fileonly = false, $secure_hash, $recent_replies = 5) {
 
 	//wip
 	//add moderator checks to bypass pw check later
@@ -192,12 +273,11 @@ function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $
 			$op_info = file_get_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/OP.php');
 			$op_info = preg_replace('/\$op_file = .+"\) \);/i', '$op_file = array( array("deleted") );', $op_info);
 			file_put_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/OP.php', $op_info);
-			error('File deleted.');
+			error('File deleted.', true);
 		} else {
 
 
 			$replies_ = glob(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . "/*");
-			var_dump($replies_);
 			foreach ($replies_ as $reply) {
 				if (is_numeric(basename($reply, '.php'))) {
 					include $reply;
@@ -218,9 +298,10 @@ function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $
 			}
 			//DELETE FOLDER 	(unfortunately no way to delete folder with all files in)
 			rmdir(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread);
-			
+
 			//success!
-			error('Thread and all its content has been deleted!');
+			UpdateThreads($database_folder, $board, $thread); //avoid error on page read
+			error('Thread and all its content has been deleted!', true);
 		}
 
 	}
@@ -255,12 +336,13 @@ function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $
 		$reply_info = file_get_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/' . $post . '.php');
 		$reply_info = preg_replace('/\$reply_file = .+"\) \);/i', '$reply_file = array( array("deleted") );', $reply_info);
 		file_put_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/' . $post . '.php', $reply_info);
-		error('File deleted.');
+		error('File deleted.', true);
 		}
 
 		//delete reply if not fileonly
 		unlink(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/' . $post . '.php'); //delete post
-		error('Post and file deleted.');
+		UpdateRecents($database_folder, $board, $thread, $recent_replies); //update omitted and stuff
+		error('Post and file deleted.', true);
 	}
 
 	error('This shouldnt happen...');

@@ -30,15 +30,6 @@ $config['boards']['test'] = array(
 	'type' => 'img'
 );
 
-$config['boards']['1'] = array(
-	'url' => '1',
-	'title' => '1GET',
-	'description' => '1st!!',
-	'locked' => 1,
-	'hidden' => 0,
-	'type' => 'img'
-);
-
 
 foreach ($config['boards'] as $boards) {
 	$config['boardlist'][] = $boards['url'];

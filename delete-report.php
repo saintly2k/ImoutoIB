@@ -64,9 +64,9 @@ if (isset($delrep_thread) && (!file_exists($path . '/' . $database_folder . '/bo
 
 if (isset($_POST["delete"]) && $_POST["delete"] != "") {
 	if (isset($_POST['file'])) { //file only?
-		DeletePost($database_folder, $uploads_folder, $delrep_board, $delrep_thread, $delrep_reply, true, $secure_hash);
+		DeletePost($database_folder, $uploads_folder, $delrep_board, $delrep_thread, $delrep_reply, true, $secure_hash, $recent_replies);
 	} else {
-		DeletePost($database_folder, $uploads_folder, $delrep_board, $delrep_thread, $delrep_reply, false, $secure_hash);
+		DeletePost($database_folder, $uploads_folder, $delrep_board, $delrep_thread, $delrep_reply, false, $secure_hash, $recent_replies);
 	}
 }
 

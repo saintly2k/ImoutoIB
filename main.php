@@ -87,65 +87,34 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			exit();
 		}
 
-		//FIND THREADS
-		$threads_full = [];
-		$threads_full = glob(__dir__ . '/' . $database_folder . '/boards/' . $current_board . "/*", GLOB_ONLYDIR);
-		
-		//SORTING
-		foreach ($threads_full as $key => $thread) {
-			$threadz= basename($thread);
-			if (!file_exists(__dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . basename($thread) . '/bumped.php')) {
-				$bumped = basename($thread);
-			}
-			if (file_exists(__dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . basename($thread) . '/bumped.php')) {
-				$bumped = file_get_contents(__dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . basename($thread) . '/bumped.php');
-			}
-			$threads[$key] = [];
-			$threads[$key]['id'] = $threadz;
-			$threads[$key]['bumped'] = $bumped;
-		}
-		$keys_ = array_column($threads, 'bumped');
-		array_multisort($keys_, SORT_DESC, $threads);
+		include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/threads.php';
 
-		////// to do: use post/mod.php to allow for a sticky 0/1, locked 0/1, if sticky show 0-1 replies max
+		//show max threads only
+		//if page = 1
+		if (count($threads) > $threads_page) {
+		$total_threads = count($threads);
+		$threads = array_slice($threads, 0, $threads_page);
+		$hidden_threads = $total_threads - $threads_page;
+		echo 'There are ' . $hidden_threads . ' undisplayed threads. I\'ll make a pagination for them all...' ;
+		}
+		//create extra pages?
+
 
 		//SHOW THEM
 		foreach (array_keys($threads) as $key => $value) {
 			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/OP.php';
 			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/info.php';
+			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/recents.php';
 			$post_number_op = $threads[$key]['id'];
-
-			//SHOW REPLIES TO THREADS ON INDEX (im gonna need a lot of changes here later for sorting and maximum, configurable recents.php updated by post.php for performance?)
-				//ADD ALL REPLIES HERE
-			//FIND REPLIES
-				$replies_full = [];
-				$replies_full = glob(__dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . "/*");
-			//SORTING
-				$replies = [];
-				foreach ($replies_full as $reply) {
-					//file in folder is numeric = reply
-					if (is_numeric(basename($reply, '.php'))) {
-						$replies[] = basename($reply, '.php');
-					}
-				}
-			$total_replies = count($replies);
-			rsort($replies); //sort by biggest to lowest
-			$replies = array_slice($replies, 0, 5); //remove everything except biggest
-			sort($replies); //sort back to show from low to high
-
-			if ($total_replies > 5) {
-				$replies_omitted = $total_replies - count($replies);
-			} else {
-				$replies_omitted = 0;
-			}
 
 			echo '<div data-thread="' . $post_number_op . '" class="container">';
 			//SHOW THREADS
 			include $path . '/templates/thread.html';
 			//SHOW SHOW REPLIES
-			foreach (array_keys($replies) as $rkey => $value) {
-				include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . '/' . $replies[$value] . '.php';
-				$post_number_reply = $replies[$value];
+
+			foreach (array_keys($recents) as $rkey => $value) {
+				include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . '/' . $recents[$value] . '.php';
+				$post_number_reply = $recents[$value];
 				include $path . '/templates/reply.html';
 		   	}
 		   	echo '</div>';
