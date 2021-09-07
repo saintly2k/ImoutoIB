@@ -123,8 +123,9 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			//SORTING
 				$replies = [];
 				foreach ($replies_full as $reply) {
-					if (basename($reply) != ('OP.php') && basename($reply) != ('info.php') && basename($reply) != ('bumped.php')) {
-							$replies[] = basename($reply, '.php');
+					//file in folder is numeric = reply
+					if (is_numeric(basename($reply, '.php'))) {
+						$replies[] = basename($reply, '.php');
 					}
 				}
 			$total_replies = count($replies);
@@ -230,7 +231,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			//SORTING
 				$replies = [];
 				foreach ($replies_full as $reply) {
-					if (basename($reply) != ('OP.php') && basename($reply) != ('info.php') && basename($reply) != ('bumped.php')) {
+					if (is_numeric(basename($reply, '.php'))) {
 						$replies[] = basename($reply, '.php');
 					}
 				}

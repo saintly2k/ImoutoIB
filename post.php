@@ -7,12 +7,6 @@ require dirname(__FILE__) . '/require.php';
 	$post_board = phpClean($_POST['board']);
 	$post_name = phpClean($_POST['name']);
 
-	if ($_POST['password'] == '') {
-		$post_password = 'empty'; //this cant be achieved when deleting by writing "empty" as it will give an md5 instead
-	} else {
-		$post_password = md5(phpClean($_POST['password'])); //not secure, but quick for this purpose
-	}
-
 	if ($disable_email !== true) {
 		$post_email = phpClean($_POST['email']);
 	} else { 
@@ -251,7 +245,7 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 		$replies_ = glob(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . "/*");
 		$reply_counter = 0;
 		foreach ($replies_ as $reply) {
-			if (basename($reply) != ('OP.php') && basename($reply) != ('info.php') && basename($reply) != ('bumped.php')) {
+			if (is_numeric(basename($reply, '.php'))) {
 				$reply_counter += 1;
 			}
 		}

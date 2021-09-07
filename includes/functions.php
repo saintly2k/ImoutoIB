@@ -162,7 +162,7 @@ function UpdateOP($database_folder, $board, $thread, $page, $replies, $bumped, $
 
 }
 
-function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $fileonly = false) {
+function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $fileonly = false, $secure_hash) {
 
 	//wip
 	//add moderator checks to bypass pw check later
@@ -175,7 +175,7 @@ function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $
 		include __dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/OP.php';
 
 		//CHECK PASSWORD
-		if (md5(phpClean($_POST['password'])) != $op_password) {
+		if (crypt(htmlspecialchars($_POST['password']), $secure_hash) != $op_password) {
 			error('Wrong password...');
 		}
 		if ($fileonly == true) {
@@ -183,35 +183,84 @@ function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $
 				error ('Thread has no file.');
 			}
 
-			if ($op_file[0][0] = 'image') {
-				//delete thumb
-				//delete file
+			if ($op_file[0][0] == 'image') { //add or video here too if thumbnailing video function is made, prob wont.
+				unlink(__dir__ . '/../' . $uploads_folder . '/' . $board . '/' . $op_file[0][1]); //delete file
+				unlink(__dir__ . '/../' . $uploads_folder . '/' . $board . '/' . $op_file[0][6]); //delete thumb
+			} else {
+				unlink(__dir__ . '/../' . $uploads_folder . '/' . $board . '/' . $op_file[0][1]); //delete file
 			}
+			$op_info = file_get_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/OP.php');
+			$op_info = preg_replace('/\$op_file = .+"\) \);/i', '$op_file = array( array("deleted") );', $op_info);
+			file_put_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/OP.php', $op_info);
+			error('File deleted.');
+		} else {
 
-			//change OP info to file00 = deleted (fileget, change, fileput)
-			error('rest not coded');
+
+			$replies_ = glob(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . "/*");
+			var_dump($replies_);
+			foreach ($replies_ as $reply) {
+				if (is_numeric(basename($reply, '.php'))) {
+					include $reply;
+					if ($reply_file[0][0] == 'image') { //add or video here too if thumbnailing video function is made, prob wont.
+						unlink(__dir__ . '/../' . $uploads_folder . '/' . $board . '/' . $reply_file[0][1]); //delete file
+						unlink(__dir__ . '/../' . $uploads_folder . '/' . $board . '/' . $reply_file[0][6]); //delete thumb
+					} elseif ($reply_file[0][0] != '' && $reply_file[0][0] != 'deleted') {
+						unlink(__dir__ . '/../' . $uploads_folder . '/' . $board . '/' . $reply_file[0][1]); //delete file
+					}
+					$reply_file[0][0] = ""; //reset for next iteration in case is not set for some reason
+					unlink($reply); //delete post
+				}
+			}
+			//DELETE ALL CONTENT IN FOLDER (for each file in folder, unlink), info.php, op.php, etc
+			$files_ = glob(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . "/*");
+			foreach ($files_ as $file) {
+				unlink($file);
+			}
+			//DELETE FOLDER 	(unfortunately no way to delete folder with all files in)
+			rmdir(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread);
+			
+			//success!
+			error('Thread and all its content has been deleted!');
 		}
-		//else
-			//DELETE ALL FILES IN ALL REPLIES OF THREAD (for each #.php, read, if exist delete)
-			//delete whole folder with replies
-		}
+
+	}
 
 	if ($thread != $post) { // IF REPLY
 		if (!file_exists(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/' . $post . '.php')) {
 			error('Deletion logic set to reply, but specified reply does not exist in this thread.');
 		}
 		include __dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/' . $post . '.php';
-		if (md5(phpClean($_POST['password'])) != $reply_password) {
+		if (crypt(htmlspecialchars($_POST['password']), $secure_hash) != $reply_password) {
 			error('Wrong password...');
-		} else {
-			error('Correct password. Rest not coded yet.'); //just testing
 		}
 
-		//if fileonly
-			//find file, delete file, open postinfo for thread/post, set to file deleted
-		//else
-			//delete file in array if exists, delete reply
+		//delete files if exist.
+		//if file only is true and no file:
+		if ($fileonly == true) {
+			if ($reply_file[0][0] == '' || $reply_file[0][0] == 'deleted') {
+				error ('Post has no file.');
+			}
+		}
+		//delete files
 
+		if ($reply_file[0][0] == 'image') { //add or video here too if thumbnailing video function is made, prob wont.
+			unlink(__dir__ . '/../' . $uploads_folder . '/' . $board . '/' . $reply_file[0][1]); //delete file
+			unlink(__dir__ . '/../' . $uploads_folder . '/' . $board . '/' . $reply_file[0][6]); //delete thumb
+		} elseif ($reply_file[0][0] != '' && $reply_file[0][0] != 'deleted') {
+			unlink(__dir__ . '/../' . $uploads_folder . '/' . $board . '/' . $reply_file[0][1]); //delete file
+		}
+
+		//save file deletion if file only
+		if ($fileonly == true) {
+		$reply_info = file_get_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/' . $post . '.php');
+		$reply_info = preg_replace('/\$reply_file = .+"\) \);/i', '$reply_file = array( array("deleted") );', $reply_info);
+		file_put_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/' . $post . '.php', $reply_info);
+		error('File deleted.');
+		}
+
+		//delete reply if not fileonly
+		unlink(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/' . $post . '.php'); //delete post
+		error('Post and file deleted.');
 	}
 
 	error('This shouldnt happen...');
