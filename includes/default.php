@@ -35,6 +35,7 @@ $thumb_spoiler = 'spoiler.png';
 $thumb_audio = 'audio.png';
 $thumb_video = 'video.png';
 $thumb_download = 'download.png';
+$thumb_deleted = 'deleted.png';
 $spoiler_enabled = true;
 
 $thumbnail_bg_red = 255;  //rgb - yotsuba default, 238,242,255 for yotsuba b.

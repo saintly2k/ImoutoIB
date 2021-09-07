@@ -67,6 +67,10 @@ div.file-info a {
 	text-decoration: underline;
 }
 
+div.post.reply .post-file .file-info {
+    margin-left: 5px;
+}
+
 div.container {
 	display: table;
 	width: 100%;

@@ -48,13 +48,13 @@ if (!in_Array($delrep_board, $config['boardlist'])) {
 //DOES REPLY EXIST
 if ($delrep_reply != $delrep_thread) {
 	if (isset($delrep_reply) && (!file_exists($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/' . $delrep_reply . '.php'))) {
-		echo 'Reply ' . $delrep_reply . 'does not exist.';
+		echo 'Reply ' . $delrep_reply . ' does not exist.';
 		exit();
 	}
 }
 //DOES THREAD EXIST?
 if (isset($delrep_thread) && (!file_exists($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/OP.php'))) {
-		echo 'Thread ' . $delrep_thread . 'does not exist.';
+		echo 'Thread ' . $delrep_thread . ' does not exist.';
 		exit();
 }
 
@@ -64,9 +64,9 @@ if (isset($delrep_thread) && (!file_exists($path . '/' . $database_folder . '/bo
 
 if (isset($_POST["delete"]) && $_POST["delete"] != "") {
 	if (isset($_POST['file'])) { //file only?
-		DeletePost($database_folder, $uploads_folder, $delrep_board, $delrep_thread, $delrep_reply, true);
+		DeletePost($database_folder, $uploads_folder, $delrep_board, $delrep_thread, $delrep_reply, true, $secure_hash);
 	} else {
-		DeletePost($database_folder, $uploads_folder, $delrep_board, $delrep_thread, $delrep_reply, false);
+		DeletePost($database_folder, $uploads_folder, $delrep_board, $delrep_thread, $delrep_reply, false, $secure_hash);
 	}
 }
 
