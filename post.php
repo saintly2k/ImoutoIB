@@ -6,6 +6,13 @@ require dirname(__FILE__) . '/require.php';
 //POST FIELDS
 	$post_board = phpClean($_POST['board']);
 	$post_name = phpClean($_POST['name']);
+
+	if ($_POST['password'] == '') {
+		$post_password = 'empty'; //this cant be achieved when deleting by writing "empty" as it will give an md5 instead
+	} else {
+		$post_password = md5(phpClean($_POST['password'])); //not secure, but quick for this purpose
+	}
+
 	if ($disable_email !== true) {
 		$post_email = phpClean($_POST['email']);
 	} else { 

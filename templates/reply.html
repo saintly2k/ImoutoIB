@@ -12,7 +12,9 @@
 				if ($reply_email == "sage") {
 					echo 'Heaven';
 				} else {
-					$reply_id = crypt($reply_ip, $post_number_op . $post_number_op . $post_number_op . $post_number_op);
+					$idhash = md5($current_board . $post_number_op);
+					$reply_id = crypt($reply_ip, $idhash);
+					$reply_id = preg_replace("/\./", "", $reply_id);
 					echo substr($reply_id, -8);
 				}
 				echo '</span>';

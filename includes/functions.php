@@ -162,8 +162,65 @@ function UpdateOP($database_folder, $board, $thread, $page, $replies, $bumped, $
 
 }
 
-//https://stackoverflow.com/a/18568222
+function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $fileonly = false) {
 
+	//wip
+	//add moderator checks to bypass pw check later
+
+	if ($thread == $post) { // IF THREAD
+		//IF THREAD EXISTS
+		if (!file_exists(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread)) {
+			error('Deletion logic set to thread, but thread does not exist.');
+		}
+		include __dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/OP.php';
+
+		//CHECK PASSWORD
+		if (md5(phpClean($_POST['password'])) != $op_password) {
+			error('Wrong password...');
+		}
+		if ($fileonly == true) {
+			if ($op_file[0][0] == '' || $op_file[0][0] == 'deleted') {
+				error ('Thread has no file.');
+			}
+
+			if ($op_file[0][0] = 'image') {
+				//delete thumb
+				//delete file
+			}
+
+			//change OP info to file00 = deleted (fileget, change, fileput)
+			error('rest not coded');
+		}
+		//else
+			//DELETE ALL FILES IN ALL REPLIES OF THREAD (for each #.php, read, if exist delete)
+			//delete whole folder with replies
+		}
+
+	if ($thread != $post) { // IF REPLY
+		if (!file_exists(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/' . $post . '.php')) {
+			error('Deletion logic set to reply, but specified reply does not exist in this thread.');
+		}
+		include __dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/' . $post . '.php';
+		if (md5(phpClean($_POST['password'])) != $reply_password) {
+			error('Wrong password...');
+		} else {
+			error('Correct password. Rest not coded yet.'); //just testing
+		}
+
+		//if fileonly
+			//find file, delete file, open postinfo for thread/post, set to file deleted
+		//else
+			//delete file in array if exists, delete reply
+
+	}
+
+	error('This shouldnt happen...');
+}
+
+
+
+
+//https://stackoverflow.com/a/18568222
 function getTotalSize($dir)
 {
     $dir = rtrim(str_replace('\\', '/', $dir), '/');

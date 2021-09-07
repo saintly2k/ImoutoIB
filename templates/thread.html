@@ -88,7 +88,9 @@
 				if ($op_email == "sage") {
 					echo 'Heaven';
 				} else {
-					$op_id = crypt($op_ip,  $post_number_op . $post_number_op . $post_number_op . $post_number_op);
+					$idhash = md5($current_board . $post_number_op);
+					$op_id = crypt($op_ip, $idhash);
+					$op_id = preg_replace("/\./", "", $op_id);
 					echo substr($op_id, -8);
 				}
 				echo '</span>';
@@ -115,6 +117,7 @@
 					    	<tbody>
 					    		<input type="hidden" name="board" value="' . $current_board . '"/>
 					    		<input type="hidden" name="thread" value="' . $post_number_op . '"/>
+					    		<input type="hidden" name="reply" value="' . $post_number_op . '"/>
 					    		<tr>
 									<td><input type="password" id="password_' . $post_number_op . '" name="password" maxlength="256" placeholder="Password"></td>
 									<td><input type="submit" name="delete" value="Delete"></td>

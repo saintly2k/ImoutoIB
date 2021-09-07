@@ -1,5 +1,7 @@
 DirectoryIndex main.php
 
+Options -Indexes 
+
 # temporary
 <IfModule mod_headers.c>
 	Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains"
