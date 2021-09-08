@@ -42,6 +42,10 @@ $thumb_download = 'download.png';
 $thumb_deleted = 'deleted.png';
 $spoiler_enabled = true;
 
+$icon_locked = 'lock.png';
+$icon_autosage = 'anchor.png';
+$icon_sticky = 'pin.png';
+
 $thumbnail_bg_red = 255;  //rgb - yotsuba default, 238,242,255 for yotsuba b.
 $thumbnail_bg_green = 255;  //can probably make a toggle for transparent png thumbnails
 $thumbnail_bg_blue = 238; //for those who dont mind bandwidth

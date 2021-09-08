@@ -88,10 +88,27 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 		}
 
 		include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/threads.php';
+		
+		//put stickies up front (not doing this in the saved list, if wanna have frontpage with recent threads)
 
-		//show max threads only
-		//if page = 1
-		$pages = '';
+		$original_list = $threads;
+		$filter = "1";
+		$stick_ = array_filter($threads, function($var) use ($filter){ //get all sticky threads
+    	return ($var['sticky'] == $filter);
+		});
+		
+		$count_stickied_threads = count($stick_);
+
+		if ($count_stickied_threads > 0) {
+			$keys_ = array_column($original_list, 'sticky');
+			array_multisort($keys_, SORT_DESC, $original_list); //sort by sticky
+			$stickied_threads = array_slice($original_list, 0, $count_stickied_threads); //this can be sorted again by oldest vs newest? i think is fine like this tho
+
+			$not_sticky_threads = array_slice($original_list, $count_stickied_threads); //get non stickies, then we sort them by bumped
+			$keys_ = array_column($not_sticky_threads, 'bumped');
+			array_multisort($keys_, SORT_DESC, $not_sticky_threads); //sort by bumped
+			$threads = array_merge($stickied_threads, $not_sticky_threads);
+		}
 
 		if (count($threads) > $threads_page) {
 			$total_threads = count($threads);

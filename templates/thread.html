@@ -103,11 +103,14 @@
 		<span class="post-number"><a name="<?php echo $post_number_op; ?>" href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>">No.</a><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>"><?php echo $post_number_op; ?></a></span>
 
 		<?php 
-		if ($info_locked == 1) {
-			echo '<span title="Locked." class="icon"><img src="'. $prefix_folder .'/assets/img/locked.gif"/></span>';
-		}
 		if ($info_sticky == 1) {
-			echo '<span title="Pinned." class="icon"><img src="'. $prefix_folder .'/assets/img/sticky.gif"/></span>';
+			echo '<span title="Sticky" class="icon"><img src="'. $prefix_folder .'/assets/img/' . $icon_sticky . '"/></span>';
+		}
+		if ($info_locked == 1) {
+			echo '<span title="Locked" class="icon"><img src="'. $prefix_folder .'/assets/img/' . $icon_locked . '"/></span>';
+		}
+		if ($info_autosage == 1) {
+			echo '<span title="Autosage" class="icon"><img src="'. $prefix_folder .'/assets/img/' . $icon_autosage . '"/></span>';
 		}
 		?>
 
@@ -160,6 +163,7 @@
 
 <?php 
 //reset stuff
-$info_locked = false;
-$info_sticky = false;
+$info_locked = 0;
+$info_sticky = 0;
+$info_autosage = 0;
 ?>
