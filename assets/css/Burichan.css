@@ -71,3 +71,8 @@ html[data-stylesheet="Burichan"] .pager a {
 html[data-stylesheet="Burichan"] .pager a:hover {
   color: #d00!important;
 }
+
+html[data-stylesheet="Burichan"] .pager {
+  border: none;
+  background: none;
+}

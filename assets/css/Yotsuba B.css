@@ -146,6 +146,30 @@ div#boardlist {
 	margin-left: 4px;
 }
 
+hr.footer.static {
+	width: 752px;
+	margin-bottom: 0;
+	border-color: #000;
+}
+
+div.static.footer ul {
+	list-style: none;
+	display: table;
+	margin: auto;
+}
+
+.static.footer li {
+	float: left;
+	padding: 2px 15px;
+	background: #eef2ff;
+	border-bottom: 1px solid;
+	border-right: 1px solid;
+}
+
+.static.footer li:first-child {
+	border-left: 1px solid;
+}
+
 table#boards {
 	width: 100%;
 }
@@ -363,6 +387,21 @@ div.post details table {
 	border: 1px solid #b7c5d9;
 }
 
-.pager a {
+.pager a, .static.footer ul li a {
 	color: inherit!important;
+}
+
+.static.footer ul li a:hover {
+	color: red!important;
+}
+
+.pager form {
+    height: 5px;
+}
+
+.pager {
+	background: #d6daf0;
+	padding: 4px;
+	border-right: 1px solid #b7c5d9;
+	border-bottom: 1px solid #b7c5d9;
 }

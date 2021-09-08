@@ -51,6 +51,14 @@ html[data-stylesheet="Yotsuba"] div.main.first {
   color: #000;
 }
 
+html[data-stylesheet="Yotsuba"] hr.footer.static {
+  border-color: #800;
+}
+
+html[data-stylesheet="Yotsuba"] .static.footer li {
+  background: #fed;
+}
+
 html[data-stylesheet="Yotsuba"] hr {
   border-color: #800;
 }
@@ -75,4 +83,9 @@ html[data-stylesheet="Yotsuba"] div.post-arrows {
 html[data-stylesheet="Yotsuba"] div.post details table {
   background: #f0e0d6;
   border: 1px solid #d9bfb7;
+}
+
+html[data-stylesheet="Yotsuba"] .float-left.pager {
+  background: #f0e0d6;
+  border-color: #d9bfb7;
 }

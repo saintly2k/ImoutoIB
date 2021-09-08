@@ -131,6 +131,16 @@ html[data-stylesheet="Sankarea"] div.main, html[data-stylesheet="Sankarea"] div.
   border-radius: 0;
 }
 
+html[data-stylesheet="Sankarea"] .static.footer li:first-child {
+  border-left: 3px solid #aaa;
+}
+
+html[data-stylesheet="Sankarea"] .static.footer li {
+  background: #111;
+  border-bottom: 3px solid #aaa;
+  border-right: 3px solid #aaa;
+}
+
 html[data-stylesheet="Sankarea"] div.postingmode {
   background: none;
   color: #fff;
@@ -142,5 +152,7 @@ html[data-stylesheet="Sankarea"] div.post details table {
   border-radius: 0;
 }
 
-
-
+html[data-stylesheet="Sankarea"] .pager {
+  background: #000;
+  border: 3px solid #aaa;
+}

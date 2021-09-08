@@ -7,6 +7,7 @@ $main_file = 'main.php'; //leave empty if using handlers like apache to hide fil
 $post_file = 'post.php'; //i cant imagine any reason to change this, but i suppose it could be in a different folder if you want to
 
 $site_name = 'ImoutoIB';
+$site_slogan = 'As if it were written by a literal child.';
 $domain = '3dpd.moe'; //MUST BE SET FOR COOKIES
 $captcha_required = true; //there is no anti-flood setting so you really should...
 $boardlist = "title"; //"url" for a shortening boardlist.

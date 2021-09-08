@@ -28,6 +28,10 @@ if (isset($current_board) && $current_board != '') {
 		echo 'if (localStorage.theme !== undefined) {';
 		echo 'document.documentElement.setAttribute("data-stylesheet", localStorage.text_theme);';
 		echo '};';
+	} else {
+		echo 'if (localStorage.theme !== undefined) {';
+		echo 'document.documentElement.setAttribute("data-stylesheet", localStorage.theme);';
+		echo '};';		
 	}
 } else {
 	echo 'if (localStorage.theme !== undefined) {';

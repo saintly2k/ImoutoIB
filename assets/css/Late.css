@@ -63,6 +63,11 @@ html[data-stylesheet="Late"] div.main.first {
   color: #c5c8c6;
 }
 
+html[data-stylesheet="Late"] .static.footer li {
+  background: #282a2e;
+  border-color: #000!important;
+}
+
 html[data-stylesheet="Late"] hr {
   border-color: #282a2e;
 }
@@ -108,4 +113,10 @@ html[data-stylesheet="Late"] .post-time, html[data-stylesheet="Late"] .post-numb
 
 html[data-stylesheet="Late"] div.post-arrows {
   opacity: 0;
+}
+
+html[data-stylesheet="Late"] .pager {
+  background: #292929;
+  border: 2.5px solid #525252;
+  border-radius: 3px;
 }

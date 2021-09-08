@@ -54,6 +54,10 @@ html[data-stylesheet="Futaba"] div.main.first {
   color: #000;
 }
 
+html[data-stylesheet="Futaba"] .static.footer li {
+  background: #fed;
+}
+
 html[data-stylesheet="Futaba"] input[type="text"]:focus, html[data-stylesheet="Futaba"] input[type="password"]:focus, html[data-stylesheet="Futaba"] input:not([type]):focus, html[data-stylesheet="Futaba"] textarea:focus {
   border-color: #ea8;
 }
@@ -105,4 +109,9 @@ html[data-stylesheet="Futaba"] .pager a {
 
 html[data-stylesheet="Futaba"] .pager a:hover {
   color: #d00!important;
+}
+
+html[data-stylesheet="Futaba"] .pager {
+  border: none;
+  background: none;
 }
