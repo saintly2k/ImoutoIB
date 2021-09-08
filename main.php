@@ -114,7 +114,8 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			$end_ = min(($offset_ + $threads_page), $total_threads);
 
 			    // The "back" link
-    		$prevlink = ($number_page > 1) ? '<a href="' . $prefix_folder . '/?board=' . $current_board . '&page=' . ($number_page - 1) . '" title="Previous page">Previous</a>' : '<span class="disabled">Previous</span>';
+    		$prevlink = ($number_page > 1) ? '<form method="get"><button type="submit" value="' . $current_board . '" name="board">Previous</button>
+<input type="hidden" name="page" value="' . ($number_page - 1) . '"></form>' : '<span class="disabled">Previous</span>';
     		$all_pages = '';
 
     		for ($i = 0; $i < $pages; $i++) {
@@ -126,7 +127,8 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
     			}
     		}
 
-    		$nextlink = ($number_page < $pages) ? '<a href="' . $prefix_folder . '/?board=' . $current_board . '&page=' . ($number_page + 1) . '" title="Next page">Next</a>' : '<span class="disabled">Next</span>';
+    		$nextlink = ($number_page < $pages) ? '<form method="get"><button type="submit" value="' . $current_board . '" name="board">Next</button>
+<input type="hidden" name="page" value="' . ($number_page + 1) . '"></form>' : '<span class="disabled">Next</span>';
 
 			//page 1
 			if ($number_page == 1) {
@@ -208,7 +210,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"]) . '/info.php';
 			$post_number_op = htmlspecialchars($_GET["thread"]);
 			if ($op_subject == '') {
-				$title = '/' . $current_board . '/' . ' - ' . substr($op_body,0,30) . ' - ' . $config['boards'][$current_board]['title'] . ' - ' . $site_name;
+				$title = '/' . $current_board . '/' . ' - ' . substr(strip_tags($op_body),0,30) . ' - ' . $config['boards'][$current_board]['title'] . ' - ' . $site_name;
 			} else {
 				$title = '/' . $current_board . '/' . ' - ' . $op_subject . ' - ' . $config['boards'][$current_board]['title'] . ' - ' . $site_name;
 			}

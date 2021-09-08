@@ -64,6 +64,11 @@ html[data-stylesheet="Tomorrow"] div.main.first {
   color: #c5c8c6;
 }
 
+html[data-stylesheet="Tomorrow"] .static.footer li {
+  background: #282a2e;
+  border-color: #000!important;
+}
+
 html[data-stylesheet="Tomorrow"] hr {
   border-color: #282a2e;
 }
@@ -97,4 +102,17 @@ html[data-stylesheet="Tomorrow"] .post.reply {
 
 html[data-stylesheet="Tomorrow"] div.post-arrows {
   color: #c5c8c6;
+}
+
+html[data-stylesheet="Tomorrow"] .pager {
+  background: #282a2e;
+  border: 1px solid #000;
+}
+
+html[data-stylesheet="Tomorrow"] .pager a {
+  color: #81a2be!important;
+}
+
+html[data-stylesheet="Tomorrow"] .pager a:hover {
+  color: #5f89ac!important;
 }

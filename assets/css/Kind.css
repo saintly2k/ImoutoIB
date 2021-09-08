@@ -30,3 +30,9 @@ html[data-stylesheet="Kind"] div.post details table {
   background: #d7f0f5;
   border: 1px solid #000;
 }
+
+html[data-stylesheet="Kind"] .float-left.pager {
+  background: #d7f0f5;
+  border-color: #000;
+  border-top-right-radius: 6px;
+}

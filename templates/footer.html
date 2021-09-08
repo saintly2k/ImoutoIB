@@ -1,4 +1,22 @@
-<hr>
+<hr class="footer <?php if (!isset($current_board) || $current_board == '') { echo 'static'; } ?>">
+
+<?php
+	if (!isset($current_board) || $current_board == '') {
+		echo '<div class="static footer">';
+		echo '<ul>';
+		echo '<li><a href="#">Home</a></li>';
+		echo '<li><a href="#">News</a></li>';
+		echo '<li><a href="#">FAQ</a></li>';
+		echo '<li><a href="#">Rules</a></li>';
+		echo '<li><a href="#">Help</a></li>';
+		echo '<li><a href="#">About</a></li>';
+		echo '<li><a href="#">Contact</a></li>';
+		echo '<li><a href="#">Legal</a></li>';
+		echo '</ul>';
+		echo '</div>';
+	}
+
+?>
 
 <div class="abovefooter">
 	<?php 

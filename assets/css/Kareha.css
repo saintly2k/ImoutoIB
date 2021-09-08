@@ -112,5 +112,7 @@ html[data-stylesheet="Kareha"] div.post details table {
   border-radius: 8px;
 }
 
-
-
+html[data-stylesheet="Kareha"] .pager {
+    background: #efefef;
+    border: 1px solid #000;
+}

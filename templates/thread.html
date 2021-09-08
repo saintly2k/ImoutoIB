@@ -82,8 +82,8 @@
 	<div class="post-info">
 		<input type="checkbox" id="post_<?php echo $post_number_op; ?>" name="post_<?php echo $post_number_op; ?>" value="<?php echo $post_number_op; ?>">
 		<?php if ($op_subject != '') { echo '<span class="subject">' . $op_subject . '&nbsp;</span>'; }?>
-		<?php if (($op_email != '') && ($show_email != false)) { echo '<a href="mailto:' . $op_email . '">';}?><span class="<?php if(($op_email != '') && ($show_email != false)) { echo 'link '; } ?>name"><?php echo $op_name; ?></span>&nbsp;<?php if ($op_email != '') { echo '</a>'; }?>
-		<span class="post-time" data-timestamp="<?php echo $op_time;?>" data-tooltip="<?php echo timeConvert($op_time, $time_method_hover); ?>"><?php echo timeConvert($op_time, $time_method); ?>&nbsp;</span>
+		<?php if (($op_email != '') && ($show_email != false)) { echo '<a href="mailto:' . $op_email . '">';}?><span class="<?php if(($op_email != '') && ($show_email != false)) { echo 'link '; } ?>name"><?php echo $op_name; ?></span><?php if ($op_email != '') { echo '</a>'; }?>
+		<span class="post-time" data-timestamp="<?php echo $op_time;?>" data-tooltip="<?php echo timeConvert($op_time, $time_method_hover); ?>"><?php echo timeConvert($op_time, $time_method); ?></span>
 		
 		<?php
 			if ($display_id == true) {
