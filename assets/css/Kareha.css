@@ -21,7 +21,7 @@ html[data-stylesheet="Kareha"] div#boardlist a, html[data-stylesheet="Kareha"] a
   color: blue;
 }
 
-html[data-stylesheet="Kareha"] div.post img {
+html[data-stylesheet="Kareha"] div.post .post-image img {
   display: none;
 }
 

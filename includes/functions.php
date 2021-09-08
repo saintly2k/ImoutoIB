@@ -157,12 +157,15 @@ function PostSuccess($redirect = false, $auto = true) {
 	exit();
 }
 
-function UpdateOP($database_folder, $board, $thread, $page, $replies, $bumped, $uniqueids) {
+function UpdateOP($database_folder, $board, $thread, $page, $replies, $bumped, $uniqueids, $sticky = false, $locked = false, $autosage = false) {
 	$info_ = '<?php ';
 	$info_ .= '$info_page' . '=' . '""' . ';';
 	$info_ .= '$info_replies' . '=' . $replies . ';';
 	$info_ .= '$info_bumped' . '=' . $bumped . ';';
 	$info_ .= '$info_uniqueids' . '=' . $uniqueids . ';';
+	$info_ .= '$info_sticky' . '=' . $sticky . ';';
+	$info_ .= '$info_locked' . '=' . $locked . ';';
+	$info_ .= '$info_autosage' . '=' . $autosage . ';';
 	$info_ .= '?>';
 
 	file_put_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/' . 'info.php', $info_);
@@ -223,9 +226,13 @@ function UpdateThreads($database_folder, $board, $thread) {
 		if (file_exists(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . basename($thread_) . '/bumped.php')) {
 			$bumped = file_get_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . basename($thread_) . '/bumped.php');
 		}
+		$sticky = file_get_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . basename($thread_) . '/info.php');
+		$sticky = preg_match('/^.+info_sticky=1/i', $sticky);
+
 		$threads[$key] = [];
 		$threads[$key]['id'] = $threadz;
 		$threads[$key]['bumped'] = $bumped;
+		$threads[$key]['sticky'] = $sticky;
 	}
 	$keys_ = array_column($threads, 'bumped');
 	array_multisort($keys_, SORT_DESC, $threads);
@@ -236,6 +243,7 @@ function UpdateThreads($database_folder, $board, $thread) {
 	foreach ($threads as $key => $value) {
 		$threads_ .= '$threads["'.$key.'"]["id"] = "' . $threads[$key]['id'] . '";';
 		$threads_ .= '$threads["'.$key.'"]["bumped"] = "' . $threads[$key]['bumped'] . '";';
+		$threads_ .= '$threads["'.$key.'"]["sticky"] = "' . $threads[$key]['sticky'] . '";';
 	}
 	$threads_ .= ' ?>';
 

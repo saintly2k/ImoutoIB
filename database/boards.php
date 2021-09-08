@@ -26,7 +26,16 @@ $config['boards']['test'] = array(
 	'title' => 'test',
 	'description' => 'QA? I\'m not getting paid!!',
 	'locked' => 0,
-	'hidden' => 1,
+	'hidden' => 0,
+	'type' => 'img'
+);
+
+$config['boards']['fresh'] = array(
+	'url' => 'fresh',
+	'title' => 'fresh',
+	'description' => 'Checking board creation.',
+	'locked' => 1,
+	'hidden' => 0,
 	'type' => 'img'
 );
 

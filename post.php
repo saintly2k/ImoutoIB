@@ -191,7 +191,7 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 
 	//
 
-	UpdateOP($database_folder, $post_board, $current_count, 1, 0, $current_count, 1); //information about thread and replies
+	UpdateOP($database_folder, $post_board, $current_count, 1, 0, $current_count, 1, $info_sticky, $info_locked, $info_autosage); //information about thread and replies
 	UpdateThreads($database_folder, $post_board, $current_count); //update recents.php and board bumps.
 	UpdateRecents($database_folder, $post_board, $current_count, $recent_replies);
 	include __dir__ . '/includes/update-frontpage.php';
@@ -217,7 +217,7 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 			include __dir__ . '/includes/filehandler.php';
 			$newcount = $counter + 1;
 			//save it as last bumped if not sage tho
-			if (!isset($_POST['sage'])) {
+			if (!isset($_POST['sage']) && $info_autosage == 0) {
 			file_put_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . '/bumped.php', $counter);
 			}
 			//save it as last post number
@@ -267,7 +267,8 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 		$ip_counter = count(array_unique($ips_)); 
 
 
-		UpdateOP($database_folder, $post_board, $post_thread_number, 0, $reply_counter, $current_count, $ip_counter);
+		UpdateOP($database_folder, $post_board, $post_thread_number, 0, $reply_counter, $current_count, $ip_counter, $info_sticky, $info_locked, $info_autosage);
+		UpdateThreads($database_folder, $post_board, $current_count); //update recents.php and board bumps.
 		UpdateRecents($database_folder, $post_board, $post_thread_number, $recent_replies); //update recents.php and board bumps.
 		include __dir__ . '/includes/update-frontpage.php';
 		PostSuccess($prefix_folder . $main_file . '/?board=' . $post_board . '&thread=' . $post_thread_number . '#' . $current_count, true);

@@ -25,11 +25,14 @@ $op_file = '';
 $new_thumbname = '';
 $thmb_res = '';
 
-$info_locked = '';
-$info_sticky = '';
+$info_locked = 0;
+$info_sticky = 0;
+$info_autosage = 0;
 
 $frontpage_uniqueids = 0;
 $frontpage_active = 0;
+
+$pages = '';
 
 if ($config['generated_in'] === true) {
 	$start_time = microtime(true);

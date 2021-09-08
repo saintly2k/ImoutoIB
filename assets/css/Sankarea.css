@@ -45,7 +45,7 @@ html[data-stylesheet="Sankarea"] .link.name {
   color: #2e2eff;
 }
 
-html[data-stylesheet="Sankarea"] div.post img {
+html[data-stylesheet="Sankarea"] div.post .post-image img {
   display: none;
 }
 
