@@ -1,0 +1,62 @@
+.post.op {
+	overflow: hidden;
+	max-height: 255px;
+	max-width: 200px;
+	margin: auto;
+}
+
+.container {
+	display: table;
+	height: 280px!important;
+	width: 220px!important;
+	float: left;
+	background: #dde1f5;
+	padding: 10px;
+	margin: 20px;
+}
+
+.container:hover {
+    background: #d1d5ee;
+}
+
+.catalog-threads a {
+    color: inherit !important;
+}
+
+.catalog-footer {
+	width: 100%;
+	float: left;
+}
+
+.post-image img {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: contain;
+}
+
+div.post-image, div.post-file {
+    display: flex;
+    margin: 5px;
+    justify-content: center;
+}
+
+.stats {
+    width: 100%;
+    font-weight: bold;
+}
+
+.post-info {
+	float: left;
+	text-align: center;
+	width: 100%;
+}
+
+.post-content {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.code, .aa {
+	white-space: nowrap;
+}

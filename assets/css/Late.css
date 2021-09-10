@@ -120,3 +120,11 @@ html[data-stylesheet="Late"] .pager {
   border: 2.5px solid #525252;
   border-radius: 3px;
 }
+
+html[data-stylesheet="Late"] .catalog .container {
+  background: #292929;
+}
+
+html[data-stylesheet="Late"] .catalog .container:hover {
+    background: #353535;
+}

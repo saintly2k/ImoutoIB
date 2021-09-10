@@ -116,3 +116,11 @@ html[data-stylesheet="Tomorrow"] .pager a {
 html[data-stylesheet="Tomorrow"] .pager a:hover {
   color: #5f89ac!important;
 }
+
+html[data-stylesheet="Tomorrow"] .catalog .container {
+  background: #282a2e;
+}
+
+html[data-stylesheet="Tomorrow"] .catalog .container:hover {
+    background: #2c2e33;
+}
