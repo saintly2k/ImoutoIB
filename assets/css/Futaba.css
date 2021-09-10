@@ -115,3 +115,11 @@ html[data-stylesheet="Futaba"] .pager {
   border: none;
   background: none;
 }
+
+html[data-stylesheet="Futaba"] .catalog .container {
+  background: #fed;
+}
+
+html[data-stylesheet="Futaba"] .catalog .container:hover {
+    background: #fed6af;
+}

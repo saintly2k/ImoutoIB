@@ -36,3 +36,11 @@ html[data-stylesheet="Kind"] .float-left.pager {
   border-color: #000;
   border-top-right-radius: 6px;
 }
+
+html[data-stylesheet="Kind"] .catalog .container {
+  background: #D7F0F5;
+}
+
+html[data-stylesheet="Kind"] .catalog .container:hover {
+    background: #E0F3F7;
+}

@@ -37,7 +37,7 @@ if ((!isset($_GET["board"])) || ($_GET["board"] == '')) {
 	exit();
 }
 
-//ADD PAGES HERE
+//ADD STATIC PAGES HERE
 
 
 
@@ -49,6 +49,100 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 	$board_description = $config['boards'][$current_board]['description'];
 	$board_title = $config['boards'][$current_board]['title'];
 
+	if ($catalog_enable == true) {
+		//IF IMG CATALOG
+		if (htmlspecialchars($_GET["page"]) === "catalog") {
+			$current_page = "catalog";
+			$title = '/' . $current_board . '/ - ' . $config['boards'][$current_board]['title'] . ' - Catalog - ' . $site_name;
+
+			if (isset($_GET["theme"])) {
+				echo '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
+			} else {
+				echo '<html data-stylesheet="'. $current_theme .'">';	
+			}
+			echo '<head>';
+			echo '<link rel="stylesheet" type="text/css" href="' . $prefix_folder . '/assets/css/catalog.css">';
+			include $path . '/templates/header.html';
+			echo '</head>';
+			echo '<body class="' . $current_page . '">';
+			include $path . '/templates/boardlist.html';
+			include $path . '/templates/page-info.html';
+			if ($config['boards'][$current_board]['locked'] != 1) {
+			include $path . '/templates/post-form.html';
+			} else {
+				echo '<div class="blotter">This board is locked by the board owner.</div><hr>';
+			}
+			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
+			echo '[<a href="#bottom">Bottom</a>]&nbsp;';
+			echo '<hr>';
+			if (!file_exists(__dir__ . '/' . $database_folder . '/boards/' . $current_board)) {
+				echo 'This board has no threads yet.';
+				include $path . '/templates/footer.html';
+				exit();
+			}
+
+			if (file_get_contents(__dir__ . '/' . $database_folder . '/boards/' . $current_board . '/counter.php') === "1") {
+				echo 'This board has no threads yet.';
+				include $path . '/templates/footer.html';
+				exit();
+			}
+			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/threads.php';
+
+			//i should make this a function instead of reusing code, i'll do that later lol
+			$original_list = $threads;
+			$filter = "1";
+			$stick_ = array_filter($threads, function($var) use ($filter){ //get all sticky threads
+	    	return ($var['sticky'] == $filter);
+			});
+			
+			$count_stickied_threads = count($stick_);
+
+			if ($count_stickied_threads > 0) {
+				$keys_ = array_column($original_list, 'sticky');
+				array_multisort($keys_, SORT_DESC, $original_list); //sort by sticky
+				$stickied_threads = array_slice($original_list, 0, $count_stickied_threads); //this can be sorted again by oldest vs newest? i think is fine like this tho
+
+				$not_sticky_threads = array_slice($original_list, $count_stickied_threads); //get non stickies, then we sort them by bumped
+				$keys_ = array_column($not_sticky_threads, 'bumped');
+				array_multisort($keys_, SORT_DESC, $not_sticky_threads); //sort by bumped
+				$threads = array_merge($stickied_threads, $not_sticky_threads);
+			}
+
+			echo 'Displaying ' . count($threads) . ' threads in total.'; //maybe at some point add a limit to IB catalog, or just no thumbnails after 100 threads.
+			echo '<hr>';
+
+
+			echo '<div class="catalog-threads">';
+			foreach (array_keys($threads) as $key => $value) {
+				include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/OP.php';
+				include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/info.php';
+				include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/recents.php';
+				$post_number_op = $threads[$key]['id'];
+
+				echo '<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '">';
+				echo '<div data-thread="' . $post_number_op . '" class="container">';
+				include $path . '/templates/catalog-thread.html';
+			   	echo '</div>';
+			   	echo '</a>';
+		   	}
+		   	echo '</div>';
+
+		   	echo '<div class="catalog-footer">';
+			echo '<hr>';
+			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
+			echo '[<a href="#top">Top</a>]&nbsp;';
+			include $path . '/templates/footer.html';
+			echo '</div>';
+			echo '</body>';
+			echo '</html>';
+
+			exit();
+		}
+
+
+		//IF TXT CATALOG
+
+	}
 
 	//IF INDEX
 	if (htmlspecialchars($_GET["thread"]) === "") {
@@ -71,6 +165,11 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 	} else {
 		echo '<div class="blotter">This board is locked by the board owner.</div><hr>';
 	}
+
+	if ($catalog_enable == true) {
+		echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&page=catalog">Catalog</a>]&nbsp;';
+	}
+
 	echo '[<a href="#bottom">Bottom</a>]&nbsp;';
 	echo '<hr>';
 
@@ -113,7 +212,9 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 		if (count($threads) > $threads_page) {
 			$total_threads = count($threads);
 			$final_page_threads = $threads_page - ($total_threads % $threads_page); //how many to offset the arrayslice by for last page
-
+			if ($final_page_threads == 10) {
+				$final_page_threads = 0; //this is kinda silly xd, i could substr the line above but this looks more readable? idk
+			}
 			//create pages
 			$pages = ceil($total_threads / $threads_page) - 1;
 
@@ -186,6 +287,9 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 		    }
 	   	}
 	echo '<hr>';
+	if ($catalog_enable == true) {
+		echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&page=catalog">Catalog</a>]&nbsp;';
+	}
 	echo '[<a href="#top">Top</a>]&nbsp;';
 	include $path . '/templates/footer.html';
 	echo '</body>';
@@ -241,7 +345,11 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			include $path . '/templates/post-form.html';
 			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . "/info.php";
 			$thread_stats = '<span class="thread-stats">Replies: ' . $info_replies . ' Posters: ' . $info_uniqueids . '</span>';
-			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;[<a href="#bottom">Bottom</a>]&nbsp;';
+			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
+			if ($catalog_enable == true) {
+				echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&page=catalog">Catalog</a>]&nbsp;';
+			}
+			echo '[<a href="#bottom">Bottom</a>]&nbsp;';
 			echo $thread_stats;
 			echo '<hr>';
 	
@@ -273,7 +381,11 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 		   	echo '</div>'; //end thread
 
 			echo '<hr>';
-			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;[<a href="#top">Top</a>]&nbsp;';
+			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
+			if ($catalog_enable == true) {
+				echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&page=catalog">Catalog</a>]&nbsp;';
+			}
+			echo '[<a href="#top">Top</a>]&nbsp;';
 			echo $thread_stats;
 			include $path . '/templates/footer.html';
 			echo '</body>';

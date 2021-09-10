@@ -89,3 +89,11 @@ html[data-stylesheet="Yotsuba"] .float-left.pager {
   background: #f0e0d6;
   border-color: #d9bfb7;
 }
+
+html[data-stylesheet="Yotsuba"] .catalog .container {
+  background: #fed;
+}
+
+html[data-stylesheet="Yotsuba"] .catalog .container:hover {
+    background: #fed6af;
+}

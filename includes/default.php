@@ -22,6 +22,8 @@ $default_name = 'Anonymous';
 
 $display_id = true;
 
+$catalog_enable = true;
+
 $disable_email = false; //Disables the email field. Checkboxes will still work.
 $show_email = true; //shows email in post name
 
@@ -93,6 +95,8 @@ $config['css'][] = 'Yotsuba';
 $config['css'][] = 'Burichan';
 $config['css'][] = 'Futaba';
 
+$config['css'][] = 'Cyanide';
+
 $config['css'][] = 'Tomorrow';
 $config['css'][] = 'Late';
 $config['css'][] = 'Kind';
@@ -107,7 +111,7 @@ $config['css_text'][] = 'Kareha';
 $config['css_text'][] = 'Sankarea';
 
 
-$default_theme = 'Futaba';
+$default_theme = 'Yotsuba';
 $default_text_theme = 'Kareha';
 
 // JAVASCRIPTS

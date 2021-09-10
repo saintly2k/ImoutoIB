@@ -1,0 +1,93 @@
+<div class="thread <?php echo $post_number_op ?>">
+
+	<span class="icons">
+	<?php 
+	if ($info_sticky == 1) {
+		echo '<span title="Sticky" class="icon"><img width="16px" height="16px" src="'. $prefix_folder .'/assets/img/' . $icon_sticky . '"/></span>';
+	}
+	if ($info_locked == 1) {
+		echo '<span title="Locked" class="icon"><img width="16px" height="16px" src="'. $prefix_folder .'/assets/img/' . $icon_locked . '"/></span>';
+	}
+	if ($info_autosage == 1) {
+		echo '<span title="Autosage" class="icon"><img width="16px" height="16px" src="'. $prefix_folder .'/assets/img/' . $icon_autosage . '"/></span>';
+	}
+	?>
+	</span>
+
+<div class="post op <?php echo $post_number_op ?>" data-postid="<?php echo $post_number_op; ?>">
+	<?php 
+	if ($op_file[0][0] == "deleted") {
+		echo '<div class="post-file"><img class="file-deleted" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_deleted . '"/></div>';
+	}
+	elseif ($op_file[0][0] != '') {
+		
+			echo '<div class="post-file">';
+				if ($op_file[0][0] == 'image') {
+				echo '<div class="post-image">';
+
+						$thmb_width = preg_replace('/x[^x]*$/', '', $op_file[0][7]);
+						$thmb_height = preg_replace('/^[^x]*x/', '', $op_file[0][7]);
+						$full_width = preg_replace('/x[^x]*$/', '', $op_file[0][3]);
+						$full_height = preg_replace('/^[^x]*x/', '', $op_file[0][3]);
+
+						if ($op_file[0][5] != "1") {
+						echo '<img id="'.$post_number_op.'" class="thumb" width="'.$thmb_width.'" height="'.$thmb_height.'" src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][6] . '"/>';
+						} else {
+						echo '<img id="'.$post_number_op.'" class="thumb" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_spoiler . '"/>';
+						}
+
+				echo '</div>';
+				}
+				if ($op_file[0][0] == 'audio') {
+					echo '<div class="post-image">';
+					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_audio . '"/>';
+					echo '</div>';
+				}
+				if ($op_file[0][0] == 'video') {
+					echo '<div class="post-image">';
+					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_video . '"/>';
+					echo '</div>';
+				}
+				if ($op_file[0][0] == 'download') {
+					echo '<div class="post-image">';
+					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_download . '"/>';
+					echo '</div>';
+				}				
+			echo '</div>';
+		}
+		
+
+		//reset files
+		$op_file = false;
+	
+	?>
+	<div class="post-info" data-tooltip="<?php echo timeConvert($op_time, $time_method_hover); ?>"><?php if ($op_subject != '') { echo '<span class="subject">' . $op_subject . '</span><br>'; }?><?php if (($op_email != '') && ($show_email != false)) { echo '<a href="mailto:' . $op_email . '">';}?><span class="<?php if(($op_email != '') && ($show_email != false)) { echo 'link '; } ?>name"><?php echo $op_name; ?></span><?php if ($op_email != '') { echo '</a>'; }?></div>
+
+	<div class="stats">
+		<?php
+			echo 'Replies: ' . $info_replies . ' Posters: ' . $info_uniqueids;
+		?>
+	</div>
+
+	<blockquote class="post-content">
+		<?php echo $op_body; ?>
+	<?php 
+		if (($current_page == 'index') && ($replies_omitted > 1)) {
+		echo '<br><br><div class="omitted"> ' . $replies_omitted . ' Replies omitted. Click <a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op . '">here</a> to view.</div>'; 
+		} elseif (($current_page == 'index') && ($replies_omitted > 0)) { 
+		echo '<br><br><div class="omitted"> ' . $replies_omitted . ' Reply omitted. Click <a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op . '">here</a> to view.</div>'; 
+		}
+	?>
+	</blockquote>
+
+</div>
+
+
+</div>
+
+<?php 
+//reset stuff
+$info_locked = 0;
+$info_sticky = 0;
+$info_autosage = 0;
+?>

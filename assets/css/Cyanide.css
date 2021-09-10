@@ -1,0 +1,118 @@
+html[data-stylesheet="Cyanide"] body {
+  background: #001 url('img/fade-cyanide.png') top center repeat-x;
+  color: #7FF;
+}
+
+html[data-stylesheet="Cyanide"] div#post-form th {
+  background-color: #157;
+  color: #7FF;
+  font-weight: 700;
+  border: 1px solid #7FF;
+}
+
+html[data-stylesheet="Cyanide"] span.subject {
+  color: red;
+}
+html[data-stylesheet="Cyanide"] a, html[data-stylesheet="Cyanide"] a:visited {
+  color: #ff1;
+}
+
+html[data-stylesheet="Cyanide"] span.name {
+	color: #ee88bc;
+}
+
+html[data-stylesheet="Cyanide"] .code {
+  background: #000;
+  color: #fff;
+}
+
+html[data-stylesheet="Cyanide"] span.link.name {
+  color: #ff1;
+}
+
+html[data-stylesheet="Cyanide"] div.main a, html[data-stylesheet="Cyanide"] #boardlist a {
+  color: #7FF;
+}
+
+html[data-stylesheet="Cyanide"] a:hover, html[data-stylesheet="Cyanide"] a span.link.name:hover, html[data-stylesheet="Cyanide"] .post-number a:hover, html[data-stylesheet="Cyanide"] #boardlist a:hover {
+  color: #2ff;
+}
+
+html[data-stylesheet="Cyanide"] div.main {
+	background: #000;
+  border-color: #7FF;
+}
+
+html[data-stylesheet="Cyanide"] img#captcha, html[data-stylesheet="Cyanide"] input, html[data-stylesheet="Cyanide"] textarea, html[data-stylesheet="Cyanide"] .page-info, html[data-stylesheet="Cyanide"] [data-tooltip]::before, html[data-stylesheet="Cyanide"] [data-tooltip]::after {
+  filter: invert(100%);
+}
+
+html[data-stylesheet="Cyanide"] input[type="file"] {
+	color: #800;
+}
+
+html[data-stylesheet="Cyanide"] div.main h2 {
+  background: #035;
+  color: #7FF;
+}
+
+html[data-stylesheet="Cyanide"] div.main a:hover {
+  color: red;
+  text-decoration: underline;
+}
+
+html[data-stylesheet="Cyanide"] div.main.first h2 {
+  background: #7FF;
+  color: #000;
+}
+
+html[data-stylesheet="Cyanide"] div.main.first {
+  color: #FFF;
+}
+
+html[data-stylesheet="Cyanide"] hr.footer.static {
+  border-color: #7FF;
+}
+
+html[data-stylesheet="Cyanide"] .static.footer li {
+  background: #012;
+}
+
+html[data-stylesheet="Cyanide"] hr {
+  border-color: #7FF;
+}
+
+html[data-stylesheet="Cyanide"] input[type="text"]:focus, html[data-stylesheet="Cyanide"] input[type="password"]:focus, html[data-stylesheet="Cyanide"] input:not([type]):focus, html[data-stylesheet="Cyanide"] textarea:focus {
+  border-color: #157;
+}
+
+html[data-stylesheet="Cyanide"] .post-number a {
+  color: #7FF;
+}
+
+html[data-stylesheet="Cyanide"] .post.reply {
+  background: #0f1f29;
+  border-color: #264048;
+}
+
+html[data-stylesheet="Cyanide"] div.post-arrows {
+  color: #1f4048;
+}
+
+html[data-stylesheet="Cyanide"] div.post details table {
+  background: #0f1f29;
+  border: 1px solid #264048;
+}
+
+html[data-stylesheet="Cyanide"] .float-left.pager {
+  background: #0f1f29;
+  border-color: #264048;
+}
+
+html[data-stylesheet="Cyanide"] .catalog .container {
+  background: #0f1f29;
+}
+
+html[data-stylesheet="Cyanide"] .catalog .container:hover {
+    background: #264048;
+}
