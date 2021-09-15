@@ -42,6 +42,10 @@ html[data-stylesheet="Kareha"] div.post.reply {
   border: none;
 }
 
+html[data-stylesheet="Kareha"] div.file-info.deleted {
+  display: block;
+}
+
 html[data-stylesheet="Kareha"] .post-arrows {
   display:none;
 }
