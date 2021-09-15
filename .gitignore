@@ -3,5 +3,6 @@ uploads/*
 database/boards/*
 database/reports/*
 database/reportsglobal/*
+database/users/*
 database/frontpage.php
 *config.php

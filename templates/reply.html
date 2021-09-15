@@ -53,7 +53,7 @@
 	<?php 
 
 	if ($reply_file[0][0] == "deleted") {
-		echo '<div class="post-file"><div class="file-info">File Deleted</div><div class="post-image"><img class="file-deleted" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_deleted . '"/></div></div>';
+		echo '<div class="post-file"><div class="file-info deleted">File Deleted</div><div class="post-image"><img class="file-deleted" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_deleted . '"/></div></div>';
 	}
 	elseif ($reply_file[0][0] != '') {
 		

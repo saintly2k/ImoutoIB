@@ -59,4 +59,7 @@ div.post-image, div.post-file {
 
 .code, .aa {
 	white-space: nowrap;
+	text-align: left !important;
+	width: 100%;
+	display: block;
 }

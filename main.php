@@ -216,7 +216,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 				$final_page_threads = 0; //this is kinda silly xd, i could substr the line above but this looks more readable? idk
 			}
 			//create pages
-			$pages = ceil($total_threads / $threads_page) - 1;
+			$pages = ceil($total_threads / $threads_page);
 
 			if ($_GET['page'] == '') {
 			$number_page = 1;

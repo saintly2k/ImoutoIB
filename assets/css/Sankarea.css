@@ -36,6 +36,10 @@ html[data-stylesheet="Sankarea"] div.file-info a {
   color: #fff;
 }
 
+html[data-stylesheet="Sankarea"] div.file-info.deleted {
+  display: block;
+}
+
 html[data-stylesheet="Sankarea"] div#boardlist a:hover, html[data-stylesheet="Sankarea"] a:hover, html[data-stylesheet="Sankarea"] div.file-info a:hover {
   color: #66f;
   text-decoration: underline;

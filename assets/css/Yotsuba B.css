@@ -67,6 +67,10 @@ div.file-info a {
 	text-decoration: underline;
 }
 
+div.file-info.deleted {
+	display: none;
+}
+
 div.post.reply .post-file .file-info {
     margin-left: 5px;
 }
@@ -385,6 +389,7 @@ div.post details table {
 	position: absolute;
 	background: #d6daf0;
 	border: 1px solid #b7c5d9;
+	z-index: 1;
 }
 
 .pager a, .static.footer ul li a {
