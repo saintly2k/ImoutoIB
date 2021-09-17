@@ -8,7 +8,7 @@ require dirname(__FILE__) . '/require.php';
 	$post_name = phpClean($_POST['name']);
 
 	if ($disable_email !== true) {
-		$post_email = phpClean($_POST['email']);
+		$post_email = phpClean($_POST['link']);
 	} else { 
 		$post_email = '';
 	}
@@ -123,6 +123,9 @@ if (strlen($post_email) > 256) {
 }
 if (strlen($post_subject) > 256) {
 	error('Subject too long. Max 256.');
+}
+if (strlen($post_password) > 256) {
+	error('Password too long. Max 256.');
 }
 
 //IF NEW THREAD

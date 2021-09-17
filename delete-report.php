@@ -39,6 +39,10 @@ if (isset($_POST["global"])) {
 	$report_global = phpClean($_POST["global"]);
 }
 
+if (ctype_alnum($delrep_board) != true || ctype_alnum($delrep_thread) != true || ctype_alnum($delrep_reply) != true) {
+	error('Invalid board, thread, or reply. Must be alphanumeric.');
+}
+
 
 //DOES BOARD EXIST?
 if (!in_Array($delrep_board, $config['boardlist'])) {

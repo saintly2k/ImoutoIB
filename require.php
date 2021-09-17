@@ -45,6 +45,37 @@ if (isset($_POST["board"]) && $_POST["board"] != '') {
 	}
 }
 
+//is moderator?
+if (isset($_COOKIE['mod_user']) && isset($_COOKIE['mod_session'])) {
+	if ($_COOKIE['mod_user'] == "") {
+		error('No username given.');
+	}
+	if ($_COOKIE['mod_user'] == "counter" || ctype_alnum($_COOKIE['mod_user']) != true) {
+		error('Invalid Username.');
+	}
+	if (!file_exists(__dir__ . '/' . $database_folder . '/users/' . $_COOKIE['mod_user'] . '.php')) {
+		error('User doesn\'t exist.');
+	}
+
+	include __dir__ . '/' . $database_folder . '/users/' . $_COOKIE['mod_user'] . '.php';
+
+	if ($_COOKIE['mod_session'] != $user_session) {
+		setcookie("mod_user", null, time() - 3600,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+		setcookie("mod_session", null, time() - 3600,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+		error('Invalid or expired cookie session');
+	} else {
+		$logged_in = true;
+		$mod_level = $user_mod_level;
+	}
+
+	if (($user_remember + 86400) < time()) { //1day if not remember me, otherwise using the +30days from remember time for 31days total
+		setcookie("mod_user", null, time() - 3600,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+		setcookie("mod_session", null, time() - 3600,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+		$logged_in = false;
+	}
+
+}
+
 
 
 ?>

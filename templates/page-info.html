@@ -6,5 +6,15 @@
 <div class="page-info">
 <h1><?php echo '/' . $current_board . '/ - ' . $board_title; ?></h1>
 <span class="small"><?php echo $board_description; ?></span>
+
+<?php 
+
+if ($logged_in == true) {
+	echo '<hr>You are logged in.<br>[<a href="' . $prefix_folder . '/mod.php">Return to Dashboard</a>]';
+}
+
+
+?>
+
 </div>
 <hr>
