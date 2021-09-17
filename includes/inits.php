@@ -34,6 +34,8 @@ $frontpage_active = 0;
 
 $pages = '';
 
+$logged_in = false;
+
 if ($config['generated_in'] === true) {
 	$start_time = microtime(true);
 }
@@ -67,7 +69,6 @@ if (isset($_GET["board"]) && htmlspecialchars($_GET["board"]) != '') {
 			setcookie("text_theme", $default_theme, 0,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
 		}
 		if (isset($_GET["theme"])) {
-			unset($_COOKIE["text_theme"]);
 			setcookie("text_theme", htmlspecialchars($_GET["theme"]), 0, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
 		}
 			$current_theme = $default_theme;
@@ -80,7 +81,6 @@ if (isset($_GET["board"]) && htmlspecialchars($_GET["board"]) != '') {
 			setcookie("theme", $default_theme, 0,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
 		}
 		if (isset($_GET["theme"])) {
-			unset($_COOKIE["theme"]);
 			setcookie("theme", htmlspecialchars($_GET["theme"]), 0, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
 		}
 			$current_theme = $default_theme;
@@ -93,7 +93,6 @@ if (isset($_GET["board"]) && htmlspecialchars($_GET["board"]) != '') {
 		setcookie("theme", $default_theme, 0,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
 	}
 	if (isset($_GET["theme"])) {
-		unset($_COOKIE["theme"]);
 		setcookie("theme", htmlspecialchars($_GET["theme"]), 0, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
 	}
 		$current_theme = $default_theme;
