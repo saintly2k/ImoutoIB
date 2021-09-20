@@ -131,6 +131,22 @@ $config['max_lines'] = 40;
 $config['wordfilters'][] = array('/little sister/i', 'imouto'); //regex
 
 
+//MODERATOR CONFIGURATION
+$config['mod']['ip'] = "40"; //see IP, or in this case hashed IP similarly to IDs, even if ID is disabled for visitors.
+$config['mod']['ban'] = "40";
+$config['mod']['reports'] = "10"; //dismiss reports
+$config['mod']['global_reports'] = "40"; //dismiss global reports
+$config['mod']['thread_sticky'] = "40";
+$config['mod']['thread_lock'] = "40";
+$config['mod']['thread_autosage'] = "40";
+$config['mod']['post_edit'] = "40";
+$config['mod']['post_delete'] = "10";
+$config['mod']['post_in_locked'] = "40";
+
+$config['mod']['edit_user'] = "9001"; //create,edit,delete
+$config['mod']['mod_log'] = "40"; //look at modlog
+
+
 //DATABASE CONFIGURATION
 $config['db']['type'] = 'flat'; // flat, mysql
 // Flat file (No Database)

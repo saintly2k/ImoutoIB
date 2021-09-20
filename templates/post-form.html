@@ -101,6 +101,29 @@
 	    			?>
 	    			<label for="sage"><input type="checkbox" id="sage" name="sage" autocomplete="off"> No Bump</label>
 	    			<div class="small">You may also type <i>sage</i> in the email field.</div>
+
+	    			<?php
+	    			if ($current_page != 'thread' && $mod_level > 0) {
+	    				echo '<div class="small"><b>Moderator tools:</b></div>';
+	    				if ($config['mod']['thread_sticky'] <= $mod_level) {
+		    				echo '
+		    				<label for="sticky"><input type="checkbox" id="sticky" name="sticky" autocomplete="off"> Sticky Thread</label><br>
+		    				';
+	    				}
+	    				if ($config['mod']['thread_lock'] <= $mod_level) {
+		    				echo '
+		    				<label for="lock"><input type="checkbox" id="lock" name="lock" autocomplete="off"> Lock Thread</label><br>
+		    				';
+	    				}
+	    				if ($config['mod']['thread_autosage'] <= $mod_level) {
+		    				echo '
+		    				<label for="autosage"><input type="checkbox" id="autosage" name="autosage" autocomplete="off"> Autosage Thread</label><br>
+		    				';
+	    				}
+	    			}
+
+	    			?>
+
 	    		</td>
 	    	</tr>
 	    </table>

@@ -3,6 +3,17 @@
 require dirname(__FILE__) . '/require.php';
 
 
+//MOD FIELDS:
+if (($config['mod']['thread_sticky'] <= $mod_level) && isset($_POST['sticky'])) {
+	$info_sticky = 1;
+}
+if (($config['mod']['thread_lock'] <= $mod_level) && isset($_POST['lock'])) {
+	$info_locked = 1;
+}
+if (($config['mod']['thread_autosage'] <= $mod_level) && isset($_POST['autosage'])) {
+	$info_autosage = 1;
+}
+
 //POST FIELDS
 	$post_board = phpClean($_POST['board']);
 	$post_name = phpClean($_POST['name']);
