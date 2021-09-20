@@ -251,7 +251,7 @@ function UpdateThreads($database_folder, $board, $thread) {
 	file_put_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/threads.php' , $threads_);
 }
 
-function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $fileonly = false, $secure_hash, $recent_replies = 5) {
+function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $fileonly = false, $secure_hash, $recent_replies = 5, $mod_delete = false, $mod_level = false) {
 
 	//wip
 	//add moderator checks to bypass pw check later
@@ -264,8 +264,10 @@ function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $
 		include __dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/OP.php';
 
 		//CHECK PASSWORD
-		if (crypt(htmlspecialchars($_POST['password']), $secure_hash) != $op_password) {
-			error('Wrong password...');
+		if ($mod_level < $mod_delete) {
+			if (crypt(htmlspecialchars($_POST['password']), $secure_hash) != $op_password) {
+				error('Wrong password...');
+			}
 		}
 		if ($fileonly == true) {
 			if ($op_file[0][0] == '' || $op_file[0][0] == 'deleted') {
@@ -319,8 +321,11 @@ function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $
 			error('Deletion logic set to reply, but specified reply does not exist in this thread.');
 		}
 		include __dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . '/' . $post . '.php';
-		if (crypt(htmlspecialchars($_POST['password']), $secure_hash) != $reply_password) {
-			error('Wrong password...');
+		
+		if ($mod_level < $mod_delete) {
+			if (crypt(htmlspecialchars($_POST['password']), $secure_hash) != $reply_password) {
+				error('Wrong password...');
+			}
 		}
 
 		//delete files if exist.

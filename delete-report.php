@@ -65,12 +65,72 @@ if (isset($delrep_thread) && (!file_exists($path . '/' . $database_folder . '/bo
 //OK THEN CONTINUE:
 
 
+//MOD THREAD BUTTONS
+if ($logged_in == true) {
+	
+	//STICKY
+	if (($config['mod']['thread_sticky'] <= $mod_level) && isset($_POST['sticky'])) {
+		$thread_info = file_get_contents($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/info.php');
+		if (preg_match('/\$info_sticky=1;/i', $thread_info) == true) {
+			$thread_info = preg_replace('/\$info_sticky=1;/i', '$info_sticky=0;', $thread_info);
+			$thread_sticky = false;
+		} else {
+			$thread_info = preg_replace('/\$info_sticky=0;/i', '$info_sticky=1;', $thread_info);
+			$thread_sticky = true;
+		}
+		file_put_contents($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/info.php', $thread_info);
+		if ($thread_sticky == true) {
+		error("Thread has been stickied.", true);
+		} else {
+		error("Thread has been unstickied.", true);
+		}
+	}
+
+	//LOCK
+	if (($config['mod']['thread_lock'] <= $mod_level) && isset($_POST['lock'])) {
+		$thread_info = file_get_contents($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/info.php');
+		if (preg_match('/\$info_locked=1;/i', $thread_info) == true) {
+			$thread_info = preg_replace('/\$info_locked=1;/i', '$info_locked=0;', $thread_info);
+			$thread_locked = false;
+		} else {
+			$thread_info = preg_replace('/\$info_locked=0;/i', '$info_locked=1;', $thread_info);
+			$thread_locked = true;
+		}
+		file_put_contents($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/info.php', $thread_info);
+		if ($thread_locked == true) {
+		error("Thread has been locked.", true);
+		} else {
+		error("Thread has been unlocked.", true);
+		}
+	}
+
+	//AUTOSAGE
+	if (($config['mod']['thread_autosage'] <= $mod_level) && isset($_POST['autosage'])) {
+		$thread_info = file_get_contents($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/info.php');
+		if (preg_match('/\$info_autosage=1;/i', $thread_info) == true) {
+			$thread_info = preg_replace('/\$info_autosage=1;/i', '$info_autosage=0;', $thread_info);
+			$thread_autosage = false;
+		} else {
+			$thread_info = preg_replace('/\$info_autosage=0;/i', '$info_autosage=1;', $thread_info);
+			$thread_autosage = true;
+		}
+		file_put_contents($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/info.php', $thread_info);
+		if ($thread_autosage == true) {
+		error("Thread has been autosaged.", true);
+		} else {
+		error("Thread has been unautosaged.", true);
+		}
+	}
+
+}
+
+
 
 if (isset($_POST["delete"]) && $_POST["delete"] != "") {
 	if (isset($_POST['file'])) { //file only?
-		DeletePost($database_folder, $uploads_folder, $delrep_board, $delrep_thread, $delrep_reply, true, $secure_hash, $recent_replies);
+		DeletePost($database_folder, $uploads_folder, $delrep_board, $delrep_thread, $delrep_reply, true, $secure_hash, $recent_replies, $config['mod']['post_delete'], $mod_level);
 	} else {
-		DeletePost($database_folder, $uploads_folder, $delrep_board, $delrep_thread, $delrep_reply, false, $secure_hash, $recent_replies);
+		DeletePost($database_folder, $uploads_folder, $delrep_board, $delrep_thread, $delrep_reply, false, $secure_hash, $recent_replies, $config['mod']['post_delete'], $mod_level);
 	}
 }
 

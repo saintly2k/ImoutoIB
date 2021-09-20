@@ -35,6 +35,12 @@ $frontpage_active = 0;
 $pages = '';
 
 $logged_in = false;
+$mod_level = false;
+
+$post_locked = false;
+$post_sticky = false;
+$post_autosage = false;
+
 
 if ($config['generated_in'] === true) {
 	$start_time = microtime(true);
