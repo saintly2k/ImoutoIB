@@ -124,7 +124,7 @@
 
 				';
 			if ($mod_level > 0) {
-				echo '<tr><td><b>Moderator Tools:</b><br>';
+				echo '<tr><td><div class="small"><b>Moderator Tools:</b></div>';
 				if ($config['mod']['thread_sticky'] <= $mod_level) {
 					if ($info_sticky == 0) {
 						echo '<input type="submit" name="sticky" value="Sticky"> ';
@@ -146,7 +146,7 @@
 						echo '<input type="submit" name="autosage" value="Unautosage"> ';
 					}
 				}
-				echo '</td></tr>';
+				echo '<hr></td></tr>';
 			}	
 				
 			echo '

@@ -54,7 +54,7 @@ echo '</table>';
 		<div><b>Total Posts:</b> <?php echo $total_posts; ?></div>
 		<div><b>Unique Posters:</b> 
 			<?php 
-				@include __dir__ . '/../../' . $database_folder . '/frontpage.php'; 
+				@include __dir__ . '/../' . $database_folder . '/frontpage.php'; 
 				echo $frontpage_uniqueids;
 			?></div>
 		<div><b>Active Content:</b> <?php echo formatBytes($frontpage_active); ?></div>
