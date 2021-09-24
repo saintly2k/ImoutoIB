@@ -4,7 +4,7 @@ require dirname(__FILE__) . '/require.php';
 
 
 //FRONTPAGE
-if ((!isset($_GET["board"])) || ($_GET["board"] == '')) {
+if ((!isset($_GET["board"])) || ($_GET["board"] == '') && $_GET["page"] == '') {
 	
 	$title = $site_name;
 
@@ -30,15 +30,51 @@ if ((!isset($_GET["board"])) || ($_GET["board"] == '')) {
 	echo '</head>';
 	echo '<body class="frontpage">';
 	include $path . '/templates/boardlist.html';
-	include $path . '/templates/pages/frontpage.html';
+	include $path . '/templates/frontpage.html';
 	include $path . '/templates/footer.html';
 	echo '</body>';
 	echo '</html>';
 	exit();
 }
 
-//ADD STATIC PAGES HERE
+// PAGES
+if ((!isset($_GET["board"])) || ($_GET["board"] == '') && $_GET["page"] != '') {
+	if (!ctype_alnum($_GET["page"])) {
+		error('Invalid page.');
+	}
+	if (!file_exists($path . '/templates/pages/' . $_GET["page"] . '.php')) {
+		error('Page does not exist.');
+	}
+	include $path . '/templates/pages/' . $_GET["page"] . '.php';
 
+	if (isset($_GET["theme"])) {
+		echo '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
+	} else {
+		echo '<html data-stylesheet="'. $current_theme .'">';	
+	}
+	echo '<head>';
+	include $path . '/templates/header.html';
+	echo '</head>';
+	echo '<body class="page">';
+	include $path . '/templates/boardlist.html';
+
+	if ($config['display_banner'] === true) {
+		include $path . '/assets/img/banner.php';
+	}
+
+	echo '<div class="page-info">';
+	echo '<h1>' . $h1 . '</h1>';
+	echo '<span class="small">' . $description . '</span>';
+	echo '</div>';
+
+	echo $page_content; //taken from the file
+
+	include $path . '/templates/footer.html';
+	echo '</body>';
+	echo '</html>';
+	exit();
+
+}	
 
 
 //

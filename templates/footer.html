@@ -4,14 +4,9 @@
 	if (!isset($current_board) || $current_board == '') {
 		echo '<div class="static footer">';
 		echo '<ul>';
-		echo '<li><a href="#">Home</a></li>';
-		echo '<li><a href="#">News</a></li>';
-		echo '<li><a href="#">FAQ</a></li>';
-		echo '<li><a href="#">Rules</a></li>';
-		echo '<li><a href="#">Help</a></li>';
-		echo '<li><a href="#">About</a></li>';
-		echo '<li><a href="#">Contact</a></li>';
-		echo '<li><a href="#">Legal</a></li>';
+		foreach ($config['footer'] as $link) {
+			echo '<li><a href="' . $link[1] . '">' . $link[0] . '</a></li>';
+		}
 		echo '</ul>';
 		echo '</div>';
 	}

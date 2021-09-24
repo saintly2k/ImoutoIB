@@ -146,6 +146,16 @@ $config['mod']['post_in_locked'] = "40";
 $config['mod']['edit_user'] = "9001"; //create,edit,delete
 $config['mod']['mod_log'] = "40"; //look at modlog
 
+$config['footer'] = []; //Display name, URL
+$config['footer'][] = array('Home', '?page=');
+$config['footer'][] = array('News', '#');
+$config['footer'][] = array('Rules', '?page=rules');
+$config['footer'][] = array('Help', '#');
+$config['footer'][] = array('About', '#');
+$config['footer'][] = array('Contact', '#');
+$config['footer'][] = array('Legal', '#');
+$config['footer'][] = array('Manage', 'mod.php');
+
 
 //DATABASE CONFIGURATION
 $config['db']['type'] = 'flat'; // flat, mysql

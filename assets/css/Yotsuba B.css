@@ -25,6 +25,10 @@ body {
 	font-weight: 700;
 }
 
+ul.rules {
+	list-style: numeric;
+}
+
 .icon {
 	margin-left: 4px;
 }
@@ -271,7 +275,7 @@ input[name="captcha"] {
 	width: 33%;
 }
 
-#boards, .main.first p, .stats {
+#boards, .main p, .stats {
 	padding: 6px;
 }
 
