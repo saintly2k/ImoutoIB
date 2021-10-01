@@ -34,6 +34,9 @@ if (isset($_POST["file"])) {
 }
 if (isset($_POST["reason"])) {
 	$report_reason = phpClean($_POST["reason"]);
+	if (strlen($report_reason) > 256) {
+		error('Report too long. Maximum 256.');
+	}
 }
 if (isset($_POST["global"])) {
 	$report_global = phpClean($_POST["global"]);
@@ -199,6 +202,7 @@ if (isset($_POST["report"]) && $_POST["report"] != "") {
 	file_put_contents($path . '/' . $database_folder . '/reports/' . $delrep_board . '/' . $newcount . '.php', $create_report);
 	file_put_contents($path . '/' . $database_folder . '/reports/' . $delrep_board . '/counter.php', $newcount);
 	//increment counter
+	ReportCounter($database_folder, 'normal'); //refresh report counter
 	//done
 	if (file_exists($path . '/' . $database_folder . '/reports/' . $delrep_board . '/' . $newcount . '.php')) {
 	echo 'Board Report Created!';
