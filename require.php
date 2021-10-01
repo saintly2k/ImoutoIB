@@ -9,7 +9,6 @@ require $path . '/includes/default.php'; //sets defaults
 
 // DATABASE
 require $path . '/database/boards.php'; //boardlist
-require $path . '/database/users.php'; //moderators
 
 //if text board defaults:
 if (isset($_GET["board"]) && $_GET["board"] != '') {

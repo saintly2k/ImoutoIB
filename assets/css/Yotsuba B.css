@@ -414,3 +414,50 @@ div.post details table {
 	border-right: 1px solid #b7c5d9;
 	border-bottom: 1px solid #b7c5d9;
 }
+
+.box.right {
+	width: 78%;
+	border: 1px solid #006;
+	margin-right: 0;
+	margin-left: auto;
+	color: #000;
+	background: #eff;
+}
+
+.box {
+	width: 750px;
+	margin: auto;
+}
+
+.box.left {
+	width: 20%;
+	float: left;
+	border: 1px solid #060;
+	background: #efe;
+	color: #060;
+}
+
+.box.right h2 {
+	color: #fff;
+	background: #59a;
+}
+
+.box.left h2 {
+	background: #9c6;
+}
+
+.box.left h2, .box.right h2 {
+	padding-left: 4px;
+	font-size: 16px;
+	line-height: 1.4;
+}
+
+.box-content {
+	padding: 3px;
+}
+
+.box-list {
+	list-style: none;
+	padding: 4px;
+	margin: 0;
+}

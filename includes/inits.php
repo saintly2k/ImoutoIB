@@ -36,6 +36,7 @@ $pages = '';
 
 $logged_in = false;
 $mod_level = false;
+$changed_password = false;
 
 $post_locked = false;
 $post_sticky = false;
