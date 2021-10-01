@@ -342,6 +342,9 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 		} else {
 			echo '<html data-stylesheet="'. $current_theme .'">';	
 		}
+		if (!is_numeric($_GET["thread"])) {
+			error('Thread number must be a number.');
+		}
 		//IF DOESNT EXIST
 		if (!file_exists(__dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"]))) {
 			$title = "Oh no!! A 404...";
