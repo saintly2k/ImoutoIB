@@ -65,7 +65,7 @@
 	echo '</tr>';
 	?>
 	<?php if ($captcha_required == (true) && ($current_page == ('thread') && ($info_locked != 1) || $current_page == ('index') || $current_page == ('catalog'))) {
-		echo '<tr><th>Verification</th><td><img height="50" width="198" id="captcha" src="' . $prefix_folder . '/includes/captcha.php' .'"/><br><input type="text" name="captcha" size="" maxlength="6" autocomplete="off"></td>
+		echo '<tr><th>Verification</th><td><img height="50" width="198" id="captcha" src="' . $prefix_folder . '/includes/captcha.php' .'"/><br><input type="text" name="captcha" size="" maxlength="6" autocomplete="off" required></td>
 		';
 	}?>
 

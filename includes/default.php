@@ -144,7 +144,7 @@ $config['mod']['post_delete'] = "10";
 $config['mod']['post_in_locked'] = "40";
 
 $config['mod']['edit_user'] = "9001"; //create,edit,delete
-$config['mod']['mod_log'] = "40"; //look at modlog
+$config['mod']['mod_log'] = "40"; //look at modlog, deletion not coded and probably wont be. transparancy is good, admin can delete from server anyways.
 
 $config['footer'] = []; //Display name, URL
 $config['footer'][] = array('Home', '?page=');

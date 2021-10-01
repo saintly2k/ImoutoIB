@@ -42,13 +42,16 @@ span.rquote {
 
 .code {
 	font-family: 'MS PGothic', 'submona' !important;
-	background: #fff;
+	background: #eeeeee45;
 	color: #000;
+	border: 1px solid gray;
 }
 .aa {
 	font-family: 'MS PGothic', 'submona' !important;
 }
-
+.active {
+	font-weight: bold;
+}
 .spoiler {
 	background: #000;
 	color: #000;

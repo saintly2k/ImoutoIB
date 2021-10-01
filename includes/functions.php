@@ -251,6 +251,28 @@ function UpdateThreads($database_folder, $board, $thread) {
 	file_put_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/threads.php' , $threads_);
 }
 
+function ReportCounter($database_folder, $type = 'normal') {
+	$counter = 0;
+
+	if ($type == 'normal') { //normal reports
+		$report_boards = glob(__dir__ . '/../' . $database_folder . '/reports/*', GLOB_ONLYDIR); //find boards
+	
+		foreach ($report_boards as $board ) { //for each board
+		$reports = [];
+		$reports = glob($board . "/*"); //find reports
+			foreach ($reports as $report) { //for each report
+				if (is_numeric(basename($report, '.php'))) {
+					$counter = $counter + 1;
+				}
+			}
+		}
+		file_put_contents(__dir__ . '/../' . $database_folder . '/reports/current.php', $counter);
+
+	} else { //global reports
+		//havent rly made this yet
+	}
+}
+
 function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $fileonly = false, $secure_hash, $recent_replies = 5, $mod_delete = false, $mod_level = false) {
 
 	//wip
