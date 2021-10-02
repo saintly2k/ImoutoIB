@@ -27,6 +27,27 @@ if (isset($_POST['dismiss'])) {
 
 }
 
+//DISMISS GLOBAL
+if (isset($_POST['dismiss_global'])) {
+	if ($config['mod']['global_reports'] > $user_mod_level) {
+		error('You don\'t have permission to dismiss reports');
+	}
+	if (!in_Array($_POST['board'], $config['boardlist'])) {
+		error('Invalid board');
+	}
+	if (!is_numeric(basename($_POST['report'], '.php'))) {
+		error('Invalid report number');
+	}
+	if (!file_exists(__dir__ . '/' . $database_folder . '/reportsglobal/' . $_POST['report'])) {
+		error('This report doesn\'t exist. Maybe someone else dismissed it before you.');
+	}
+	//ok everything checks out, delete report.
+	unlink(__dir__ . '/' . $database_folder . '/reportsglobal/' . $_POST['report']);
+	ReportCounter($database_folder, 'global');
+	//save to log?
+
+}
+
 //LOGOUT
 if (isset($_POST['logout'])) {
 	setcookie("mod_user", null, time() - 3600,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
@@ -211,7 +232,12 @@ if ($config['mod']['global_reports'] <= $user_mod_level) {
 	if ($_GET["page"] == 'global_reports') {
 		$mod_navigation .=	'class="active"';
 	}
-	$mod_navigation .=	'>Global Reports ()</a></li>';
+	if (file_exists(__dir__ . '/' . $database_folder . '/reportsglobal/current.php')) {
+		$reports_global = file_get_contents(__dir__ . '/' . $database_folder . '/reportsglobal/current.php');
+	} else {
+		$reports_global = 0;
+	}
+	$mod_navigation .=	'>Global Reports (' . $reports_global . ')</a></li>';
 }
 
 	//BANLIST
@@ -396,6 +422,87 @@ if ($_GET["page"] == 'reports') {
 				}
 			}
 	}
+	echo '</tbody>';
+	echo '</table>';
+
+	echo '</div>';
+	echo '</div>';
+	echo '<br>';
+	echo '</div>';
+
+	include $path . '/templates/footer.html';
+	echo '</body>';
+	echo '</html>';
+	exit();
+}
+
+//GLOBAL REPORTS PAGE
+if ($_GET["page"] == 'global_reports') {
+	
+	//recount
+	ReportCounter($database_folder, 'global');
+
+	$title = 'Global Reports - ' . $site_name;
+	if (isset($_GET["theme"])) {
+		echo '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
+	} else {
+		echo '<html data-stylesheet="'. $current_theme .'">';	
+	}
+	echo '<head>';
+	include $path . '/templates/header.html';
+	echo '</head>';
+	echo '<body class="frontpage">';
+	include $path . '/templates/boardlist.html';
+	echo '<div class="page-info"><h1>Dashbord</h1><div class="small">Try not to ruin everything.</div>';
+	echo $logged_in_as;
+	echo '</div>';
+	echo $dashboard_notifications;
+	echo '<br>';
+	echo '<div class="box flex">';
+	echo $mod_navigation;
+	echo '<div class="box right">';
+	echo '<h2>Global Reports</h2>';
+	echo '<div class="box-content">';
+
+	echo '<table style="width:100%">';
+	echo '<thead> <td>Board</td> <td>Post</td> <td>Report IP</td> <td>Reason</td> <td>View</td> <td>Actions</td>';
+	echo '<tbody>';
+
+	//FIND REPORTS
+		$reports = [];
+		$reports = glob(__dir__ . '/' . $database_folder . '/reportsglobal/*'); //find reports
+			foreach ($reports as $report) { //for each report
+				if (is_numeric(basename($report, '.php'))) {
+						include $report;
+
+						//dismiss report if thread/reply no longer exists and go to next report in loop
+						if ((($report_thread == $report_reply) && (!file_exists(__dir__ . '/' . $database_folder . '/boards/' . $report_board . '/' . $report_thread))) || (($report_thread != $report_reply) && (!file_exists(__dir__ . '/' . $database_folder . '/boards/' . $report_board . '/' . $report_thread . '/' . $report_reply . '.php')))) {
+							unlink($report);
+							continue;
+						}
+
+						echo '<tr>'; 
+						echo '<td>/' . $report_board . '/</td>';
+						echo '<td>' . $report_thread . ' in ' . $report_reply . '</td>';
+						if ($user_mod_level >= $config['mod']['ip']) {
+							echo '<td>' . $report_ip . '</td>';
+						} else {
+							echo '<td>No Perm</td>';
+						}
+						echo '<td title="' . $report_reason . '"style="white-space:pre;word-wrap:break-word;max-width:150px;overflow:hidden;text-overflow:ellipsis">' . $report_reason . '</td>';
+						echo '<td><a href="' . $prefix_folder . '/' . $main_file . '?board='. $report_board . '&thread=' . $report_thread . '#' . $report_reply . '" target="_blank">View</a></td>';
+						echo '<td><details><summary>More</summary>';
+
+						echo '	<form name="dismiss-report-global" action="' . $prefix_folder . '/mod.php?page=global_reports" method="post">
+								<input type="hidden" name="board" value="' . $report_board . '">
+								<input type="hidden" name="report" value="' . basename($report) . '">
+								<input type="submit" name="dismiss_global" value="Dismiss"></td>
+								</form>';
+
+						echo '</details><td>';
+						echo '</tr>';
+				}
+			}
 	echo '</tbody>';
 	echo '</table>';
 
