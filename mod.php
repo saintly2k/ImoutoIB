@@ -401,7 +401,7 @@ if ($_GET["page"] == 'reports') {
 
 						echo '<tr>'; 
 						echo '<td>/' . basename($board) . '/</td>';
-						echo '<td>' . $report_thread . ' in ' . $report_reply . '</td>';
+						echo '<td>' . $report_reply . '@' . $report_thread . '</td>';
 						if ($user_mod_level >= $config['mod']['ip']) {
 							echo '<td>' . $report_ip . '</td>';
 						} else {
@@ -483,7 +483,7 @@ if ($_GET["page"] == 'global_reports') {
 
 						echo '<tr>'; 
 						echo '<td>/' . $report_board . '/</td>';
-						echo '<td>' . $report_thread . ' in ' . $report_reply . '</td>';
+						echo '<td>' . $report_reply . '@' . $report_thread . '</td>';
 						if ($user_mod_level >= $config['mod']['ip']) {
 							echo '<td>' . $report_ip . '</td>';
 						} else {

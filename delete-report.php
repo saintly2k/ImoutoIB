@@ -164,6 +164,7 @@ if (isset($_POST["report"]) && $_POST["report"] != "") {
 		file_put_contents($path . '/' . $database_folder . '/reportsglobal/' . $newcount . '.php', $create_report);
 		file_put_contents($path . '/' . $database_folder . '/reportsglobal/counter.php', $newcount);
 		//increment counter
+		ReportCounter($database_folder, 'global'); //refresh report counter
 		//done
 		if (file_exists($path . '/' . $database_folder . '/reportsglobal/' . $newcount . '.php')) {
 		echo 'Global Report Created!';
