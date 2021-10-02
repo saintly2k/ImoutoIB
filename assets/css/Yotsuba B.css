@@ -418,26 +418,29 @@ div.post details table {
 	border-bottom: 1px solid #b7c5d9;
 }
 
-.box.right {
-	width: 78%;
-	border: 1px solid #006;
-	margin-right: 0;
-	margin-left: auto;
-	color: #000;
-	background: #eff;
-}
-
 .box {
-	width: 750px;
+	width: 752px;
 	margin: auto;
 }
 
+.box.flex {
+	display: flex;
+}
+
+.box.right {
+	width: 585px;
+	border: 1px solid #006;
+	color: #000;
+	background: #eff;
+	margin: 0 0 auto auto;
+}
+
 .box.left {
-	width: 20%;
-	float: left;
+	width: 150px;
 	border: 1px solid #060;
 	background: #efe;
 	color: #060;
+	margin: 0 auto auto 0;
 }
 
 .box.right h2 {

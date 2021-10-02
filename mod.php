@@ -257,7 +257,7 @@ if ((!isset($_GET["page"])) || ($_GET["page"] == '')) {
 	echo '</div>';
 	echo $dashboard_notifications;
 	echo '<br>';
-	echo '<div class="box">';
+	echo '<div class="box flex">';
 	echo $mod_navigation;
 	echo '<div class="box right">';
 	echo '<h2>Content</h2>';
@@ -293,7 +293,7 @@ if ($_GET["page"] == 'account') {
 	echo '</div>';
 	echo $dashboard_notifications;
 	echo '<br>';
-	echo '<div class="box">';
+	echo '<div class="box flex">';
 	echo $mod_navigation;
 	echo '<div class="box right">';
 	echo '<h2>Account</h2>';
@@ -347,7 +347,7 @@ if ($_GET["page"] == 'reports') {
 	echo '</div>';
 	echo $dashboard_notifications;
 	echo '<br>';
-	echo '<div class="box">';
+	echo '<div class="box flex">';
 	echo $mod_navigation;
 	echo '<div class="box right">';
 	echo '<h2>Reports</h2>';
