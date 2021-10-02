@@ -269,7 +269,14 @@ function ReportCounter($database_folder, $type = 'normal') {
 		file_put_contents(__dir__ . '/../' . $database_folder . '/reports/current.php', $counter);
 
 	} else { //global reports
-		//havent rly made this yet
+		$reports = [];
+		$reports = glob(__dir__ . '/../' . $database_folder . '/reportsglobal/*');
+			foreach ($reports as $report) {
+				if (is_numeric(basename($report, '.php'))) {
+					$counter = $counter + 1;
+				}
+			}
+		file_put_contents(__dir__ . '/../' . $database_folder . '/reportsglobal/current.php', $counter);
 	}
 }
 
