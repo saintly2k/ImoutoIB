@@ -19,7 +19,7 @@ If even your shared hosting can't run this, you're being scammed or you messed u
 
 Here's a reliable [host](https://www.hostwinds.com/7694-2.html) you can use.
 
-Use PHP 7. Might work on 5 or 8, I don't know. QA is for people getting paid.
+Use PHP 7.3 or higher. Might work on 8, I don't know. QA is for people getting paid.
 
 No database setup needed.
 
@@ -35,6 +35,8 @@ If hosted in root directory, go to includes/custom.php change $prefix_folder fro
 If not using apache with included htaccess to remove main.php, add 'main.php' to $main_file.
 
 Edit /database/boards.php to create/edit/delete boards.
+
+Defult admin user is admin:password, go to mod.php and edit this.
 
 Any changes you want to make should be done in includes/custom.php, It will overwrite the default configuration. Consider the default config a documentation of some sort.
 
