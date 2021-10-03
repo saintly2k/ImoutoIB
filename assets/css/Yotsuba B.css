@@ -427,12 +427,16 @@ div.post details table {
 	display: flex;
 }
 
-.box.right {
+.container-right {
 	width: 585px;
+	margin: 0 0 auto auto;
+}
+
+.box.right {
+	width: 100%;
 	border: 1px solid #006;
 	color: #000;
 	background: #eff;
-	margin: 0 0 auto auto;
 }
 
 .box.left {
