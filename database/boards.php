@@ -3,10 +3,10 @@
 
 //just copy paste one and edit it
 
-$config['boards']['d'] = array(
-	'url' => 'd',
-	'title' => 'demo',
-	'description' => 'Please don\'t break me, I\'ll be sad...',
+$config['boards']['img'] = array(
+	'url' => 'img',
+	'title' => 'imageboard',
+	'description' => 'Imageboard Demo',
 	'locked' => 0,
 	'hidden' => 0,
 	'type' => 'img'
@@ -15,30 +15,11 @@ $config['boards']['d'] = array(
 $config['boards']['txt'] = array(
 	'url' => 'txt',
 	'title' => 'textboard',
-	'description' => 'bulletin board system',
+	'description' => 'Bulletin Board System',
 	'locked' => 0,
 	'hidden' => 0,
 	'type' => 'txt'
 );
-
-$config['boards']['test'] = array(
-	'url' => 'test',
-	'title' => 'test',
-	'description' => 'QA? I\'m not getting paid!!',
-	'locked' => 0,
-	'hidden' => 0,
-	'type' => 'img'
-);
-
-$config['boards']['fresh'] = array(
-	'url' => 'fresh',
-	'title' => 'fresh',
-	'description' => 'Checking board creation.',
-	'locked' => 1,
-	'hidden' => 0,
-	'type' => 'img'
-);
-
 
 foreach ($config['boards'] as $boards) {
 	$config['boardlist'][] = $boards['url'];
