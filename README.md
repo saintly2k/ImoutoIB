@@ -26,22 +26,22 @@ No database setup needed.
 Installation
 -------------
 
-Just put it somewhere, it *should* work.
-
 By default the configuration assumes that you have the imageboard in name.domain/ib/ and that you use apache.
 
 If hosted in root directory, go to includes/custom.php change $prefix_folder from '/ib' to ''. Or whatever folder you put it in.
 
 If not using apache with included htaccess to remove main.php, add 'main.php' to $main_file.
 
-Edit /database/boards.php to create/edit/delete boards.
+Edit /database/boards.php to create/edit/delete boards (Temporary).
 
-Defult admin user is admin:password, go to mod.php and edit this.
+Default admin user is admin:password. Go to mod.php and edit this.
 
-Any changes you want to make should be done in includes/custom.php, It will overwrite the default configuration. Consider the default config a documentation of some sort.
+Any changes you want to make should be done in includes/custom.php, It will overwrite the default configuration. Consider the default config a documentation of some sort. This will make upgrading easier.
 
 If you want to create different configurations per board you can go to any database/boards/board folder and create a config.php file. <?php $default_name = "Technology Enthusiast" ?> 
 It will be automatically read and used when viewing or posting on that specific board.
+
+When you are visiting the frontpage for the first time it may be a bit bugged. Create a post in any imageboard with an image and this should fix itself (Temporary).
 
 Upgrade
 -------

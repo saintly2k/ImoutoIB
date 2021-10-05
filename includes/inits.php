@@ -35,9 +35,12 @@ $frontpage_active = 0;
 $pages = '';
 
 $logged_in = false;
+$logged_in_user = false;
 $mod_level = false;
 $changed_password = false;
 $user_created = false;
+$user_edited = false;
+$user_deleted = false;
 
 $post_locked = false;
 $post_sticky = false;

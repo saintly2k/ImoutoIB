@@ -145,6 +145,50 @@ if (isset($_POST['create-user'])) {
 	$user_created = true;
 }
 
+//EDIT USER
+if (isset($_POST['edit-user'])) {
+	if ($user_mod_level < $config['mod']['edit_user']) {
+		error('You don\'t have permission to edit users.');
+	}
+	if (!is_numeric($_POST['edit-level']) || ($_POST['edit-level'] > 9001) || ($_POST['edit-level'] < 0) ) {
+		error('Invalid mod level.');
+	}
+	if (!file_exists(__dir__ . '/' . $database_folder . '/users/' . $_POST['edit-username'] . '.php')) {
+		error('User doesn\'t exist.');
+	}
+
+	$check_user = file_get_contents(__dir__ . '/' . $database_folder . '/users/' . $_POST['edit-username'] . '.php');
+	if (preg_match('/\$user_id = "0";/', $check_user) == true) {
+		error('You cannot edit user ID 0.');
+	}
+
+	$edit_user = file_get_contents(__dir__ . '/' . $database_folder . '/users/' . $_POST['edit-username'] . '.php');
+	$edit_user = preg_replace('/\$user_mod_level = "[0-9]+";/', '$user_mod_level = "' . $_POST['edit-level'] .'";', $edit_user);
+
+	file_put_contents(__dir__ . '/' . $database_folder . '/users/' . $_POST['edit-username'] . '.php', $edit_user);
+
+	$user_edited = true;
+}
+
+//DELETE USER
+if (isset($_POST['delete-user'])) {
+	if ($user_mod_level < $config['mod']['edit_user']) {
+		error('You don\'t have permission to edit users.');
+	}
+	if (!file_exists(__dir__ . '/' . $database_folder . '/users/' . $_POST['delete-username'] . '.php')) {
+		error('User doesn\'t exist.');
+	}
+
+	$check_user = file_get_contents(__dir__ . '/' . $database_folder . '/users/' . $_POST['delete-username'] . '.php');
+	if (preg_match('/\$user_id = "0";/', $check_user) == true) {
+		error('You cannot edit user ID 0.');
+	}
+
+	unlink(__dir__ . '/' . $database_folder . '/users/' . $_POST['delete-username'] . '.php');
+
+	$user_deleted = true;
+}
+
 //LOGGIN IN?
 if (isset($_POST['username']) && isset($_POST['password'])) {
 	if ($_POST['username'] == "") {
@@ -310,11 +354,11 @@ if ($config['mod']['global_reports'] <= $user_mod_level) {
 
 	//BANLIST
 if ($config['mod']['ban'] <= $user_mod_level) {
-	$mod_navigation .=	'<li><a href="' . $prefix_folder . '/mod.php?page=banlist"';
-	if ($_GET["page"] == 'banlist') {
+	$mod_navigation .=	'<li><a href="' . $prefix_folder . '/mod.php?page=bans"';
+	if ($_GET["page"] == 'bans') {
 		$mod_navigation .=	'class="active"';
 	}
-	$mod_navigation .=	'>Banlist</a></li>';
+	$mod_navigation .=	'>Manage Bans</a></li>';
 }
 
 
@@ -453,6 +497,7 @@ if ($_GET["page"] == 'users') {
 	echo '<div class="box-content">';
 	echo '<p>';
 	echo '<details><summary>Create User</summary>';
+	//CREATE USER
 	echo '<form name="create-user" action="' . $prefix_folder . '/mod.php?page=users" method="post">
 				<table id="post-form" style="width:initial;">
 					<tbody><tr><th>Username:</th><td><input type="text" name="create-username" size="25" maxlength="32" autocomplete="off" placeholder="Username" required></td></tr>
@@ -517,8 +562,52 @@ if ($_GET["page"] == 'users') {
 		}
 		echo ' (' . $user_mod_level . ')</td>';
 		echo '<td><details><summary>More</summary>';
-		echo '<details><summary style="font-size:smaller;">Edit</summary>[editstuff]</details>';
-		echo '<details><summary style="font-size:smaller;">Delete</summary><details><summary>Are you sure you want to delete this user ('.$username.')?</summary><details><summary>Yes!</summary>[delete]</details></details></details>';
+		echo '<details><summary style="font-size:smaller;">Edit</summary>';
+
+		//EDIT USER
+		echo '<form name="edit-user" action="' . $prefix_folder . '/mod.php?page=users" method="post">
+				<table id="post-form" style="width:initial;">
+					<tbody><tr><th>Username:</th><td><input type="hidden" name="edit-username" value="' . $username . '"><input type="text" name="edit-username-view" size="25" maxlength="32" autocomplete="off" value="' . $username . '" disabled></td></tr>
+					<!---<tr><th>Password:</th><td><input type="password" name="edit-password" size="25" maxlength="256" autocomplete="off" placeholder="Leave Empty To Not Change"></td></tr>
+					<tr><th>Password x2:</th><td><input type="password" name="edit-password2" size="25" maxlength="256" autocomplete="off" placeholder="Leave Empty To Not Change"></td></tr>-->
+					<tr><th>User Level:</th><td>
+					<select name="edit-level">';
+
+		switch ($user_mod_level) {
+			case 9001:
+				echo '<option value="9001" selected>Admin (9001)</option>
+					  <option value="40">Moderator (40)</option>
+					  <option value="10">Janitor (10)</option>
+					  <option value="0">User (0)</option>';
+				break;
+			case 40:
+				echo '<option value="9001">Admin (9001)</option>
+					  <option value="40" selected>Moderator (40)</option>
+					  <option value="10">Janitor (10)</option>
+					  <option value="0">User (0)</option>';
+				break;
+			case 10:
+				echo '<option value="9001">Admin (9001)</option>
+					  <option value="40">Moderator (40)</option>
+					  <option value="10" selected>Janitor (10)</option>
+					  <option value="0">User (0)</option>';
+				break;
+			default:
+				echo '<option value="9001">Admin (9001)</option>
+					  <option value="40" selected>Moderator (40)</option>
+					  <option value="10">Janitor (10)</option>
+					  <option value="0" selected>User (0)</option>';
+				break;
+		}
+
+		echo '			</select>
+					</td></tr>
+					<tr><th style="visibility:hidden;"></th><td><input type="submit" name="edit-user" value="Edit User" style="float: right;"></td></tr>
+				</tbody></table>
+			</form>';
+
+		echo '</details>';
+		echo '<details><summary style="font-size:smaller;">Delete</summary><details><summary>Are you sure you want to delete this user ('.$username.')?</summary><details><summary>Yes!</summary><form name="delete-user" action="' . $prefix_folder . '/mod.php?page=users" method="post"><input type="hidden" id="delete-username" name="delete-username" value="' . $username . '"><input type="Submit" name="delete-user" value="Delete"></form></details></details></details>';
 		echo '</details></td>';
 		echo '</tr>';
 		
@@ -535,6 +624,12 @@ if ($_GET["page"] == 'users') {
 	if ($user_created == true) {
 		echo '<div class="message" style="margin-top:0;">User created.</div>';
 	}
+	if ($user_edited == true) {
+		echo '<div class="message" style="margin-top:0;">User edited.</div>';
+	}
+	if ($user_deleted == true) {
+		echo '<div class="message" style="margin-top:0;">User deleted.</div>';
+	}
 
 	include $path . '/templates/footer.html';
 	echo '</body>';
@@ -547,6 +642,11 @@ if ($_GET["page"] == 'reports') {
 	if ($user_mod_level < $config['mod']['reports']) {
 		error('You don\'t have permission to view this page.');
 	}
+
+	if (!file_exists($path . '/' . $database_folder . '/reports')) {
+		mkdir($path . '/' . $database_folder . '/reports');
+	}
+
 	//recount
 	ReportCounter($database_folder, 'normal');
 
@@ -636,6 +736,11 @@ if ($_GET["page"] == 'global_reports') {
 	if ($user_mod_level < $config['mod']['global_reports']) {
 		error('You don\'t have permission to view this page.');
 	}
+
+	if (!file_exists($path . '/' . $database_folder . '/reportsglobal')) {
+		mkdir($path . '/' . $database_folder . '/reportsglobal');
+	}
+
 	//recount
 	ReportCounter($database_folder, 'global');
 
@@ -709,6 +814,130 @@ if ($_GET["page"] == 'global_reports') {
 	echo '</div>';
 	echo '<br>';
 	echo '</div>';
+
+	include $path . '/templates/footer.html';
+	echo '</body>';
+	echo '</html>';
+	exit();
+}
+
+//BANS PAGE
+if ($_GET["page"] == 'bans') {
+	if ($user_mod_level < $config['mod']['ban']) {
+		error('You don\'t have permission to view this page.');
+	}
+	$title = 'Manage Bans - ' . $site_name;
+	if (isset($_GET["theme"])) {
+		echo '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
+	} else {
+		echo '<html data-stylesheet="'. $current_theme .'">';	
+	}
+	echo '<head>';
+	include $path . '/templates/header.html';
+	echo '</head>';
+	echo '<body class="frontpage">';
+	include $path . '/templates/boardlist.html';
+	echo '<div class="page-info"><h1>Dashbord</h1><div class="small">Try not to ruin everything.</div>';
+	echo $logged_in_as;
+	echo '</div>';
+	echo $dashboard_notifications;
+	echo '<br>';
+	echo '<div class="box flex">';
+	echo $mod_navigation;
+	echo '<div class="container-right">';
+
+	echo '<div class="box right">';
+	echo '<h2>Ban IP</h2>';
+	echo '<div class="box-content">';
+	echo '<p>';
+	echo '<details><summary>Ban IP</summary>';
+	echo '<form name="create-ban" action="' . $prefix_folder . '/mod.php?page=banlist" method="post">
+				<table id="post-form" style="width:initial;">
+					<tbody><tr><th>IP:</th><td><input type="text" name="ban-ip" size="25" maxlength="32" autocomplete="off" placeholder="IP" required></td></tr>
+					<tr><th>Reason:</th><td><input type="text" name="ban-reason" size="25" maxlength="256" autocomplete="off" placeholder="Reason" required></td></tr>
+					<tr><th>Duration:</th><td>
+					<select name="ban-expire">
+					  <option value="0">Permanent</option>
+					  <option value="31104000">1 Year</option>
+					  <option value="7776000">3 Months</option>
+					  <option value="2592000">1 Month</option>
+					  <option value="1209600">2 Weeks</option>
+					  <option value="604800">1 Week</option>
+					  <option value="259200">3 Days</option>
+					  <option value="86400">1 Day</option>
+					  <option value="3600">1 Hour</option>
+					  <option value="warning" selected>Warning</option>
+					</select>
+					</td></tr>
+					<tr><th style="visibility:hidden;"></th><td><input type="submit" name="create-ban" value="Create Ban" style="float: right;"></td></tr>
+				</tbody></table>
+			</form>';
+	echo '</details>';
+	echo '</p>';
+	echo '</div>';
+	echo '</div>';
+
+	echo '<br>';
+	echo '<div class="box right">';
+	echo '<h2>Manage Bans</h2>';
+	echo '<div class="box-content">';
+	
+	//foreach
+	
+	echo '<table><thead> <td>ID</td> <td>Username</td> <td>Mod Level</td> <td>Actions</td></thead>';
+	echo '<tbody>';
+
+	//TO DO: multiarray and sort by ID, alternatively use JS.
+	// I should also first take the admins, sort them by id, then the mods by id, then the jannies by id, etc.
+	// Basically sorted by mod level, and each modlevel sorted by ID.
+
+	$userlist = glob(__dir__ . '/' . $database_folder . '/users/*'); 
+	foreach ($userlist as $user) {
+		if (basename($user) == 'counter.php') {
+			continue; //not a user, go next iteration
+		}
+		include $user;
+		echo '<tr>';
+		echo '<td>' . $user_id . '</td>';
+		echo '<td>' . $username . '</td>';
+		echo '<td>';
+		switch ($user_mod_level) {
+			case 9001:
+				echo 'Admin';
+				break;
+			case 40:
+				echo 'Mod';
+				break;
+			case 10:
+				echo 'Janitor';
+				break;
+			case 0:
+				echo 'User';
+				break;
+			default:
+				echo 'Unknown';
+				break;
+		}
+		echo ' (' . $user_mod_level . ')</td>';
+		echo '<td><details><summary>More</summary>';
+		echo '<details><summary style="font-size:smaller;">Edit</summary>[editstuff]</details>';
+		echo '<details><summary style="font-size:smaller;">Delete</summary><details><summary>Are you sure you want to delete this user ('.$username.')?</summary><details><summary>Yes!</summary>[delete]</details></details></details>';
+		echo '</details></td>';
+		echo '</tr>';
+		
+	}
+	echo '</tbody></table>';
+	
+	echo '</div>';
+	echo '</div>';
+
+	echo '</div>';
+	echo '<br>';
+	echo '</div>';
+
+	if ($user_created == true) {
+		echo '<div class="message" style="margin-top:0;">User created.</div>';
+	}
 
 	include $path . '/templates/footer.html';
 	echo '</body>';

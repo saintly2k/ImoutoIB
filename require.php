@@ -65,6 +65,7 @@ if (isset($_COOKIE['mod_user']) && isset($_COOKIE['mod_session'])) {
 	} else {
 		$logged_in = true;
 		$mod_level = $user_mod_level;
+		$logged_in_user = $username;
 	}
 
 	if (($user_remember + 86400) < time()) { //1day if not remember me, otherwise using the +30days from remember time for 31days total
