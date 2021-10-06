@@ -125,6 +125,120 @@ if ($logged_in == true) {
 		}
 	}
 
+	//BAN USER
+	if (($config['mod']['ban'] <= $mod_level) && isset($_POST['create-ban'])) {
+
+		if (!file_exists($path . '/' . $database_folder . '/bans')) {
+			mkdir($path . '/' . $database_folder . '/bans');
+		}
+
+		//create ban id counter if doesnt exist
+		if (!file_exists($path . '/' . $database_folder . '/bans/counter.php')) {
+			file_put_contents($path . '/' . $database_folder . '/bans/counter.php', 0);
+		}
+
+		//check ban form requirements isnt manipulated (duration, reason, etc) and set stuff
+		if (!isset($_POST['ban-expire'])){
+			error('Ban expiry form not given.');
+		}
+		$ban_reason = phpClean($_POST['ban-reason']);
+		$ban_expire = phpClean($_POST['ban-expire']);
+		$ban_message = phpClean($_POST['ban-message']);
+		if (strlen($ban_reason) > 256) {
+			error('Ban reason too long. Maximum 256 characters.');
+		}
+		if (strlen($ban_message) > 256) {
+			error('Ban message too long. Maximum 256 characters.');
+		}
+		if ($ban_reason == '') {
+			$ban_reason = 'No reason given.';
+		}
+
+		if ($delrep_thread == $delrep_reply) { //IF OP
+			$ban_content = file_get_contents($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/OP.php');
+			//TO DO
+			if (isset($_POST['public'])) {
+				//get post body
+				//add ban message
+				//replace post body
+				//save new file
+				}
+		} else { //IF REPLY
+			$ban_content = file_get_contents($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/' . $delrep_reply . '.php');
+					if (isset($_POST['public'])) {
+					//get post body
+					//add ban message
+					//replace post body
+					//save new file
+					}
+			}
+
+		$new_ban['id'] = file_get_contents($path . '/' . $database_folder . '/bans/counter.php');
+
+		$new_ban['ip'] = preg_replace('/^.+(_ip = ")/i','' , $ban_content); //before ip
+		$new_ban['ip'] = preg_replace('/";.+$/i','' , $new_ban['ip']); //after ip
+		$new_ban['original_ip'] = $new_ban['ip'];
+		$new_ban['ip'] = preg_replace('/(\/|\.)/i','' , $new_ban['ip']); //remove dots and slashes from ip to create folder
+
+		if (!file_exists($path . '/' . $database_folder . '/bans/' . $new_ban['ip'])) {
+			mkdir($path . '/' . $database_folder . '/bans/' . $new_ban['ip']);
+		}
+		//create ban information
+
+		//$new_ban['post-filename'] = preg_replace('/^.+(_ip = ")/i','' , $ban_content);
+		//$new_ban['post-filename'] = preg_replace('/";.+$/i','' , $new_ban['post-filename']);
+		$new_ban['post-filename'] = ""; //do after the rest
+
+		$new_ban['post-time'] = preg_replace('/^.+(_time = ")/i','' , $ban_content);
+		$new_ban['post-time'] = preg_replace('/";.+$/i','' , $new_ban['post-time']);
+		$new_ban['post-name'] = preg_replace('/^.+(_name = ")/i','' , $ban_content);
+		$new_ban['post-name'] = preg_replace('/";.+$/i','' , $new_ban['post-name']);
+		$new_ban['post-email'] = preg_replace('/^.+(_email = ")/i','' , $ban_content);
+		$new_ban['post-email'] = preg_replace('/";.+$/i','' , $new_ban['post-email']);
+		$new_ban['post-subject'] = preg_replace('/^.+(_subject = ")/i','' , $ban_content);
+		$new_ban['post-subject'] = preg_replace('/";.+$/i','' , $new_ban['post-subject']);
+		$new_ban['post-body'] = preg_replace('/^.+(_body = ")/i','' , $ban_content);
+		$new_ban['post-body'] = preg_replace('/";.+$/i','' , $new_ban['post-body']);
+		$new_ban['time'] = time();
+		$new_ban['duration'] = $ban_expire;
+
+		if ($ban_expire == "warning") {
+			$new_ban['is_active'] = "0";
+		} else {
+			$new_ban['is_active'] = "1";
+		}
+		$new_ban['is_read'] = "0"; //replace on read
+
+		$create_ban = '<?php ';
+		$create_ban .= '$ban[\'id\'] = "'.$new_ban['id'].'"; ';
+		$create_ban .= '$ban[\'ip\'] = "'.$new_ban['ip'].'"; ';
+		$create_ban .= '$ban[\'original_ip\'] = "'.$new_ban['original_ip'].'"; ';
+		$create_ban .= '$ban[\'thread\'] = "'.$delrep_thread.'"; ';
+		$create_ban .= '$ban[\'reply\'] = "'.$delrep_reply.'"; ';
+		$create_ban .= '$ban[\'reason\'] = "'.$ban_reason.'"; ';
+		$create_ban .= '$ban[\'post-filename\'] = "'.$new_ban['post-filename'].'"; ';
+		$create_ban .= '$ban[\'post-time\'] = "'.$new_ban['post-time'].'"; ';
+		$create_ban .= '$ban[\'post-name\'] = "'.$new_ban['post-name'].'"; ';
+		$create_ban .= '$ban[\'post-email\'] = "'.$new_ban['post-email'].'"; ';
+		$create_ban .= '$ban[\'post-subject\'] = "'.$new_ban['post-subject'].'"; ';
+		$create_ban .= '$ban[\'post-body\'] = "'.$new_ban['post-body'].'"; ';
+		$create_ban .= '$ban[\'time\'] = "'.$new_ban['time'].'"; ';
+		$create_ban .= '$ban[\'duration\'] = "'.$new_ban['duration'].'"; ';
+		$create_ban .= '$ban[\'is_active\'] = "'.$new_ban['is_active'].'"; ';
+		$create_ban .= '$ban[\'is_read\'] = "'.$new_ban['is_read'].'"; ';
+		$create_ban .= '?>';
+			//id (counter), ip, original_ip, thread, reply, reason (post-filename, post-time, post-name, post-email, post-subject, post-body), time, duration, is_active, is_read (only change if is_active = 0)
+
+		file_put_contents($path . '/' . $database_folder . '/bans/' . $new_ban['ip'] . '/' . $new_ban['id'] . '.php', $create_ban); //save ban
+		file_put_contents($path . '/' . $database_folder . '/bans/counter.php', $new_ban['id'] + 1); //increase counter
+
+		if ($ban_expire == "warning") {
+			error('IP has been warned.', true);
+		} else {
+		error('IP has been banned.', true);
+		}
+
+	}
 }
 
 

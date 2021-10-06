@@ -80,40 +80,7 @@
 	
 	?>
 	<div class="post-info">
-		<input type="checkbox" id="post_<?php echo $post_number_op; ?>" name="post_<?php echo $post_number_op; ?>" value="<?php echo $post_number_op; ?>">
-		<?php if ($op_subject != '') { echo '<span class="subject">' . $op_subject . '&nbsp;</span>'; }?>
-		<?php if (($op_email != '') && ($show_email != false)) { echo '<a href="mailto:' . $op_email . '">';}?><span class="<?php if(($op_email != '') && ($show_email != false)) { echo 'link '; } ?>name"><?php echo $op_name; ?></span><?php if ($op_email != '') { echo '</a>'; }?>
-		<span class="post-time" data-timestamp="<?php echo $op_time;?>" data-tooltip="<?php echo timeConvert($op_time, $time_method_hover); ?>"><?php echo timeConvert($op_time, $time_method); ?></span>
 		
-		<?php
-			if ($display_id == true) {
-				echo '<span class="id">ID: ';
-				if ($op_email == "sage") {
-					echo 'Heaven';
-				} else {
-					$idhash = md5($current_board . $post_number_op);
-					$op_id = crypt($op_ip, $idhash);
-					$op_id = preg_replace("/\./", "", $op_id);
-					echo substr($op_id, -8);
-				}
-				echo '</span>';
-			}
-		?>
-
-		<span class="post-number"><a name="<?php echo $post_number_op; ?>" href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>">No.</a><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>"><?php echo $post_number_op; ?></a></span>
-
-		<?php 
-		if ($info_sticky == 1) {
-			echo '<span title="Sticky" class="icon"><img width="16px" height="16px" src="'. $prefix_folder .'/assets/img/' . $icon_sticky . '"/></span>';
-		}
-		if ($info_locked == 1) {
-			echo '<span title="Locked" class="icon"><img width="16px" height="16px" src="'. $prefix_folder .'/assets/img/' . $icon_locked . '"/></span>';
-		}
-		if ($info_autosage == 1) {
-			echo '<span title="Autosage" class="icon"><img width="16px" height="16px" src="'. $prefix_folder .'/assets/img/' . $icon_autosage . '"/></span>';
-		}
-		?>
-
 		<?php if ($post_buttons == true) {
 			echo '
 				<details>
@@ -146,8 +113,31 @@
 						echo '<input type="submit" name="autosage" value="Unautosage"> ';
 					}
 				}
+				if ($config['mod']['ban'] <= $mod_level) {
+						echo '<details><summary>Ban</summary><table id="post-form" style="width:initial;">
+					<tbody>
+					<tr><th>Reason:</th><td><input type="text" name="ban-reason" size="25" maxlength="256" autocomplete="off" placeholder="Reason"></td></tr>
+					<tr><th>Duration:</th><td>
+					<select name="ban-expire">
+					  <option value="permanent">Permanent</option>
+					  <option value="31104000">1 Year</option>
+					  <option value="7776000">3 Months</option>
+					  <option value="2592000">1 Month</option>
+					  <option value="1209600">2 Weeks</option>
+					  <option value="604800">1 Week</option>
+					  <option value="259200">3 Days</option>
+					  <option value="86400">1 Day</option>
+					  <option value="3600">1 Hour</option>
+					  <option value="warning" selected>Warning</option>
+					</select>
+					</td></tr>
+					<tr><th>Public:</th><td><label for="public"><input type="checkbox" id="public" name="public">Public Ban Message</label><input type="text" name="ban-message" size="25" maxlength="256" autocomplete="off" placeholder="(User was banned for this post.)"></td></tr>
+					<tr><th style="visibility:hidden;"></th><td><details style="float:right;"><summary style="text-align:right;">Ban</summary><input type="submit" name="create-ban" value="Create Ban"></details></td></tr>
+				</tbody></table></details>';
+				}
+
 				echo '<hr></td></tr>';
-			}	
+			}
 				
 			echo '
 
@@ -169,6 +159,39 @@
 					</form>
 					</details>';
 		}?>
+		
+		<?php if ($op_subject != '') { echo '<span class="subject">' . $op_subject . '&nbsp;</span>'; }?>
+		<?php if (($op_email != '') && ($show_email != false)) { echo '<a href="mailto:' . $op_email . '">';}?><span class="<?php if(($op_email != '') && ($show_email != false)) { echo 'link '; } ?>name"><?php echo $op_name; ?></span><?php if ($op_email != '') { echo '</a>'; }?>
+		<span class="post-time" data-timestamp="<?php echo $op_time;?>" data-tooltip="<?php echo timeConvert($op_time, $time_method_hover); ?>"><?php echo timeConvert($op_time, $time_method); ?></span>
+		
+		<?php
+			if ($display_id == true) {
+				echo '<span class="id">ID: ';
+				if ($op_email == "sage") {
+					echo 'Heaven';
+				} else {
+					$idhash = md5($current_board . $post_number_op);
+					$op_id = crypt($op_ip, $idhash);
+					$op_id = preg_replace("/\./", "", $op_id);
+					echo substr($op_id, -8);
+				}
+				echo '</span>';
+			}
+		?>
+
+		<span class="post-number"><a name="<?php echo $post_number_op; ?>" href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>">No.</a><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op; ?>"><?php echo $post_number_op; ?></a></span>
+
+		<?php 
+		if ($info_sticky == 1) {
+			echo '<span title="Sticky" class="icon"><img width="16px" height="16px" src="'. $prefix_folder .'/assets/img/' . $icon_sticky . '"/></span>';
+		}
+		if ($info_locked == 1) {
+			echo '<span title="Locked" class="icon"><img width="16px" height="16px" src="'. $prefix_folder .'/assets/img/' . $icon_locked . '"/></span>';
+		}
+		if ($info_autosage == 1) {
+			echo '<span title="Autosage" class="icon"><img width="16px" height="16px" src="'. $prefix_folder .'/assets/img/' . $icon_autosage . '"/></span>';
+		}
+		?>
 
 		<?php 
 			if ($current_page === 'index') { 

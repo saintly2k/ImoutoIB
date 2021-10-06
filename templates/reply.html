@@ -2,33 +2,45 @@
 <div class="post reply" data-postid="<?php echo $post_number_reply; ?>">
 	<div class="post-info">
 
-		<input type="checkbox" id="post_<?php echo $post_number_reply; ?>" name="post_<?php echo $post_number_reply; ?>" value="<?php echo $post_number_reply; ?>">
-		<?php if ($reply_subject != '') { echo '<span class="subject">' . $reply_subject . '&nbsp;</span>'; }?>
-		<?php if (($reply_email != '') && ($show_email != false)) { echo '<a href="mailto:' . $reply_email . '">';}?><span class="<?php if(($reply_email != '') && ($show_email != false)) { echo 'link '; } ?>name"><?php echo $reply_name; ?></span><?php if (($reply_email != '') && ($show_email != false)) { echo '</a>'; }?>
-		<span class="post-time" data-timestamp="<?php echo $reply_time;?>" data-tooltip="<?php echo timeConvert($reply_time, $time_method_hover); ?>"><?php echo timeConvert($reply_time, $time_method); ?></span>
-		<?php
-			if ($display_id == true) {
-				echo '<span class="id">ID: ';
-				if ($reply_email == "sage") {
-					echo 'Heaven';
-				} else {
-					$idhash = md5($current_board . $post_number_op);
-					$reply_id = crypt($reply_ip, $idhash);
-					$reply_id = preg_replace("/\./", "", $reply_id);
-					echo substr($reply_id, -8);
-				}
-				echo '</span>';
-			}
-		?>
-		<span class="post-number"><a name="<?php echo $post_number_reply; ?>" href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_reply; ?>">No.</a><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_reply; ?>"><?php echo $post_number_reply; ?></a>&nbsp;</span>
-
 		<?php if ($post_buttons == true) {
 			echo '
 				<details>
 				    <summary></summary>
 				    <form name="post_button" action="' . $prefix_folder . '/delete-report.php" method="post">
 					    <table>
-					    	<tbody>
+					    	<tbody>';
+
+			if ($mod_level > 0) {
+				echo '<tr><td><div class="small"><b>Moderator Tools:</b></div>';
+				if ($config['mod']['ban'] <= $mod_level) {
+						echo '<details><summary>Ban</summary><table id="post-form" style="width:initial;">
+					<tbody>
+					<tr><th>Reason:</th><td><input type="text" name="ban-reason" size="25" maxlength="256" autocomplete="off" placeholder="Reason"></td></tr>
+					<tr><th>Duration:</th><td>
+					<select name="ban-expire">
+					  <option value="permanent">Permanent</option>
+					  <option value="31104000">1 Year</option>
+					  <option value="7776000">3 Months</option>
+					  <option value="2592000">1 Month</option>
+					  <option value="1209600">2 Weeks</option>
+					  <option value="604800">1 Week</option>
+					  <option value="259200">3 Days</option>
+					  <option value="86400">1 Day</option>
+					  <option value="3600">1 Hour</option>
+					  <option value="warning" selected>Warning</option>
+					</select>
+					</td></tr>
+					<tr><th>Public:</th><td><label for="public"><input type="checkbox" id="public" name="public">Public Ban Message</label><input type="text" name="ban-message" size="25" maxlength="256" autocomplete="off" placeholder="(User was banned for this post.)"></td></tr>
+					<tr><th style="visibility:hidden;"></th><td><details style="float:right;"><summary style="text-align:right;">Ban</summary><input type="submit" name="create-ban" value="Create Ban"></details></td></tr>
+				</tbody></table></details>';
+				}
+
+				echo '<hr></td></tr>';
+			}
+
+
+
+			echo '
 					    		<input type="hidden" name="board" value="' . $current_board . '"/>
 					    		<input type="hidden" name="thread" value="' . $post_number_op . '"/>
 					    		<input type="hidden" name="reply" value="' . $post_number_reply . '"/>
@@ -47,6 +59,25 @@
 					</form>
 					</details>';
 		}?>
+
+		<?php if ($reply_subject != '') { echo '<span class="subject">' . $reply_subject . '&nbsp;</span>'; }?>
+		<?php if (($reply_email != '') && ($show_email != false)) { echo '<a href="mailto:' . $reply_email . '">';}?><span class="<?php if(($reply_email != '') && ($show_email != false)) { echo 'link '; } ?>name"><?php echo $reply_name; ?></span><?php if (($reply_email != '') && ($show_email != false)) { echo '</a>'; }?>
+		<span class="post-time" data-timestamp="<?php echo $reply_time;?>" data-tooltip="<?php echo timeConvert($reply_time, $time_method_hover); ?>"><?php echo timeConvert($reply_time, $time_method); ?></span>
+		<?php
+			if ($display_id == true) {
+				echo '<span class="id">ID: ';
+				if ($reply_email == "sage") {
+					echo 'Heaven';
+				} else {
+					$idhash = md5($current_board . $post_number_op);
+					$reply_id = crypt($reply_ip, $idhash);
+					$reply_id = preg_replace("/\./", "", $reply_id);
+					echo substr($reply_id, -8);
+				}
+				echo '</span>';
+			}
+		?>
+		<span class="post-number"><a name="<?php echo $post_number_reply; ?>" href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_reply; ?>">No.</a><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_reply; ?>"><?php echo $post_number_reply; ?></a>&nbsp;</span>
 
 	</div>
 

@@ -1,0 +1,57 @@
+<?php
+if ($ban['duration'] == 'warning') {
+	$title = 'Uh oh! Warning...';
+} else {
+	$title = 'Uh oh! Banned...';
+}
+include __dir__ . '/header.html';
+?>
+<div class="main first banned">
+	<h2>
+	<?php if ($ban['duration'] == 'warning') {
+		echo 'Warning!';
+	} else {
+		echo 'Banned!';
+	}
+	?>
+	</h2>
+	<p>How did you manage this...</p>
+	<?php 
+
+		echo '<div class="post reply"><div class="post-info">';
+		if ($ban['post-subject'] != '') {
+		echo '<span class="subject">'.$ban['post-subject'].'&nbsp;</span>';
+		}
+		if ($ban['post-email'] != '') {
+			echo '<span class="name"><a href="mailto:'.$ban['post-email'].'">'.$ban['post-name'].'</a>&nbsp;</span>';
+		} else {
+			echo '<span class="name">'.$ban['post-name'].'&nbsp;</span>';
+		}
+		
+		echo '<span class="post-time" data-tooltip="'.timeConvert($ban['post-time'], $time_method_hover).'" data-timestamp="'.$ban['post-time'].'">'.timeConvert($ban['post-time'], $time_method).'&nbsp;</span>';
+		echo '<span class="post-number">No.'.$ban['reply'].'</span>';
+		echo '</div><blockquote class="post-content">'.$ban['post-body'].'</blockquote></div>';
+	
+	if ($ban['duration'] != 'warning') {
+		if ($ban['duration'] == 'permanent') {
+			echo '<p>You were permanently banned on ' . timeConvert($ban['time'], $method = "compactsince") . '. This ban will not expire.</p>';
+		} elseif ($ban['is_active'] == "1") {
+			echo '<p>You were banned on ' . timeConvert($ban['time'], $method = "compactsince") . ' and your ban expires in ' . timeuntil($ban['time'] + $ban['duration']) . '.</p>';
+		} else {
+			echo '<p>You were banned on ' . timeConvert($ban['time'], $method = "compactsince") . ' and your ban <b>expired</b> ' . timeago($ban['time']) . '.</p>';
+		}
+	} else {
+		echo '<p>You received a warning on ' . timeConvert($ban['time'], $method = "compactsince") . '. You may now continue posting.</p>';
+	}
+	echo '<p><b>Reason:</b> ' . $ban['reason'] . '</p>';
+
+
+	echo '</p>';
+
+	?>
+	<p>
+	<b>cute banned image here</b>
+	</p>
+</div>
+<br><br>
+<div class="message" style="margin-top:0;">[<a href="/<?php echo $prefix_folder . $main_file ?>">Return</a>]</div>

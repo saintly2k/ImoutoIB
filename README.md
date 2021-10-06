@@ -34,7 +34,7 @@ If not using apache with included htaccess to remove main.php, add 'main.php' to
 
 Edit /database/boards.php to create/edit/delete boards (Temporary).
 
-Default admin user is admin:password. Go to mod.php and edit this.
+Default admin user is admin:password. Go to mod.php in your browser and edit this.
 
 Any changes you want to make should be done in includes/custom.php, It will overwrite the default configuration. Consider the default config a documentation of some sort. This will make upgrading easier.
 

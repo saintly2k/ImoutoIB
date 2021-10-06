@@ -52,9 +52,10 @@
 
 
 		?>
-		<select>
+		</select>
 		<noscript>
 			<style>select#themes { display: none; }</style>
+			<details><summary style="text-align:right">Themes</summary>
 		<?php
 		if (isset($current_board) && $current_board != '') {
 			if ($config["boards"][$current_board]["type"] == "txt") {
@@ -71,7 +72,7 @@
 				echo '&nbsp;[<a href="' . $prefix_folder . $main_file . '/?board=' . $current_board . '&thread=' . $current_thread . '&theme=' . $theme . '">' . $theme . '</a>]';
 			}
 		}
-		?>
+		?>	</details>
 		</noscript>
 	</div>
 </div>

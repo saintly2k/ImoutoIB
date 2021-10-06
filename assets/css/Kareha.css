@@ -33,7 +33,6 @@ html[data-stylesheet="Kareha"] div.container {
   background: #EFEFEF;
   padding: 8px;
   border: 1px solid #333;
-  border-radius: 8px;
   max-width: 95%;
 }
 
@@ -58,18 +57,6 @@ html[data-stylesheet="Kareha"] .page-info h1 {
  font-family: inherit;
 }
 
-html[data-stylesheet="Kareha"] .post-info input {
-  display: none;
-}
-
-html[data-stylesheet="Kareha"] .post-info table input {
-  display: table;
-}
-
-html[data-stylesheet="Kareha"] .post-info table label input {
-  display: inline;
-}
-
 html[data-stylesheet="Kareha"] .subject {
   color: red;
 }
@@ -77,7 +64,6 @@ html[data-stylesheet="Kareha"] .subject {
 html[data-stylesheet="Kareha"] div#post-form {
   background: #CFC;
   border: 1px solid #333;
-  border-radius: 8px;
   width: 80%;
 }
 
@@ -102,7 +88,6 @@ html[data-stylesheet="Kareha"] div.main {
 
 html[data-stylesheet="Kareha"] div.main, html[data-stylesheet="Kareha"] div.main h2 {
   background: #CFC;
-  border-radius: 8px;
 }
 
 html[data-stylesheet="Kareha"] div.postingmode {
@@ -113,7 +98,6 @@ html[data-stylesheet="Kareha"] div.postingmode {
 html[data-stylesheet="Kareha"] div.post details table {
   background: #efefef;
   border: 2px solid #333;
-  border-radius: 8px;
 }
 
 html[data-stylesheet="Kareha"] .pager {

@@ -84,6 +84,25 @@ function timeago($unix) { //blatantly taken and modified from https://phppot.com
 	   }
 	}
 
+function timeuntil($unix) { //blatantly taken and modified from https://phppot.com/php/php-time-ago-function/
+	   $timestamp = $unix;	
+	   $strTime = array("second", "minute", "hour", "day", "month", "year");
+	   $length = array("60","60","24","30","12","10");
+	   $currentTime = time();
+	   if($currentTime <= $timestamp) {
+			$diff     = $timestamp - time();
+			for($i = 0; $diff >= $length[$i] && $i < count($length)-1; $i++) {
+			$diff = $diff / $length[$i];
+			}
+			$diff = round($diff);
+			if ($diff > 1) {
+				return $diff . " " . $strTime[$i] . "s";
+			} else {
+				return $diff . ' ' . $strTime[$i];
+			}
+	   }
+	}
+
 function timeConvert($unix, $method = false) {
 	if ($method === 'iso') {
 		return date('Y-m-d\TH:i:sO', $unix);
