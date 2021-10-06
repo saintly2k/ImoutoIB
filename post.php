@@ -3,6 +3,49 @@
 require dirname(__FILE__) . '/require.php';
 
 
+//CHECK BANS, move this to a different file maybe.
+$check_ban = crypt($_SERVER['REMOTE_ADDR'] , $secure_hash);
+$check_ban = preg_replace('/(\/|\.)/i','' , $check_ban);
+if (file_exists(__dir__ . '/' . $database_folder . '/bans/' . $check_ban)) {
+	$existing_bans = [];
+	$existing_bans = glob(__dir__ . '/' . $database_folder . '/bans/' . $check_ban . '/*');
+	foreach ($existing_bans as $bans) {
+		$ban = [];
+		include $bans;
+		//check if expired
+		if ($ban['is_active'] == "1") {
+			if ($ban['duration'] == 'permanent') {
+				//SHOW BAN MESSAGE
+				include $path . '/templates/banned.html';
+				exit();
+			}
+			if (($ban['time'] + $ban['duration']) < time()) {
+				//edit file to inactive
+				$edit_ban = file_get_contents($bans);
+				$edit_ban = preg_replace('/ban\[\'is_active\'\] = "1";/i' , 'ban[\'is_active\'] = "0";' , $edit_ban);
+				//save as expired
+				file_put_contents($bans, $edit_ban);
+			} else {
+				//this ban hasnt expired...
+				//SHOW BAN MESSAGE
+				include $path . '/templates/banned.html';
+				exit();
+			}
+		}
+
+		//then check if its been read
+		if ($ban['is_read'] == "0") {
+			$edit_ban = file_get_contents($bans);
+			$edit_ban = preg_replace('/ban\[\'is_read\'\] = "0";/i' , 'ban[\'is_read\'] = "1";' , $edit_ban);
+			file_put_contents($bans, $edit_ban);
+			//SHOW BAN MESSAGE
+			include $path . '/templates/banned.html';
+			exit();
+		}
+		//cool lets continue
+	}
+}
+
 //MOD FIELDS:
 if (($config['mod']['thread_sticky'] <= $mod_level) && isset($_POST['sticky'])) {
 	$info_sticky = 1;

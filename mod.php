@@ -826,6 +826,11 @@ if ($_GET["page"] == 'bans') {
 	if ($user_mod_level < $config['mod']['ban']) {
 		error('You don\'t have permission to view this page.');
 	}
+
+	if (!file_exists($path . '/' . $database_folder . '/bans')) {
+		mkdir($path . '/' . $database_folder . '/bans');
+	}
+
 	$title = 'Manage Bans - ' . $site_name;
 	if (isset($_GET["theme"])) {
 		echo '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
@@ -850,14 +855,14 @@ if ($_GET["page"] == 'bans') {
 	echo '<h2>Ban IP</h2>';
 	echo '<div class="box-content">';
 	echo '<p>';
-	echo '<details><summary>Ban IP</summary>';
+	echo '<details><summary>Ban IP (incomplete)</summary>';
 	echo '<form name="create-ban" action="' . $prefix_folder . '/mod.php?page=banlist" method="post">
 				<table id="post-form" style="width:initial;">
 					<tbody><tr><th>IP:</th><td><input type="text" name="ban-ip" size="25" maxlength="32" autocomplete="off" placeholder="IP" required></td></tr>
 					<tr><th>Reason:</th><td><input type="text" name="ban-reason" size="25" maxlength="256" autocomplete="off" placeholder="Reason" required></td></tr>
 					<tr><th>Duration:</th><td>
 					<select name="ban-expire">
-					  <option value="0">Permanent</option>
+					  <option value="permanent">Permanent</option>
 					  <option value="31104000">1 Year</option>
 					  <option value="7776000">3 Months</option>
 					  <option value="2592000">1 Month</option>
@@ -879,53 +884,76 @@ if ($_GET["page"] == 'bans') {
 
 	echo '<br>';
 	echo '<div class="box right">';
-	echo '<h2>Manage Bans</h2>';
+	echo '<h2>Manage Bans</h2>'; //at some point i will need to rewrite this+reports+users to have pages if it grows large!!!
 	echo '<div class="box-content">';
 	
 	//foreach
 	
-	echo '<table><thead> <td>ID</td> <td>Username</td> <td>Mod Level</td> <td>Actions</td></thead>';
+	echo '<table><thead> <td>ID</td> <td>IP</td> <td>Reason</td> <td>Expires</td> <td>Read</td> <td>Actions</td></thead>';
 	echo '<tbody>';
 
 	//TO DO: multiarray and sort by ID, alternatively use JS.
 	// I should also first take the admins, sort them by id, then the mods by id, then the jannies by id, etc.
 	// Basically sorted by mod level, and each modlevel sorted by ID.
 
-	$userlist = glob(__dir__ . '/' . $database_folder . '/users/*'); 
-	foreach ($userlist as $user) {
-		if (basename($user) == 'counter.php') {
-			continue; //not a user, go next iteration
+	$banfolder = glob(__dir__ . '/' . $database_folder . '/bans/*', GLOB_ONLYDIR); 
+	$banlist_full = [];
+
+	foreach ($banfolder as $banfolder) { //for each folder
+		foreach (glob($banfolder . '/*') as $banfile) { //for each file
+			if (!is_numeric(basename($banfile, '.php'))) { //not a ban
+				continue;
+			}
+			include $banfile;
+
+			if ($ban['duration'] == 'warning') {
+				echo '<tr style="text-decoration:line-through;">';
+			} elseif (($ban['duration'] != 'permanent') && (($ban['time'] + $ban['duration']) < time())) { //if warning or expired
+				echo '<tr style="text-decoration:line-through;">';
+			} else {
+				echo '<tr>';
+			}
+
+			echo '<td>' . $ban['id'] . '</td>';
+			echo '<td>' . $ban['original_ip'] . '</td>';
+			echo '<td title="' . $ban['reason'] . '"style="white-space:pre;word-wrap:break-word;max-width:150px;overflow:hidden;text-overflow:ellipsis">' . $ban['reason'] . '</td>';
+			
+			if ($ban['duration'] == 'warning') {
+				echo '<td>---------</td>';
+			} elseif ($ban['duration'] == 'permanent') {
+				echo '<td>Never</td>';
+			} elseif (($ban['time'] + $ban['duration']) < time()) {
+				echo '<td>'. timeago($ban['time'] + $ban['duration']) .'</td>';
+			} else {
+				echo '<td>'. timeuntil($ban['time'] + $ban['duration']) .'</td>';
+			}
+			
+			echo '<td>' . $ban['is_read'] . '</td>';
+			echo '<td>';
+			echo '<details><summary>More</summary>';
+
+			echo '<details><summary class="small">View</summary>'; //see post that caused ban
+			echo '<div class="post reply"><div class="post-info">';
+			if ($ban['post-subject'] != '') {
+			echo '<span class="subject">'.$ban['post-subject'].'&nbsp;</span>';
+			}
+			if ($ban['post-email'] != '') {
+				echo '<span class="name"><a href="mailto:'.$ban['post-email'].'">'.$ban['post-name'].'</a>&nbsp;</span>';
+			} else {
+				echo '<span class="name">'.$ban['post-name'].'&nbsp;</span>';
+			}
+			
+			echo '<span class="post-time" data-tooltip="'.timeConvert($ban['post-time'], $time_method_hover).'" data-timestamp="'.$ban['post-time'].'">'.timeConvert($ban['post-time'], $time_method).'&nbsp;</span>';
+			echo '<span class="post-number">No.'.$ban['reply'].'</span>';
+			echo '</div><blockquote class="post-content">'.$ban['post-body'].'</blockquote></div>';
+			echo '</details>'; //"view file"
+
+			echo '</details></td>';
+
+			echo '<tr>';
 		}
-		include $user;
-		echo '<tr>';
-		echo '<td>' . $user_id . '</td>';
-		echo '<td>' . $username . '</td>';
-		echo '<td>';
-		switch ($user_mod_level) {
-			case 9001:
-				echo 'Admin';
-				break;
-			case 40:
-				echo 'Mod';
-				break;
-			case 10:
-				echo 'Janitor';
-				break;
-			case 0:
-				echo 'User';
-				break;
-			default:
-				echo 'Unknown';
-				break;
-		}
-		echo ' (' . $user_mod_level . ')</td>';
-		echo '<td><details><summary>More</summary>';
-		echo '<details><summary style="font-size:smaller;">Edit</summary>[editstuff]</details>';
-		echo '<details><summary style="font-size:smaller;">Delete</summary><details><summary>Are you sure you want to delete this user ('.$username.')?</summary><details><summary>Yes!</summary>[delete]</details></details></details>';
-		echo '</details></td>';
-		echo '</tr>';
-		
 	}
+
 	echo '</tbody></table>';
 	
 	echo '</div>';

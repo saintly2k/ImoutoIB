@@ -42,6 +42,8 @@ $user_created = false;
 $user_edited = false;
 $user_deleted = false;
 
+$is_banned = false;
+
 $post_locked = false;
 $post_sticky = false;
 $post_autosage = false;

@@ -61,7 +61,6 @@ html[data-stylesheet="Sankarea"] div.container {
   background: #111;
   padding: 8px;
   border: 3px solid #aaa;
-  border-radius: 0;
   max-width: 95%;
 }
 
@@ -80,18 +79,6 @@ html[data-stylesheet="Sankarea"] .page-info, html[data-stylesheet="Sankarea"] .p
 
 html[data-stylesheet="Sankarea"] .page-info h1 {
  font-family: inherit;
-}
-
-html[data-stylesheet="Sankarea"] .post-info input {
-  display: none;
-}
-
-html[data-stylesheet="Sankarea"] .post-info table input {
-  display: table;
-}
-
-html[data-stylesheet="Sankarea"] .post-info table label input {
-  display: inline;
 }
 
 html[data-stylesheet="Sankarea"] .subject {
@@ -132,7 +119,6 @@ html[data-stylesheet="Sankarea"] div.main {
 
 html[data-stylesheet="Sankarea"] div.main, html[data-stylesheet="Sankarea"] div.main h2 {
   background: #111;
-  border-radius: 0;
 }
 
 html[data-stylesheet="Sankarea"] .static.footer li:first-child {
@@ -153,7 +139,6 @@ html[data-stylesheet="Sankarea"] div.postingmode {
 html[data-stylesheet="Sankarea"] div.post details table {
   background: #111;
   border: 2px solid #aaa;
-  border-radius: 0;
 }
 
 html[data-stylesheet="Sankarea"] .pager {

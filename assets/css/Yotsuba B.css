@@ -145,6 +145,10 @@ div#boardlist {
 	border: 1px solid #000;
 }
 
+.main.first.banned {
+	margin-top: 100px;
+}
+
 .main h2 {
 	background: #98e;
 	padding-left: 4px;
@@ -244,6 +248,8 @@ div.footer p {
 
 input[name="captcha"] {
     margin-top: 3px;
+    text-transform: uppercase;
+
 }
 
 .message {
@@ -387,7 +393,13 @@ label {
 
 div.post details {
 	display: inline;
+	margin-right: -4px;
 }
+
+div.post td details {
+    margin-right: 0;
+}
+
 div.post details summary {
   font-size: 16px;
 }
@@ -421,6 +433,7 @@ div.post details table {
 .box {
 	width: 752px;
 	margin: auto;
+	box-sizing: border-box;
 }
 
 .box.flex {
