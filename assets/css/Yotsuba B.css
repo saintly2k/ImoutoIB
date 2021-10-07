@@ -147,6 +147,24 @@ div#boardlist {
 
 .main.first.banned {
 	margin-top: 100px;
+	word-break: break-all;
+	min-height: 310px;
+}
+
+img.banned {
+	width: 250px;
+	height: 250px;
+	float: right;
+	margin: 20px;
+}
+
+span.banned {
+	color: red;
+	font-weight: bold;
+}
+
+div.post.reply.banned {
+	margin-left: 10px;
 }
 
 .main h2 {

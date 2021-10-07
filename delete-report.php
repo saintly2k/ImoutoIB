@@ -158,19 +158,33 @@ if ($logged_in == true) {
 			$ban_content = file_get_contents($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/OP.php');
 			//TO DO
 			if (isset($_POST['public'])) {
-				//get post body
-				//add ban message
-				//replace post body
-				//save new file
+				$new_body = preg_replace('/^.+_body = "/i', '', $ban_content); //before "
+				$new_body = preg_replace('/";.+/i','' , $new_body); //after "
+				$new_body .= '<br><br><span class=\'banned\'>'; //add ban message
+				if ($ban_message == "") {
+					$new_body .= '(User was banned for this post.)';
+				} else {
+					$new_body .= $ban_message;
+				}
+				$new_body .= '</span>';
+				$save_file = preg_replace('/_body = ".*?"/i', '_body = "' . $new_body . '"', $ban_content); //replace post body
+				file_put_contents($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/OP.php', $save_file);
 				}
 		} else { //IF REPLY
 			$ban_content = file_get_contents($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/' . $delrep_reply . '.php');
 					if (isset($_POST['public'])) {
-					//get post body
-					//add ban message
-					//replace post body
-					//save new file
-					}
+				$new_body = preg_replace('/^.+_body = "/i', '', $ban_content); //before "
+				$new_body = preg_replace('/";.+/i','' , $new_body); //after "
+				$new_body .= '<br><br><span class=\'banned\'>'; //add ban message
+				if ($ban_message == "") {
+					$new_body .= '(User was banned for this post.)';
+				} else {
+					$new_body .= $ban_message;
+				}
+				$new_body .= '</span>';
+				$save_file = preg_replace('/_body = ".*?"/i', '_body = "' . $new_body . '"', $ban_content); //replace post body
+				file_put_contents($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/' . $delrep_reply . '.php', $save_file);
+				}
 			}
 
 		$new_ban['id'] = file_get_contents($path . '/' . $database_folder . '/bans/counter.php');

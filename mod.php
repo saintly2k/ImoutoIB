@@ -933,7 +933,7 @@ if ($_GET["page"] == 'bans') {
 			echo '<details><summary>More</summary>';
 
 			echo '<details><summary class="small">View</summary>'; //see post that caused ban
-			echo '<div class="post reply"><div class="post-info">';
+			echo '<div class="post reply banned"><div class="post-info">';
 			if ($ban['post-subject'] != '') {
 			echo '<span class="subject">'.$ban['post-subject'].'&nbsp;</span>';
 			}

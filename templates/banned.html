@@ -4,6 +4,9 @@ if ($ban['duration'] == 'warning') {
 } else {
 	$title = 'Uh oh! Banned...';
 }
+
+$current_board = phpClean($_POST["board"]);
+
 include __dir__ . '/header.html';
 ?>
 <div class="main first banned">
@@ -15,10 +18,12 @@ include __dir__ . '/header.html';
 	}
 	?>
 	</h2>
-	<p>How did you manage this...</p>
 	<?php 
+		echo '<img class="banned" src="' . $prefix_folder . '/assets/img/banned.png' . '">';
 
-		echo '<div class="post reply"><div class="post-info">';
+		echo '<p>How did you manage this...</p>';
+
+		echo '<div class="post reply banned"><div class="post-info">';
 		if ($ban['post-subject'] != '') {
 		echo '<span class="subject">'.$ban['post-subject'].'&nbsp;</span>';
 		}
@@ -32,26 +37,26 @@ include __dir__ . '/header.html';
 		echo '<span class="post-number">No.'.$ban['reply'].'</span>';
 		echo '</div><blockquote class="post-content">'.$ban['post-body'].'</blockquote></div>';
 	
+	echo '<p style="word-break:break-word;">';
+
 	if ($ban['duration'] != 'warning') {
 		if ($ban['duration'] == 'permanent') {
-			echo '<p>You were permanently banned on ' . timeConvert($ban['time'], $method = "compactsince") . '. This ban will not expire.</p>';
+			echo 'You were permanently banned on ' . timeConvert($ban['time'], $method = "compactsince") . '. This ban will not expire.';
 		} elseif ($ban['is_active'] == "1") {
-			echo '<p>You were banned on ' . timeConvert($ban['time'], $method = "compactsince") . ' and your ban expires in ' . timeuntil($ban['time'] + $ban['duration']) . '.</p>';
+			echo 'You were banned on ' . timeConvert($ban['time'], $method = "compactsince") . ' and your ban expires on ' .  timeConvert($ban['time'] + $ban['duration'], $method = "compact") . ' (in ' . timeuntil($ban['time'] + $ban['duration']) . ').';
 		} else {
-			echo '<p>You were banned on ' . timeConvert($ban['time'], $method = "compactsince") . ' and your ban <b>expired</b> ' . timeago($ban['time']) . '.</p>';
+			echo 'You were banned on ' . timeConvert($ban['time'], $method = "compactsince") . ' and your ban <b>expired</b> ' . timeago($ban['time']) . '.';
 		}
 	} else {
-		echo '<p>You received a warning on ' . timeConvert($ban['time'], $method = "compactsince") . '. You may now continue posting.</p>';
+		echo 'You received a warning on ' . timeConvert($ban['time'], $method = "compactsince") . '. You may now continue posting.';
 	}
+	echo '</p>';
 	echo '<p><b>Reason:</b> ' . $ban['reason'] . '</p>';
 
-
-	echo '</p>';
+	echo '<p><b>IP:</b> ' . $ban['original_ip'] . '</p>';
 
 	?>
-	<p>
-	<b>cute banned image here</b>
-	</p>
+	<br>
 </div>
 <br><br>
-<div class="message" style="margin-top:0;">[<a href="/<?php echo $prefix_folder . $main_file ?>">Return</a>]</div>
+<div class="message" style="margin-top:0;">[<a href="<?php echo $prefix_folder . $main_file ?>">Return</a>]</div>
