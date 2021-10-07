@@ -6,6 +6,9 @@ $prefix_folder = ''; // leave empty if in directory root, example 'ib' if in /ib
 $main_file = 'main.php'; //leave empty if using handlers like apache to hide filename example: /ib/?boards= vs /ib/main.php?boards=
 $post_file = 'post.php'; //i cant imagine any reason to change this, but i suppose it could be in a different folder if you want to
 
+$display_version = true;
+$version = 'v0.84';
+
 $site_name = 'ImoutoIB';
 $site_slogan = 'As if it were written by a literal child.';
 $domain = '3dpd.moe'; //MUST BE SET FOR COOKIES

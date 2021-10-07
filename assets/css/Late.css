@@ -128,3 +128,14 @@ html[data-stylesheet="Late"] .catalog .container {
 html[data-stylesheet="Late"] .catalog .container:hover {
     background: #353535;
 }
+
+html[data-stylesheet="Late"] .box.left, html[data-stylesheet="Late"] .box.right {
+  background: #111;
+  color: #ACACAC;
+  border: 1px solid #000;
+}
+
+html[data-stylesheet="Late"] .box h2 {
+  background: #1d1d21;
+  color: #c5c8c6;
+}

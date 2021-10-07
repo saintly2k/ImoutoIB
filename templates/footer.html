@@ -79,6 +79,7 @@
 &nbsp;
 <div class="footer">
 	<p>ImoutoIB</p>
+	<?php if ($display_version == true) { echo '<p>' . $version . '</p>'; } ?>
 	<?php 
 		if ($config['generated_in'] === true) {
 			$end_time = microtime(true);

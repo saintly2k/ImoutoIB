@@ -145,3 +145,14 @@ html[data-stylesheet="Sankarea"] .pager {
   background: #000;
   border: 3px solid #aaa;
 }
+
+html[data-stylesheet="Sankarea"] .box.left, html[data-stylesheet="Sankarea"] .box.right {
+  background: #111;
+  color: #fff;
+  border: 3px solid #aaa;
+}
+
+html[data-stylesheet="Sankarea"] .box h2 {
+  background: #111;
+  color: #fff;
+}

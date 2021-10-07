@@ -104,6 +104,11 @@ html[data-stylesheet="Tomorrow"] div.post-arrows {
   color: #c5c8c6;
 }
 
+html[data-stylesheet="Tomorrow"] div.post details table {
+  background: #282a2e;
+  border: 1px solid #111;
+}
+
 html[data-stylesheet="Tomorrow"] .pager {
   background: #282a2e;
   border: 1px solid #000;
@@ -123,4 +128,15 @@ html[data-stylesheet="Tomorrow"] .catalog .container {
 
 html[data-stylesheet="Tomorrow"] .catalog .container:hover {
     background: #2c2e33;
+}
+
+html[data-stylesheet="Tomorrow"] .box.left, html[data-stylesheet="Tomorrow"] .box.right {
+  background: #111;
+  color: #ACACAC;
+  border: 1px solid #000;
+}
+
+html[data-stylesheet="Tomorrow"] .box h2 {
+  background: #1d1d21;
+  color: #c5c8c6;
 }
