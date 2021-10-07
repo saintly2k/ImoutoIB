@@ -41,8 +41,6 @@ Any changes you want to make should be done in includes/custom.php, It will over
 If you want to create different configurations per board you can go to any database/boards/board folder and create a config.php file. <?php $default_name = "Technology Enthusiast" ?> 
 It will be automatically read and used when viewing or posting on that specific board.
 
-When you are visiting the frontpage for the first time it may be a bit bugged. Create a post in any imageboard with an image and this should fix itself (Temporary).
-
 Upgrade
 -------
 

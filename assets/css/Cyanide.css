@@ -116,3 +116,14 @@ html[data-stylesheet="Cyanide"] .catalog .container {
 html[data-stylesheet="Cyanide"] .catalog .container:hover {
     background: #264048;
 }
+
+html[data-stylesheet="Cyanide"] .box.left, html[data-stylesheet="Cyanide"] .box.right {
+  background: #000;
+  color: #FFF;
+  border: 1px solid #7FF;
+}
+
+html[data-stylesheet="Cyanide"] .box h2 {
+  background: #7FF;
+  color: #000;
+}
