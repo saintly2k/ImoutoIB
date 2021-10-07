@@ -156,6 +156,7 @@ img.banned {
 	height: 250px;
 	float: right;
 	margin: 20px;
+	border: 1px solid;
 }
 
 span.banned {

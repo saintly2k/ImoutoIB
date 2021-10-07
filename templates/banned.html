@@ -45,7 +45,7 @@ include __dir__ . '/header.html';
 		} elseif ($ban['is_active'] == "1") {
 			echo 'You were banned on ' . timeConvert($ban['time'], $method = "compactsince") . ' and your ban expires on ' .  timeConvert($ban['time'] + $ban['duration'], $method = "compact") . ' (in ' . timeuntil($ban['time'] + $ban['duration']) . ').';
 		} else {
-			echo 'You were banned on ' . timeConvert($ban['time'], $method = "compactsince") . ' and your ban <b>expired</b> ' . timeago($ban['time']) . '.';
+			echo 'You were banned on ' . timeConvert($ban['time'], $method = "compactsince") . ' and your ban <b>expired</b> ' . timeago($ban['time']) . '. You may now continue posting.';
 		}
 	} else {
 		echo 'You received a warning on ' . timeConvert($ban['time'], $method = "compactsince") . '. You may now continue posting.';
