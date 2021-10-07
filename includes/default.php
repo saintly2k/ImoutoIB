@@ -7,7 +7,7 @@ $main_file = 'main.php'; //leave empty if using handlers like apache to hide fil
 $post_file = 'post.php'; //i cant imagine any reason to change this, but i suppose it could be in a different folder if you want to
 
 $display_version = true;
-$version = 'v0.84';
+$version = 'v0.85';
 
 $site_name = 'ImoutoIB';
 $site_slogan = 'As if it were written by a literal child.';

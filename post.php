@@ -25,6 +25,7 @@ if (file_exists(__dir__ . '/' . $database_folder . '/bans/' . $check_ban)) {
 				$edit_ban = preg_replace('/ban\[\'is_active\'\] = "1";/i' , 'ban[\'is_active\'] = "0";' , $edit_ban);
 				//save as expired
 				file_put_contents($bans, $edit_ban);
+				$ban['is_active'] = "0"; //remind banned.html that its no longer active
 			} else {
 				//this ban hasnt expired...
 				//SHOW BAN MESSAGE
