@@ -9,10 +9,16 @@ if ((!isset($_GET["board"])) || ($_GET["board"] == '') && $_GET["page"] == '') {
 	$title = $site_name;
 
 	$total_posts = 0;
+
+	if (!file_exists(__dir__ . '/' . $database_folder . '/frontpage.php')) { //no frontpage? lets create boards folder
+		if (!file_exists(__dir__ . '/' . $database_folder . '/boards')) {
+			mkdir(__dir__ . '/' . $database_folder . '/boards');
+		}
+	}
 	foreach ($config['boards'] as $boards) {
-		//prevent error on new board with 0 posts. you need to visit frontpage at least once otherwise board throws an error, but its not fatal or anything....
+		//now lets create counters for each board, no matter if frontpage exists or not in case of new boards being made
 		if (!file_exists(__dir__ . '/' . $database_folder . '/boards/' . $boards['url'] . '/counter.php')) {
-			@mkdir(__dir__ . '/' . $database_folder . '/boards/' . $boards['url']);
+			mkdir(__dir__ . '/' . $database_folder . '/boards/' . $boards['url']);
 			file_put_contents(__dir__ . '/' . $database_folder . '/boards/' . $boards['url'] . '/counter.php', 1);
 		}
 		//
