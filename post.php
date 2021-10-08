@@ -2,6 +2,10 @@
 
 require dirname(__FILE__) . '/require.php';
 
+if (!isset($_POST['board'])) {
+	//error('No board selected.');
+	$_POST['board'] = array_key_first($config['boards']); //set a board and allow seeing bans instead:
+}
 
 //CHECK BANS, move this to a different file maybe.
 $check_ban = crypt($_SERVER['REMOTE_ADDR'] , $secure_hash);

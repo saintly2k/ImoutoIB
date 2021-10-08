@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var refreshButton = document.querySelector("#captcha");
       refreshButton.onclick = function() {
         document.querySelector("#captcha").src = install_location + '/includes/captcha.php?' + Date.now();
+        document.querySelector("#captcha-field").value = '';
       }
     }
 

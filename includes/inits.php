@@ -41,6 +41,9 @@ $changed_password = false;
 $user_created = false;
 $user_edited = false;
 $user_deleted = false;
+$ban_removed = false;
+$ban_created = false;
+$warning_created = false;
 
 $is_banned = false;
 

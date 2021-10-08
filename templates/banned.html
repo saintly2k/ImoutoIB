@@ -23,19 +23,26 @@ include __dir__ . '/header.html';
 
 		echo '<p>How did you manage this...</p>';
 
-		echo '<div class="post reply banned"><div class="post-info">';
-		if ($ban['post-subject'] != '') {
-		echo '<span class="subject">'.$ban['post-subject'].'&nbsp;</span>';
-		}
-		if ($ban['post-email'] != '') {
-			echo '<span class="name"><a href="mailto:'.$ban['post-email'].'">'.$ban['post-name'].'</a>&nbsp;</span>';
+		echo '<div class="post reply banned">';
+		if (isset($ban['post_body'])) {
+			echo '<div class="post-info">';
+			if ($ban['post-subject'] != '') {
+				echo '<span class="subject">'.$ban['post-subject'].'&nbsp;</span>';
+			}
+			if ($ban['post-email'] != '') {
+				echo '<span class="name"><a href="mailto:'.$ban['post-email'].'">'.$ban['post-name'].'</a>&nbsp;</span>';
+			} else {
+				echo '<span class="name">'.$ban['post-name'].'&nbsp;</span>';
+			}
+			echo '<span class="post-time" data-tooltip="'.timeConvert($ban['post-time'], $time_method_hover).'" data-timestamp="'.$ban['post-time'].'">'.timeConvert($ban['post-time'], $time_method).'&nbsp;</span>';
+			echo '<span class="post-number">No.'.$ban['reply'].'</span>';
+			echo '</div><blockquote class="post-content">'.$ban['post-body'].'</blockquote>';
 		} else {
-			echo '<span class="name">'.$ban['post-name'].'&nbsp;</span>';
+			echo 'Manual ban.';
 		}
-		
-		echo '<span class="post-time" data-tooltip="'.timeConvert($ban['post-time'], $time_method_hover).'" data-timestamp="'.$ban['post-time'].'">'.timeConvert($ban['post-time'], $time_method).'&nbsp;</span>';
-		echo '<span class="post-number">No.'.$ban['reply'].'</span>';
-		echo '</div><blockquote class="post-content">'.$ban['post-body'].'</blockquote></div>';
+
+
+	echo '</div>';
 	
 	echo '<p style="word-break:break-word;">';
 
