@@ -24,7 +24,7 @@ include $path . '/templates/header.html';
 		echo '<p>How did you manage this...</p>';
 
 		echo '<div class="post reply banned">';
-		if (isset($ban['post-body'])) {
+		if ($ban['post-body'] != false ) {
 			echo '<div class="post-info">';
 			if ($ban['post-subject'] != '') {
 				echo '<span class="subject">'.$ban['post-subject'].'&nbsp;</span>';
