@@ -142,12 +142,12 @@ $config['mod']['global_reports'] = "40"; //dismiss global reports
 $config['mod']['thread_sticky'] = "40";
 $config['mod']['thread_lock'] = "40";
 $config['mod']['thread_autosage'] = "40";
-$config['mod']['post_edit'] = "40";
+$config['mod']['post_edit'] = "40"; //not coded yet
 $config['mod']['post_delete'] = "10";
-$config['mod']['post_in_locked'] = "40";
-
+$config['mod']['post_in_locked'] = "40"; //not coded yet
+$config['mod']['public_mod_level'] = "40"; //type "showlevel" or click show level button to show moderator level to make statments etc.
 $config['mod']['edit_user'] = "9001"; //create,edit,delete
-$config['mod']['mod_log'] = "40"; //look at modlog, deletion not coded and probably wont be. transparancy is good, admin can delete from server anyways.
+$config['mod']['mod_log'] = "40"; //look at modlog, not coded yet.
 
 $config['footer'] = []; //Display name, URL
 $config['footer'][] = array('Home', '?page=');

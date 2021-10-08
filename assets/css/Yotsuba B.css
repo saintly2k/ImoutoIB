@@ -20,6 +20,26 @@ body {
 	text-decoration: underline;
 }
 
+.modlevel {
+  /*font-weight: normal;*/
+}
+
+.modlevel.admin {
+  color: red;
+}
+
+.modlevel.mod {
+  color: purple;
+}
+
+.modlevel.janitor {
+  color: blue;
+}
+
+.modlevel.user {
+  color: green;
+}
+
 .subject {
 	color: #0f0c5d;
 	font-weight: 700;
