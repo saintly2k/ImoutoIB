@@ -177,6 +177,30 @@ if ($post_name === '') {
 if (strlen($post_name) > 256) {
 	error('Name too long. Max 256.');
 }
+
+//add extra stuff to name:
+if ($post_email == 'showlevel' || isset($_POST['mod_level'])) {
+	$post_email = '';
+
+	if ($config['mod']['public_mod_level'] <= $mod_level ) {
+		switch($mod_level) {
+			case 9001:
+				$post_name .= ' <span class=\"modlevel admin\">## Admin</span>';
+				break;
+			case 40:
+				$post_name .= ' <span class=\"modlevel mod\">## Moderator</span>'; //default configuration has moderator as minimum requirement to use this function.
+				break;
+			case 10:
+				$post_name .= ' <span class=\"modlevel janitor\">## Janitor</span>';
+				break;
+			case 0:
+				$post_name .= ' <span class=\"modlevel user\">## User</span>';
+				break;
+		}
+	}
+}
+
+
 if (strlen($post_email) > 256) {
 	error('Email too long. Max 256.');
 }

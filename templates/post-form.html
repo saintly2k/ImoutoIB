@@ -122,6 +122,13 @@
 	    				}
 	    			}
 
+    				if ($config['mod']['public_mod_level'] <= $mod_level) {
+	    				echo '
+	    				<label for="mod_level"><input type="checkbox" id="mod_level" name="mod_level" autocomplete="off"> Display Mod Level</label>
+	    				<div class="small">You may also type <i>showlevel</i> in the email field.</div>
+	    				';
+    				}
+
 	    			?>
 
 	    		</td>
