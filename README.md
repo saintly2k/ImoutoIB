@@ -19,7 +19,7 @@ If even your shared hosting can't run this, you're being scammed or you messed u
 
 Here's a reliable [host](https://www.hostwinds.com/7694-2.html) you can use.
 
-Use PHP 7.3 or higher. Might work on 8, I don't know. QA is for people getting paid.
+Use PHP 7.3 or 7.4. Might work on 8, I don't know. QA is for people getting paid.
 
 No database setup needed.
 
@@ -40,6 +40,8 @@ Any changes you want to make should be done in includes/custom.php, It will over
 
 If you want to create different configurations per board you can go to any database/boards/board folder and create a config.php file. <?php $default_name = "Technology Enthusiast" ?> 
 It will be automatically read and used when viewing or posting on that specific board.
+
+IMPORTANT: Use install.php to check some important permissions. It will try to change them for you if you haven't.
 
 Upgrade
 -------
