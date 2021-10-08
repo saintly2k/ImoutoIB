@@ -7,7 +7,7 @@ if ($ban['duration'] == 'warning') {
 
 $current_board = phpClean($_POST["board"]);
 
-include __dir__ . '/header.html';
+include $path . '/templates/header.html';
 ?>
 <div class="main first banned">
 	<h2>
@@ -24,7 +24,7 @@ include __dir__ . '/header.html';
 		echo '<p>How did you manage this...</p>';
 
 		echo '<div class="post reply banned">';
-		if (isset($ban['post_body'])) {
+		if (isset($ban['post-body'])) {
 			echo '<div class="post-info">';
 			if ($ban['post-subject'] != '') {
 				echo '<span class="subject">'.$ban['post-subject'].'&nbsp;</span>';

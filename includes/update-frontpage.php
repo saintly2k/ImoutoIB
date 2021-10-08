@@ -6,7 +6,7 @@ if (isset($post_board)) {
 	//FIND THREADS
 		$all_threads_ = [];
 		foreach ($config['boards'] as $boards_) {
-			$all_threads_[$boards_['url']][] = glob(__dir__ . '/../' . $database_folder . '/boards/' . $boards_['url'] . "/*", GLOB_ONLYDIR);
+			$all_threads_[$boards_['url']][] = glob($path . '/' . $database_folder . '/boards/' . $boards_['url'] . "/*", GLOB_ONLYDIR);
 		}
 		$all_ips_ = [];
 		foreach ($config['boards'] as $boards_) {
@@ -38,7 +38,7 @@ if (isset($post_board)) {
 	$frontpage_ .= '$frontpage_active' . '= ' . $active_content . ';';
 	$frontpage_ .= '?>';
 
-	file_put_contents(__dir__ . '/../' . $database_folder . '/frontpage.php', $frontpage_);
+	file_put_contents($path . '/' . $database_folder . '/frontpage.php', $frontpage_);
 
 	//exit();
 

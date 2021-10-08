@@ -1,6 +1,6 @@
 <?php 
 
-require dirname(__FILE__) . '/require.php';
+require 'require.php';
 
 
 //FRONTPAGE
@@ -10,19 +10,19 @@ if ((!isset($_GET["board"])) || ($_GET["board"] == '') && $_GET["page"] == '') {
 
 	$total_posts = 0;
 
-	if (!file_exists(__dir__ . '/' . $database_folder . '/frontpage.php')) { //no frontpage? lets create boards folder
-		if (!file_exists(__dir__ . '/' . $database_folder . '/boards')) {
-			mkdir(__dir__ . '/' . $database_folder . '/boards');
+	if (!file_exists($path . '/' . $database_folder . '/frontpage.php')) { //no frontpage? lets create boards folder
+		if (!file_exists($path . '/' . $database_folder . '/boards')) {
+			mkdir($path . '/' . $database_folder . '/boards');
 		}
 	}
 	foreach ($config['boards'] as $boards) {
 		//now lets create counters for each board, no matter if frontpage exists or not in case of new boards being made
-		if (!file_exists(__dir__ . '/' . $database_folder . '/boards/' . $boards['url'] . '/counter.php')) {
-			mkdir(__dir__ . '/' . $database_folder . '/boards/' . $boards['url']);
-			file_put_contents(__dir__ . '/' . $database_folder . '/boards/' . $boards['url'] . '/counter.php', 1);
+		if (!file_exists($path . '/' . $database_folder . '/boards/' . $boards['url'] . '/counter.php')) {
+			mkdir($path . '/' . $database_folder . '/boards/' . $boards['url']);
+			file_put_contents($path . '/' . $database_folder . '/boards/' . $boards['url'] . '/counter.php', 1);
 		}
 		//
-		$total_posts += file_get_contents(__dir__ . '/' . $database_folder . '/boards/' . $boards['url'] . '/counter.php');
+		$total_posts += file_get_contents($path . '/' . $database_folder . '/boards/' . $boards['url'] . '/counter.php');
 		$total_posts -= 1; //idk how i fucked up the counter.php in post.php this badly.
 	}
 	
@@ -117,18 +117,18 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
 			echo '[<a href="#bottom">Bottom</a>]&nbsp;';
 			echo '<hr>';
-			if (!file_exists(__dir__ . '/' . $database_folder . '/boards/' . $current_board)) {
+			if (!file_exists($path . '/' . $database_folder . '/boards/' . $current_board)) {
 				echo 'This board has no threads yet.';
 				include $path . '/templates/footer.html';
 				exit();
 			}
 
-			if (file_get_contents(__dir__ . '/' . $database_folder . '/boards/' . $current_board . '/counter.php') === "1") {
+			if (file_get_contents($path . '/' . $database_folder . '/boards/' . $current_board . '/counter.php') === "1") {
 				echo 'This board has no threads yet.';
 				include $path . '/templates/footer.html';
 				exit();
 			}
-			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/threads.php';
+			include $path . '/' . $database_folder . '/boards/' . $current_board . '/threads.php';
 
 			//i should make this a function instead of reusing code, i'll do that later lol
 			$original_list = $threads;
@@ -156,9 +156,9 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 
 			echo '<div class="catalog-threads">';
 			foreach (array_keys($threads) as $key => $value) {
-				include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/OP.php';
-				include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/info.php';
-				include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/recents.php';
+				include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/OP.php';
+				include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/info.php';
+				include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/recents.php';
 				$post_number_op = $threads[$key]['id'];
 
 				echo '<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '">';
@@ -216,19 +216,19 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 	echo '<hr>';
 
 			//if zero threads aka new board
-		if (!file_exists(__dir__ . '/' . $database_folder . '/boards/' . $current_board)) {
+		if (!file_exists($path . '/' . $database_folder . '/boards/' . $current_board)) {
 			echo 'This board has no threads yet.';
 			include $path . '/templates/footer.html';
 			exit();
 		}
 
-		if (file_get_contents(__dir__ . '/' . $database_folder . '/boards/' . $current_board . '/counter.php') === "1") {
+		if (file_get_contents($path . '/' . $database_folder . '/boards/' . $current_board . '/counter.php') === "1") {
 			echo 'This board has no threads yet.';
 			include $path . '/templates/footer.html';
 			exit();
 		}
 
-		include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/threads.php';
+		include $path . '/' . $database_folder . '/boards/' . $current_board . '/threads.php';
 		
 		//put stickies up front (not doing this in the saved list, if wanna have frontpage with recent threads)
 
@@ -308,9 +308,9 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 
 		//SHOW THEM
 		foreach (array_keys($threads) as $key => $value) {
-			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/OP.php';
-			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/info.php';
-			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/recents.php';
+			include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/OP.php';
+			include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/info.php';
+			include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/recents.php';
 			$post_number_op = $threads[$key]['id'];
 
 			echo '<div data-thread="' . $post_number_op . '" class="container">';
@@ -319,7 +319,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			//SHOW SHOW REPLIES
 
 			foreach (array_keys($recents) as $rkey => $value) {
-				include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . '/' . $recents[$value] . '.php';
+				include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . '/' . $recents[$value] . '.php';
 				$post_number_reply = $recents[$value];
 				include $path . '/templates/reply.html';
 		   	}
@@ -352,7 +352,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			error('Thread number must be a number.');
 		}
 		//IF DOESNT EXIST
-		if (!file_exists(__dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"]))) {
+		if (!file_exists($path . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"]))) {
 			$title = "Oh no!! A 404...";
 			echo '<head>';
 			include $path . '/templates/header.html';
@@ -372,8 +372,8 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 		} else {
 		//IF DOES EXIST
 			$current_page = "thread";
-			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"]) . '/OP.php';
-			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"]) . '/info.php';
+			include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"]) . '/OP.php';
+			include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"]) . '/info.php';
 			$post_number_op = htmlspecialchars($_GET["thread"]);
 			if ($op_subject == '') {
 				$title = '/' . $current_board . '/' . ' - ' . substr(strip_tags($op_body),0,30) . ' - ' . $config['boards'][$current_board]['title'] . ' - ' . $site_name;
@@ -388,7 +388,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			include $path . '/templates/boardlist.html';
 			include $path . '/templates/page-info.html';
 			include $path . '/templates/post-form.html';
-			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . "/info.php";
+			include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . "/info.php";
 			$thread_stats = '<span class="thread-stats">Replies: ' . $info_replies . ' Posters: ' . $info_uniqueids . '</span>';
 			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
 			if ($catalog_enable == true) {
@@ -398,7 +398,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			echo $thread_stats;
 			echo '<hr>';
 	
-			include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"]) . '/OP.php';
+			include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"]) . '/OP.php';
 			$post_number_op = htmlspecialchars($_GET["thread"]);
 			echo '<div data-thread="' . $post_number_op . '" class="container">'; //start thread
 			include $path . '/templates/thread.html';
@@ -408,7 +408,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			//ADD ALL REPLIES HERE
 			//FIND REPLIES
 				$replies_full = [];
-				$replies_full = glob(__dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . "/*");
+				$replies_full = glob($path . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . "/*");
 			//SORTING
 				$replies = [];
 				foreach ($replies_full as $reply) {
@@ -419,7 +419,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			sort($replies);
 			//SHOW THEM
 			foreach (array_keys($replies) as $key => $value) {
-				include __dir__ . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . '/' . $replies[$value] . '.php';
+				include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . '/' . $replies[$value] . '.php';
 				$post_number_reply = $replies[$value];
 				include $path . '/templates/reply.html';
 		   	}

@@ -33,14 +33,14 @@ require $path . '/includes/functions.php'; //defines functions
 
 //per board config main.php
 if (isset($_GET["board"]) && $_GET["board"] != '') {
-	if (file_exists(__dir__ . '/' . $database_folder . '/boards/' . htmlspecialchars($_GET["board"]) . '/config.php')) {
-		@include __dir__ . '/' . $database_folder . '/boards/' . htmlspecialchars($_GET["board"]) . '/config.php';
+	if (file_exists($path . '/' . $database_folder . '/boards/' . htmlspecialchars($_GET["board"]) . '/config.php')) {
+		@include $path . '/' . $database_folder . '/boards/' . htmlspecialchars($_GET["board"]) . '/config.php';
 	}
 }
 //per board config post.php
 if (isset($_POST["board"]) && $_POST["board"] != '') {
-	if (file_exists(__dir__ . '/' . $database_folder . '/boards/' . htmlspecialchars($_POST["board"]) . '/config.php')) {
-		@include __dir__ . '/' . $database_folder . '/boards/' . htmlspecialchars($_POST["board"]) . '/config.php';
+	if (file_exists($path . '/' . $database_folder . '/boards/' . htmlspecialchars($_POST["board"]) . '/config.php')) {
+		@include $path . '/' . $database_folder . '/boards/' . htmlspecialchars($_POST["board"]) . '/config.php';
 	}
 }
 
@@ -52,11 +52,11 @@ if (isset($_COOKIE['mod_user']) && isset($_COOKIE['mod_session'])) {
 	if ($_COOKIE['mod_user'] == "counter" || ctype_alnum($_COOKIE['mod_user']) != true) {
 		error('Invalid Username.');
 	}
-	if (!file_exists(__dir__ . '/' . $database_folder . '/users/' . $_COOKIE['mod_user'] . '.php')) {
+	if (!file_exists($path . '/' . $database_folder . '/users/' . $_COOKIE['mod_user'] . '.php')) {
 		error('User doesn\'t exist.');
 	}
 
-	include __dir__ . '/' . $database_folder . '/users/' . $_COOKIE['mod_user'] . '.php';
+	include $path . '/' . $database_folder . '/users/' . $_COOKIE['mod_user'] . '.php';
 
 	if ($_COOKIE['mod_session'] != $user_session) {
 		setcookie("mod_user", null, time() - 3600,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
