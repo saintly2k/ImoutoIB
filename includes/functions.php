@@ -354,7 +354,7 @@ function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $
 			foreach ($files_ as $file) {
 				unlink($file);
 			}
-			//DELETE FOLDER 	(unfortunately no way to delete folder with all files in)
+			//DELETE FOLDER
 			rmdir(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread);
 
 			//success!

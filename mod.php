@@ -189,6 +189,109 @@ if (isset($_POST['delete-user'])) {
 	$user_deleted = true;
 }
 
+//DELETE BAN
+if (isset($_POST['delete-ban'])) {
+	if ($user_mod_level < $config['mod']['ban']) {
+		error('You don\'t have permission to remove bans.');
+	}
+	if (!ctype_alnum($_POST['delete-ban-ip'])) {
+		error('Invalid IP');
+	}
+	if (!file_exists(__dir__ . '/' . $database_folder . '/bans/' . $_POST['delete-ban-ip'] . '/' . $_POST['delete-ban-id'] . '.php')) {
+		error('This ban doesn\'t exist.');
+	}
+	unlink(__dir__ . '/' . $database_folder . '/bans/' . $_POST['delete-ban-ip'] . '/' . $_POST['delete-ban-id'] . '.php');
+	if (!glob(__dir__ . '/' . $database_folder . '/bans/' . $_POST['delete-ban-ip'] . '/*')) {
+		rmdir(__dir__ . '/' . $database_folder . '/bans/' . $_POST['delete-ban-ip']); //Delete folder if no bans exist anymore. Expired bans count as existing.
+	}
+ 
+	$ban_removed = true;
+}
+
+//CREATE BAN
+if (isset($_POST['create-ban'])) {
+	if ($user_mod_level < $config['mod']['ban']) {
+		error('You don\'t have permission to create bans.');
+	}
+
+	//check ban form requirements isnt manipulated (duration, reason, etc) and set stuff
+	if (!isset($_POST['create-ban-expire'])){
+		error('Ban expiry form not given.');
+	}
+	$ban_reason = phpClean($_POST['create-ban-reason']);
+	$ban_expire = phpClean($_POST['create-ban-expire']);
+	$ban_original_ip = phpClean($_POST['create-ban-ip']);
+	if (strlen($ban_reason) > 256) {
+		error('Ban reason too long. Maximum 256 characters.');
+	}
+	if ($ban_reason == '') {
+		$ban_reason = 'No reason given.';
+	}
+
+	if ($ban_original_ip > 256) {
+		error('Suspiciously long IP.');
+	}
+
+	//remove dots and slashes
+	$new_ban['original_ip'] = $ban_original_ip;
+	$new_ban['ip'] = preg_replace('/(\/|\.)/i','' , $_POST['create-ban-ip']); //remove dots and slashes from ip
+	if (!ctype_alnum($new_ban['ip'])) {
+		error('Invalid IP');
+	}
+
+	//create folder for bans if doesnt exist
+	if (!file_exists($path . '/' . $database_folder . '/bans')) {
+		mkdir($path . '/' . $database_folder . '/bans');
+	}
+	if (!file_exists($path . '/' . $database_folder . '/bans/' . $new_ban['ip'])) {
+		mkdir($path . '/' . $database_folder . '/bans/' .$new_ban['ip']);
+	}
+	//create counter if doesnt exist
+	if (!file_exists($path . '/' . $database_folder . '/bans/counter.php')) {
+		file_put_contents($path . '/' . $database_folder . '/bans/counter.php', 0);
+	}
+
+	$new_ban['id'] = file_get_contents($path . '/' . $database_folder . '/bans/counter.php');
+
+	$new_ban['time'] = time();
+	$new_ban['duration'] = $ban_expire;
+
+	if ($ban_expire == "warning") {
+		$new_ban['is_active'] = "0";
+	} else {
+		$new_ban['is_active'] = "1";
+	}
+	$new_ban['is_read'] = "0"; //replace on read
+
+	$create_ban = '<?php ';
+	$create_ban .= '$ban[\'id\'] = "'.$new_ban['id'].'"; ';
+	$create_ban .= '$ban[\'ip\'] = "'.$new_ban['ip'].'"; ';
+	$create_ban .= '$ban[\'original_ip\'] = "'.$new_ban['original_ip'].'"; ';
+	$create_ban .= '$ban[\'thread\'] = ""; ';
+	$create_ban .= '$ban[\'reply\'] = ""; ';
+	$create_ban .= '$ban[\'reason\'] = "'.$ban_reason.'"; ';
+	$create_ban .= '$ban[\'post-filename\'] = ""; ';
+	$create_ban .= '$ban[\'post-time\'] = ""; ';
+	$create_ban .= '$ban[\'post-name\'] = ""; ';
+	$create_ban .= '$ban[\'post-email\'] = ""; ';
+	$create_ban .= '$ban[\'post-subject\'] = ""; ';
+	$create_ban .= '$ban[\'post-body\'] = false; ';
+	$create_ban .= '$ban[\'time\'] = "'.$new_ban['time'].'"; ';
+	$create_ban .= '$ban[\'duration\'] = "'.$new_ban['duration'].'"; ';
+	$create_ban .= '$ban[\'is_active\'] = "'.$new_ban['is_active'].'"; ';
+	$create_ban .= '$ban[\'is_read\'] = "'.$new_ban['is_read'].'"; ';
+	$create_ban .= '?>';
+
+	file_put_contents($path . '/' . $database_folder . '/bans/' . $new_ban['ip'] . '/' . $new_ban['id'] . '.php', $create_ban); //save ban
+	file_put_contents($path . '/' . $database_folder . '/bans/counter.php', $new_ban['id'] + 1); //increase counter
+
+	if ($new_ban['duration'] == 'warning') {
+		$warning_created = true;
+	} else {
+		$ban_created = true;
+	}
+}
+
 //LOGGIN IN?
 if (isset($_POST['username']) && isset($_POST['password'])) {
 	if ($_POST['username'] == "") {
@@ -855,13 +958,13 @@ if ($_GET["page"] == 'bans') {
 	echo '<h2>Ban IP</h2>';
 	echo '<div class="box-content">';
 	echo '<p>';
-	echo '<details><summary>Ban IP (incomplete)</summary>';
-	echo '<form name="create-ban" action="' . $prefix_folder . '/mod.php?page=banlist" method="post">
+	echo '<details><summary>Ban IP</summary>';
+	echo '<form name="create-ban" action="' . $prefix_folder . '/mod.php?page=bans" method="post">
 				<table id="post-form" style="width:initial;">
-					<tbody><tr><th>IP:</th><td><input type="text" name="ban-ip" size="25" maxlength="32" autocomplete="off" placeholder="IP" required></td></tr>
-					<tr><th>Reason:</th><td><input type="text" name="ban-reason" size="25" maxlength="256" autocomplete="off" placeholder="Reason" required></td></tr>
+					<tbody><tr><th>IP:</th><td><input type="text" name="create-ban-ip" size="25" maxlength="32" autocomplete="off" placeholder="IP (hash)" required></td></tr>
+					<tr><th>Reason:</th><td><input type="text" name="create-ban-reason" size="25" maxlength="256" autocomplete="off" placeholder="Reason" required></td></tr>
 					<tr><th>Duration:</th><td>
-					<select name="ban-expire">
+					<select name="create-ban-expire">
 					  <option value="permanent">Permanent</option>
 					  <option value="31104000">1 Year</option>
 					  <option value="7776000">3 Months</option>
@@ -932,24 +1035,36 @@ if ($_GET["page"] == 'bans') {
 			echo '<td>';
 			echo '<details><summary>More</summary>';
 
-			echo '<details><summary class="small">View</summary>'; //see post that caused ban
-			echo '<div class="post reply banned"><div class="post-info">';
-			if ($ban['post-subject'] != '') {
-			echo '<span class="subject">'.$ban['post-subject'].'&nbsp;</span>';
-			}
-			if ($ban['post-email'] != '') {
-				echo '<span class="name"><a href="mailto:'.$ban['post-email'].'">'.$ban['post-name'].'</a>&nbsp;</span>';
+			if ($ban["post-body"] != false) { //manual ban or not?
+				echo '<details><summary class="small">View</summary>'; //see post that caused ban
+				echo '<div class="post reply banned"><div class="post-info">';
+				if ($ban['post-subject'] != '') {
+				echo '<span class="subject">'.$ban['post-subject'].'&nbsp;</span>';
+				}
+				if ($ban['post-email'] != '') {
+					echo '<span class="name"><a href="mailto:'.$ban['post-email'].'">'.$ban['post-name'].'</a>&nbsp;</span>';
+				} else {
+					echo '<span class="name">'.$ban['post-name'].'&nbsp;</span>';
+				}
+				
+				echo '<span class="post-time" data-tooltip="'.timeConvert($ban['post-time'], $time_method_hover).'" data-timestamp="'.$ban['post-time'].'">'.timeConvert($ban['post-time'], $time_method).'&nbsp;</span>';
+				echo '<span class="post-number">No.'.$ban['reply'].'</span>';
+				echo '</div><blockquote class="post-content">'.$ban['post-body'].'</blockquote></div>';
+				echo '</details>'; //"view file"
 			} else {
-				echo '<span class="name">'.$ban['post-name'].'&nbsp;</span>';
+				echo 'Manual ban.';
 			}
-			
-			echo '<span class="post-time" data-tooltip="'.timeConvert($ban['post-time'], $time_method_hover).'" data-timestamp="'.$ban['post-time'].'">'.timeConvert($ban['post-time'], $time_method).'&nbsp;</span>';
-			echo '<span class="post-number">No.'.$ban['reply'].'</span>';
-			echo '</div><blockquote class="post-content">'.$ban['post-body'].'</blockquote></div>';
-			echo '</details>'; //"view file"
+
+			//delete
+			echo '<details><summary class="small">Delete</summary><details><summary>Are you sure you want to remove this ban?</summary>';
+			echo '	<form name="delete-ban" action="' . $prefix_folder . '/mod.php?page=bans" method="post">
+								<input type="hidden" name="delete-ban-ip" value="' . $ban['ip'] . '">
+								<input type="hidden" name="delete-ban-id" value="' . $ban['id'] . '">
+								<input type="submit" name="delete-ban" value="Delete"></td>
+								</form>';
+			echo '</details></details>';
 
 			echo '</details></td>';
-
 			echo '<tr>';
 		}
 	}
@@ -963,8 +1078,14 @@ if ($_GET["page"] == 'bans') {
 	echo '<br>';
 	echo '</div>';
 
-	if ($user_created == true) {
-		echo '<div class="message" style="margin-top:0;">User created.</div>';
+	if ($ban_removed == true) {
+		echo '<div class="message" style="margin-top:0;">Ban has been deleted.</div>';
+	}
+	if ($ban_created == true) {
+		echo '<div class="message" style="margin-top:0;">Ban has been created.</div>';
+	}
+	if ($warning_created == true) {
+		echo '<div class="message" style="margin-top:0;">Warning has been created.</div>';
 	}
 
 	include $path . '/templates/footer.html';
