@@ -144,12 +144,12 @@ if ($allow_files !== true && isset($_FILES['file'])) {
 		//OK EVERYTHING CHECKS OUT FOR THIS FILE. PROCEED WITH POSTING
 
 		//DOES UPLOAD FOLDER EXIST?
-		if (!file_exists(__dir__ . '/../' . $uploads_folder)) {
-			mkdir(__dir__ . '/../' . $uploads_folder, 0755, true);
+		if (!file_exists($path . '/' . $uploads_folder)) {
+			mkdir($path . '/' . $uploads_folder, 0755, true);
 		}
 		//DOES BOARD FOLDER EXIST?
-		if (!file_exists(__dir__ . '/../' . $uploads_folder . '/' . $post_board)) {
-			mkdir(__dir__ . '/../' . $uploads_folder . '/' . $post_board, 0755, true);
+		if (!file_exists($path . '/' . $uploads_folder . '/' . $post_board)) {
+			mkdir($path . '/' . $uploads_folder . '/' . $post_board, 0755, true);
 		}
 
 		//MOVE AND RENAME FILE
@@ -216,7 +216,7 @@ if ($allow_files !== true && isset($_FILES['file'])) {
 				$color = imagecolorallocate($new_thumb, $thumbnail_bg_red, $thumbnail_bg_green, $thumbnail_bg_blue);
 				imagefill($new_thumb, 0, 0, $color);
 				imagecopyresampled($new_thumb, $old_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-				ImageJpeg($new_thumb, __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_thumbname);
+				ImageJpeg($new_thumb, $path . '/' . $uploads_folder . '/' . $post_board . '/' . $new_thumbname);
 			}
 			if ($fileext_ == '.png') {
 				$old_image = ImageCreateFromPNG($_FILES['file']['tmp_name']);
@@ -226,7 +226,7 @@ if ($allow_files !== true && isset($_FILES['file'])) {
 				imagealphablending($new_thumb, true);
 				imagesavealpha($new_thumb, true);
 				imagecopyresampled($new_thumb, $old_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-				ImageJpeg($new_thumb, __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_thumbname);
+				ImageJpeg($new_thumb, $path . '/' . $uploads_folder . '/' . $post_board . '/' . $new_thumbname);
 			}
 			if ($fileext_ == '.gif') {
 				$old_image = ImageCreateFromGIF($_FILES['file']['tmp_name']);
@@ -236,7 +236,7 @@ if ($allow_files !== true && isset($_FILES['file'])) {
 				imagealphablending($new_thumb, true);
 				imagesavealpha($new_thumb, true);
 				imagecopyresampled($new_thumb, $old_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-				ImageJpeg($new_thumb, __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_thumbname);
+				ImageJpeg($new_thumb, $path . '/' . $uploads_folder . '/' . $post_board . '/' . $new_thumbname);
 			}
 			if ($fileext_ == '.webp') {
 				$old_image = ImageCreateFromWEBP($_FILES['file']['tmp_name']);
@@ -246,13 +246,13 @@ if ($allow_files !== true && isset($_FILES['file'])) {
 				imagealphablending($new_thumb, true);
 				imagesavealpha($new_thumb, true);
 				imagecopyresampled($new_thumb, $old_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-				ImageJpeg($new_thumb, __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_thumbname);
+				ImageJpeg($new_thumb, $path . '/' . $uploads_folder . '/' . $post_board . '/' . $new_thumbname);
 			}
 
 		}
 
 
-		move_uploaded_file($_FILES['file']['tmp_name'], __dir__ . '/../' . $uploads_folder . '/' . $post_board . '/' . $new_filename);
+		move_uploaded_file($_FILES['file']['tmp_name'], $path . '/' . $uploads_folder . '/' . $post_board . '/' . $new_filename);
 
 		
 }

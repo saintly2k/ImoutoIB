@@ -1,6 +1,6 @@
 <?php
 
-require dirname(__FILE__) . '/require.php';
+require 'require.php';
 
 if (!isset($_POST['board'])) {
 	//error('No board selected.');
@@ -10,9 +10,9 @@ if (!isset($_POST['board'])) {
 //CHECK BANS, move this to a different file maybe.
 $check_ban = crypt($_SERVER['REMOTE_ADDR'] , $secure_hash);
 $check_ban = preg_replace('/(\/|\.)/i','' , $check_ban);
-if (file_exists(__dir__ . '/' . $database_folder . '/bans/' . $check_ban)) {
+if (file_exists($path . '/' . $database_folder . '/bans/' . $check_ban)) {
 	$existing_bans = [];
-	$existing_bans = glob(__dir__ . '/' . $database_folder . '/bans/' . $check_ban . '/*');
+	$existing_bans = glob($path . '/' . $database_folder . '/bans/' . $check_ban . '/*');
 	foreach ($existing_bans as $bans) {
 		$ban = [];
 		include $bans;
@@ -89,7 +89,7 @@ if (($config['mod']['thread_autosage'] <= $mod_level) && isset($_POST['autosage'
 //IF NEW REPLY
 if (isset($_POST['thread'])) {
 	//get thread info
-	include (__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . phpClean($_POST['thread_number']) . "/info.php");
+	include ($path . '/' . $database_folder . '/boards/' . $post_board . '/' . phpClean($_POST['thread_number']) . "/info.php");
 	if ($info_locked == 1) {
 		error('This thread is locked...');
 	}
@@ -205,11 +205,11 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 		error('This board shouldn\'t exist...');
 	}
 	//IF NOT EXIST, CREATE DIRECTORY
-	if (!file_exists(__dir__ . '/' . $database_folder . '/boards')) {
-		mkdir(__dir__ . '/' . $database_folder . '/boards', 0755, true);
+	if (!file_exists($path . '/' . $database_folder . '/boards')) {
+		mkdir($path . '/' . $database_folder . '/boards', 0755, true);
 	}
-	if ((!file_exists(__dir__ . '/' . $database_folder . '/boards/' . $post_board) && (isset($config['boards'][$post_board])) === true)) {
-		mkdir(__dir__ . '/' . $database_folder . '/boards/' . $post_board, 0755, true);
+	if ((!file_exists($path . '/' . $database_folder . '/boards/' . $post_board) && (isset($config['boards'][$post_board])) === true)) {
+		mkdir($path . '/' . $database_folder . '/boards/' . $post_board, 0755, true);
 	}
 
 	if ($config['boards'][$post_board]['locked'] == 1) {
@@ -219,15 +219,15 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 	//IS THIS OUR FIRST THREAD?
 	
 	// if no file in folder
-	if (dir_is_empty(__dir__ . '/' . $database_folder . '/boards/' . $post_board)) {
-		file_put_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/counter.php', 1); //create post count
+	if (dir_is_empty($path . '/' . $database_folder . '/boards/' . $post_board)) {
+		file_put_contents($path . '/' . $database_folder . '/boards/' . $post_board . '/counter.php', 1); //create post count
 	}
 	//CREATE THREAD FOLDER
-	$counter = file_get_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/counter.php');
+	$counter = file_get_contents($path . '/' . $database_folder . '/boards/' . $post_board . '/counter.php');
 	//CHECK FOR AND HANDLE FILES
-	include __dir__ . '/includes/filehandler.php';
+	include $path . '/includes/filehandler.php';
 	$current_count = $counter;
-	mkdir(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . $current_count, 0755, true); //create thread folder
+	mkdir($path . '/' . $database_folder . '/boards/' . $post_board . '/' . $current_count, 0755, true); //create thread folder
 
 	//COLLECT POST INFORMATION
 	$create_OP = '<?php $op_name = "' . $post_name . '";';
@@ -244,19 +244,19 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 
 	//SAVE POST INFORMATION
 	$current_count = $counter;
-	file_put_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . $current_count . '/OP.php', $create_OP);
+	file_put_contents($path . '/' . $database_folder . '/boards/' . $post_board . '/' . $current_count . '/OP.php', $create_OP);
 	
 	//INCREMENT COUNTER
-	$counter = file_get_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/counter.php');
+	$counter = file_get_contents($path . '/' . $database_folder . '/boards/' . $post_board . '/counter.php');
 	$newcount = $counter + 1;
-	file_put_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/counter.php', $newcount);
+	file_put_contents($path . '/' . $database_folder . '/boards/' . $post_board . '/counter.php', $newcount);
 
 	//
 
 	UpdateOP($database_folder, $post_board, $current_count, 1, 0, $current_count, 1, $info_sticky, $info_locked, $info_autosage); //information about thread and replies
 	UpdateThreads($database_folder, $post_board, $current_count); //update recents.php and board bumps.
 	UpdateRecents($database_folder, $post_board, $current_count, $recent_replies);
-	include __dir__ . '/includes/update-frontpage.php';
+	include $path . '/includes/update-frontpage.php';
 	PostSuccess($prefix_folder . $main_file . '/?board=' . $post_board . '&thread=' . $counter . '#' . $counter, true);
 	
 	}
@@ -269,21 +269,21 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 		error('This board shouldn\'t exist...');
 	}
 	//thread exists?
-	if (($post_is_thread == 'thread') && (file_exists(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . '/OP.php'))) {
+	if (($post_is_thread == 'thread') && (file_exists($path . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . '/OP.php'))) {
 		//THREAD EXISTS
 
 
 		//CREATE/INCREASE COUNTER+LAST BUMPED. to do: (reset bump on post deletion by user or mod, do elsewhere)
-			$counter = file_get_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/counter.php');
+			$counter = file_get_contents($path . '/' . $database_folder . '/boards/' . $post_board . '/counter.php');
 		//CHECK FOR AND HANDLE FILES
-			include __dir__ . '/includes/filehandler.php';
+			include $path . '/includes/filehandler.php';
 			$newcount = $counter + 1;
 			//save it as last bumped if not sage tho
 			if (!isset($_POST['sage']) && $info_autosage == 0) {
-			file_put_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . '/bumped.php', $counter);
+			file_put_contents($path . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . '/bumped.php', $counter);
 			}
 			//save it as last post number
-			file_put_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/counter.php', $newcount);
+			file_put_contents($path . '/' . $database_folder . '/boards/' . $post_board . '/counter.php', $newcount);
 		//counter handled... moving on:
 
 		//POST STUFF
@@ -301,12 +301,12 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 
 		//SAVE POST INFORMATION
 		$current_count = $counter;
-		file_put_contents(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . '/' . $current_count . '.php', $create_reply);
+		file_put_contents($path . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . '/' . $current_count . '.php', $create_reply);
 
 		//how many replies do we have?
 			//FIND REPLIES
 		$replies_ = [];
-		$replies_ = glob(__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . "/*");
+		$replies_ = glob($path . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . "/*");
 		$reply_counter = 0;
 		foreach ($replies_ as $reply) {
 			if (is_numeric(basename($reply, '.php'))) {
@@ -318,7 +318,7 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 		$ips_ = [];
 
 		//Get OP IP
-		include (__dir__ . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . "/OP.php");
+		include ($path . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . "/OP.php");
 		$ips_ = [];
 		$ips_[] = $op_ip;
 		//Get replies ips
@@ -332,7 +332,7 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 		UpdateOP($database_folder, $post_board, $post_thread_number, 0, $reply_counter, $current_count, $ip_counter, $info_sticky, $info_locked, $info_autosage);
 		UpdateThreads($database_folder, $post_board, $current_count); //update recents.php and board bumps.
 		UpdateRecents($database_folder, $post_board, $post_thread_number, $recent_replies); //update recents.php and board bumps.
-		include __dir__ . '/includes/update-frontpage.php';
+		include $path . '/includes/update-frontpage.php';
 		PostSuccess($prefix_folder . $main_file . '/?board=' . $post_board . '&thread=' . $post_thread_number . '#' . $current_count, true);
 		
 		}
