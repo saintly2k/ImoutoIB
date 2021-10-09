@@ -281,7 +281,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
     		for ($i = 0; $i < $pages; $i++) {
     			$currentp = $i + 1;
     			if ($currentp == $number_page) {
-    			$all_pages .= '[<a href="' . $prefix_folder . '/?board=' . $current_board . '&page=' . $currentp. '"><b>' . $currentp . '</a></b>] ';
+    			$all_pages .= '[<a href="' . $prefix_folder . '/?board=' . $current_board . '&page=' . $currentp. '"><b>' . $currentp . '</b></a>] ';
     			} else {
     			$all_pages .= '[<a href="' . $prefix_folder . '/?board=' . $current_board . '&page=' . $currentp. '">' . $currentp . '</a>] ';
     			}

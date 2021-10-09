@@ -92,6 +92,9 @@ a:hover, .post-number a:hover {
 
 a.download, a.download:visited {
 	text-decoration: none!important;
+	transform: rotate(90deg);
+	display: inline-block;
+	font-weight: bold;
 }
 
 div.file-info a {

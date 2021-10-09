@@ -22,19 +22,19 @@
 	<?php
 	echo '<table id="boards">';
 	echo '<thead><th>Board</th><th>Description</th><th>Posts</th></thead>';
-
+	echo '<tbody>';
 	foreach ($config['boards'] as $boards) {
 		if ($boards['hidden'] === 0) {
 			echo '<tr><th><a href="' . $prefix_folder . '/' . $main_file . '?board=';
 			echo $boards['url'];
 			echo '">';
 			echo '/' . $boards['url'] . '/' . ' - ' . $boards['title'];
-			echo '</a></th><th>' . $boards['description'] . '</td></th>';
+			echo '</a></th><th>' . $boards['description'] . '</th>';
 			$board_counter = file_get_contents($path . '/' . $database_folder . '/boards/' . $boards['url'] . '/counter.php') - 1;
 			echo '<th>' . $board_counter . '</th>';
 		}
 	}
-
+echo '</tr>';
 echo '</table>';
 
 	?>
