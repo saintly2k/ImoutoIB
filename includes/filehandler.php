@@ -208,7 +208,7 @@ if ($allow_files !== true && isset($_FILES['file'])) {
 				$new_height = 1;
 			}
 		    
-		    $thmb_res = $new_width . 'x' . $new_height;
+		    $thmb_res = floor($new_width) . 'x' . floor($new_height);
 
 			if ($fileext_ == '.jpg' || $fileext_ == '.jpeg') {
 				$old_image = ImageCreateFromJPEG($_FILES['file']['tmp_name']);

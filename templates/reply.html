@@ -52,7 +52,7 @@
 								<tr>
 									<td><input type="text" id="reason_' . $post_number_reply . '" name="reason" maxlength="256" autocomplete="off" value="" placeholder="Reason"></td>
 									<td><input type="submit" name="report" value="Report"></td>
-									<td><label for="global_' . $post_number_reply . '"><input type="checkbox" id="global_' . $post_number_reply . '" name="global"></input>Global</label></td>
+									<td><label for="global_' . $post_number_reply . '"><input type="checkbox" id="global_' . $post_number_reply . '" name="global">Global</label></td>
 								</tr>
 							</tbody>
 						</table>
@@ -107,10 +107,10 @@
 				if (isset($file_download)) {
 					switch($file_download) {
 						case 'original':
-							echo '&nbsp;<a title="Download as ' . $reply_file[0][2] . '" class="download" href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '" download="' . $reply_file[0][2] . '">🠋</a>';
+							echo '&nbsp;<a title="Download as ' . $reply_file[0][2] . '" class="download" href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '" download="' . $reply_file[0][2] . '">➜</a>';
 							break;
 						case 'server':
-							echo '&nbsp;<a title="Download as ' . $reply_file[0][1] . '" class="download" href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '" download="' . $reply_file[0][1] . '">🠋</a>';
+							echo '&nbsp;<a title="Download as ' . $reply_file[0][1] . '" class="download" href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '" download="' . $reply_file[0][1] . '">➜</a>';
 							break;
 						default:
 							break;

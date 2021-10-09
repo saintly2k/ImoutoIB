@@ -131,7 +131,7 @@ html[data-stylesheet="Tomorrow"] .catalog .container:hover {
 }
 
 html[data-stylesheet="Tomorrow"] .box.left, html[data-stylesheet="Tomorrow"] .box.right {
-  background: #111;
+  background: #282a2e;
   color: #ACACAC;
   border: 1px solid #000;
 }

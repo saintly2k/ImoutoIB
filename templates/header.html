@@ -1,6 +1,6 @@
 <title><?php echo $title; ?></title>
 
-<!--- SETTINGS --->
+<!--SETTINGS-->
 <script>
 <?php if ($captcha_requires = true) { echo 'var captcha_required = true;'; } ?>
 var install_location = '<?php echo $prefix_folder; ?>';
@@ -18,7 +18,7 @@ var default_theme = '<?php echo $default_theme ?>';
 ?>
 </script>
 
-<!--- LOAD THEME IMMEDIATELY --->
+<!--LOAD THEME IMMEDIATELY-->
 <script>
 <?php 
 if (isset($current_board) && $current_board != '') {
@@ -46,7 +46,7 @@ if (isset($current_board) && $current_board != '') {
 
 <?php 
 	foreach ($config['css'] as $css) {
-		echo '<link rel="stylesheet" type="text/css" href="' . $prefix_folder . '/assets/css/' . $css . '.css">';
+		echo '<link rel="stylesheet" type="text/css" href="' . $prefix_folder . '/assets/css/' . rawurlencode($css) . '.css">';
 	}
 ?>
 

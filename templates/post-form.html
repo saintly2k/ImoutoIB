@@ -4,12 +4,11 @@
 <form enctype="multipart/form-data" name="post" action="<?php echo $prefix_folder;  ?>/post.php" method="post">
 	<table>
 
-	<!-- Hidden Inputs --->
+	<!--Hidden Inputs-->
 	<?php echo '<input type="hidden" id="board" name="board" value="' . $current_board .'">';?>
 	<?php if ($current_page === 'thread') { echo '<input type="hidden" id="thread" name="thread" value="thread">'; } ?>
 	<?php if ($current_page === 'thread') { echo '<input type="hidden" id="thread_number" name="thread_number" value="' . $post_number_op . '">'; } ?>
 	<?php if ($current_page === 'index' || $current_page === 'catalog') { echo '<input type="hidden" id="index" name="index" value="index">'; } ?>
-
 	
 	<?php 
 		if ($forced_anon !== true) { 
@@ -59,12 +58,13 @@
 	<?php
 	echo '<tr>';
 	echo '<th>Comment</th>';
+	echo '<td>';
 	if ($info_locked == 1 && $config['mod']['post_in_locked'] > $mod_level) {
-		echo '<td><textarea name="body" id="body" rows="5" cols="30" disabled></textarea></td>';
+		echo '<textarea name="body" id="body" rows="5" cols="30" disabled></textarea>';
 	} else {
-		echo '<td><textarea name="body" id="body" rows="5" cols="30"></textarea></td>';
+		echo '<textarea name="body" id="body" rows="5" cols="30"></textarea>';
 	}
-	echo '</tr>';
+	echo '<input style="height:1;width:1;float:right;visibility:hidden;" type="text" id="username" name="username" value=""></td></tr>';
 	?>
 	<?php if ($captcha_required == (true) && ($current_page == ('thread') && ($info_locked != 1 || $config['mod']['post_in_locked'] <= $mod_level) || $current_page == ('index') || $current_page == ('catalog'))) {
 		echo '<tr><th>Verification</th><td><img height="50" width="198" id="captcha" src="' . $prefix_folder . '/captcha.php' .'"/><br><input id="captcha-field" type="text" name="captcha" minlength="6" maxlength="6" autocomplete="off" required></td>

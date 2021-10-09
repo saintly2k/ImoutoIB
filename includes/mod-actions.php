@@ -369,8 +369,7 @@ if ($logged_in == false) {
 	include $path . '/templates/boardlist.html';
 	echo '<div class="page-info"><h1>Login Page</h1><div class="small">Permission required.</div></div><br><br>';
 	echo '<div class="main first"><h2>Login.</h2>';
-	echo '<p>
-			<div id="post-form">
+	echo '<div id="post-form">
 			<form name="login" action="' . $prefix_folder . '/mod.php" method="post">
 				<table id="login" style="margin:auto;">
 					<tr><th>Username</th><td><input type="text" name="username" size="25" maxlength="256" autocomplete="off" placeholder="Username"></td></tr>
@@ -379,8 +378,7 @@ if ($logged_in == false) {
          checked><label for="remember">Remember Me</label><input type="submit" name="post" value="Login" style="float: right;"></td></tr>
 				</table>
 			</form>
-			</div>
-		  </p>';
+			</div>';
 	echo '</div>';
 
 	if ($changed_password == true) {
