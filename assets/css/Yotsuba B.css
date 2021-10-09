@@ -90,6 +90,10 @@ a:hover, .post-number a:hover {
 	color: #d00;
 }
 
+a.download, a.download:visited {
+	text-decoration: none!important;
+}
+
 div.file-info a {
 	text-decoration: underline;
 }
