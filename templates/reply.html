@@ -103,6 +103,20 @@
 					echo $reply_file[0][1];
 					echo '</a>';
 				}
+
+				if (isset($file_download)) {
+					switch($file_download) {
+						case 'original':
+							echo '&nbsp;<a title="Download as ' . $reply_file[0][2] . '" class="download" href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '" download="' . $reply_file[0][2] . '">🠋</a>';
+							break;
+						case 'server':
+							echo '&nbsp;<a title="Download as ' . $reply_file[0][1] . '" class="download" href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '" download="' . $reply_file[0][1] . '">🠋</a>';
+							break;
+						default:
+							break;
+					}
+				}
+
 				if ($reply_file[0][0] == 'image') {
 				echo ' (' . formatBytes($reply_file[0][4]) . ', ' . $reply_file[0][3] . ')';
 				echo '</div>';

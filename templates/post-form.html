@@ -15,7 +15,7 @@
 		if ($forced_anon !== true) { 
 		echo '<tr>';
 		echo	'<th>Name</th>';
-		if ($info_locked == 1) { 
+		if ($info_locked == 1 && $config['mod']['post_in_locked'] > $mod_level) { 
 			echo '<td><input type="text" name="name" size="25" maxlength="256" autocomplete="off" placeholder="' . $default_name . '" disabled=""></td>';
 		} else {
 			echo '<td><input type="text" name="name" size="25" maxlength="256" autocomplete="off" placeholder="' . $default_name . '"></td>';
@@ -27,7 +27,7 @@
 		if ($disable_email !== true) { 
 			echo '<tr>';
 			echo '<th>Email</th>';
-		if ($info_locked == 1) { 
+		if ($info_locked == 1 && $config['mod']['post_in_locked'] > $mod_level) { 
 			echo '<td><input type="text" name="link" size="25" maxlength="256" autocomplete="off" disabled></td>';
 		} else {
 			echo '<td><input type="text" name="link" size="25" maxlength="256" autocomplete="off"></td>';
@@ -40,8 +40,10 @@
 	<?php
 	echo '<tr>';
 	echo '<th>Subject</th>';
-	if ($info_locked == 1) {
+	if ($info_locked == 1 && $config['mod']['post_in_locked'] > $mod_level) {
 		echo '<td><input type="text" name="subject" size="25" maxlength="256" autocomplete="off" disabled>&nbsp;<input type="submit" name="post" value="Locked" disabled></td>';
+	} elseif ($info_locked == 1 && $config['mod']['post_in_locked'] <= $mod_level) {
+		echo '<td><input type="text" name="subject" size="25" maxlength="256" autocomplete="off">&nbsp;<input type="submit" name="post" value="Locked"></td>';
 	} else {
 		echo '<td><input type="text" name="subject" size="25" maxlength="256" autocomplete="off">&nbsp;';
 		if ($current_page == 'index' || $current_page == 'catalog') {
@@ -57,14 +59,14 @@
 	<?php
 	echo '<tr>';
 	echo '<th>Comment</th>';
-	if ($info_locked == 1) {
+	if ($info_locked == 1 && $config['mod']['post_in_locked'] > $mod_level) {
 		echo '<td><textarea name="body" id="body" rows="5" cols="30" disabled></textarea></td>';
 	} else {
 		echo '<td><textarea name="body" id="body" rows="5" cols="30"></textarea></td>';
 	}
 	echo '</tr>';
 	?>
-	<?php if ($captcha_required == (true) && ($current_page == ('thread') && ($info_locked != 1) || $current_page == ('index') || $current_page == ('catalog'))) {
+	<?php if ($captcha_required == (true) && ($current_page == ('thread') && ($info_locked != 1 || $config['mod']['post_in_locked'] <= $mod_level) || $current_page == ('index') || $current_page == ('catalog'))) {
 		echo '<tr><th>Verification</th><td><img height="50" width="198" id="captcha" src="' . $prefix_folder . '/captcha.php' .'"/><br><input id="captcha-field" type="text" name="captcha" minlength="6" maxlength="6" autocomplete="off" required></td>
 		';
 	}?>
@@ -73,7 +75,7 @@
 	if ($allow_files == true) {
 		echo '<tr>';
 		echo '<th>File</th>';
-		if ($info_locked == 1) {
+		if ($info_locked == 1 && $config['mod']['post_in_locked'] > $mod_level) {
 		echo '<td><input type="file" name="file" id="upload" disabled></td>';
 		} else {
 		echo '<td><input type="file" name="file" id="upload"></td>';

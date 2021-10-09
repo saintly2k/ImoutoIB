@@ -90,7 +90,7 @@ if (($config['mod']['thread_autosage'] <= $mod_level) && isset($_POST['autosage'
 if (isset($_POST['thread'])) {
 	//get thread info
 	include ($path . '/' . $database_folder . '/boards/' . $post_board . '/' . phpClean($_POST['thread_number']) . "/info.php");
-	if ($info_locked == 1) {
+	if (($info_locked == 1) && ($config['mod']['post_in_locked'] > $mod_level)) {
 		error('This thread is locked...');
 	}
 	if(!isset($_FILES['file']) || $_FILES['file']['error'] == UPLOAD_ERR_NO_FILE) {

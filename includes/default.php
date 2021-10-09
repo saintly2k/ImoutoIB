@@ -35,6 +35,7 @@ $threads_page = 10; //how many threads per page
 
 $max_filesize = 1024*1000*8; //default 8mb
 $max_filename = 28; //longer than this will be trimmed visually, absolute max is set to 512 at which point it is trimmed when saved as well. you can see untrimmed below 512 by hovering over name
+$file_download = 'original'; //Button next to file link. false = disable, 'original' = uploaded filename, 'server' = server filename.
 
 $thumb_method =  'GD'; //i probably wont implement any others
 $thumb_ext = '.jpg'; //add support for transparent png, would use webp if apple stops shilling HEIC already and enables webp+webm support
@@ -108,10 +109,12 @@ $config['css'][] = 'Kind';
 //text styles
 $config['css'][] = 'Kareha';
 $config['css'][] = 'Sankarea';
+$config['css'][] = 'Kadena';
 
 //selectable styles on text boards, you may add IB styles if you want?
 $config['css_text'][] = 'Kareha';
 $config['css_text'][] = 'Sankarea';
+$config['css_text'][] = 'Kadena';
 
 
 $default_theme = 'Yotsuba';
@@ -144,7 +147,7 @@ $config['mod']['thread_lock'] = "40";
 $config['mod']['thread_autosage'] = "40";
 $config['mod']['post_edit'] = "40"; //not coded yet
 $config['mod']['post_delete'] = "10";
-$config['mod']['post_in_locked'] = "40"; //not coded yet
+$config['mod']['post_in_locked'] = "40";
 $config['mod']['public_mod_level'] = "40"; //type "showlevel" or click show level button to show moderator level to make statments etc.
 $config['mod']['edit_user'] = "9001"; //create,edit,delete
 $config['mod']['mod_log'] = "40"; //look at modlog, not coded yet.
