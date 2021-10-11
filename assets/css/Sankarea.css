@@ -64,6 +64,10 @@ html[data-stylesheet="Sankarea"] div.container {
   max-width: 95%;
 }
 
+html[data-stylesheet="Sankarea"] div.catalog-threads div.container:hover {
+  border-color: red;
+}
+
 html[data-stylesheet="Sankarea"] div.post.reply {
   background: #111;
   border: none;
