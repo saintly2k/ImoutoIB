@@ -30,7 +30,7 @@
 					  <option value="warning" selected>Warning</option>
 					</select>
 					</td></tr>
-					<tr><th>Public:</th><td><label for="public"><input type="checkbox" id="public" name="public">Public Ban Message</label><input type="text" name="ban-message" size="25" maxlength="256" autocomplete="off" placeholder="(User was banned for this post.)"></td></tr>
+					<tr><th>Public:</th><td><label for="public_' . $post_number_reply . '"><input type="checkbox" id="public_' . $post_number_reply . '" name="public">Public Ban Message</label><input type="text" name="ban-message" size="25" maxlength="256" autocomplete="off" placeholder="(User was banned for this post.)"></td></tr>
 					<tr><th style="visibility:hidden;"></th><td><details style="float:right;"><summary style="text-align:right;">Ban</summary><input type="submit" name="create-ban" value="Create Ban"></details></td></tr>
 				</tbody></table></details>';
 				}
@@ -77,7 +77,13 @@
 				echo '</span>';
 			}
 		?>
-		<span class="post-number"><a name="<?php echo $post_number_reply; ?>" href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_reply; ?>">No.</a><a href="<?php echo $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_reply; ?>"><?php echo $post_number_reply; ?></a>&nbsp;</span>
+		
+		<?php
+		echo '<span class="post-number">';
+		echo '<a name="' . $post_number_reply . '" href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_reply . '">No.</a>';
+		echo '<a class="click" num="' . $post_number_reply . '" id="cite_' . $post_number_reply . '" href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#q' . $post_number_reply . '">' . $post_number_reply . '</a>';
+		echo '&nbsp;</span>';
+		?>
 
 	</div>
 
@@ -129,11 +135,11 @@
 						$full_height = preg_replace('/^[^x]*x/', '', $reply_file[0][3]);
 
 						if ($reply_file[0][5] != "1") {
-						echo '<img id="'.$post_number_reply.'" class="thumb" width="'.$thmb_width.'" height="'.$thmb_height.'" src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][6] . '"/>';
+						echo '<img img-id="'.$post_number_reply.'" class="thumb" width="'.$thmb_width.'" height="'.$thmb_height.'" src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][6] . '"/>';
 						} else {
-						echo '<img id="'.$post_number_reply.'" class="thumb" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_spoiler . '"/>';
+						echo '<img img-id="'.$post_number_reply.'" class="thumb" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_spoiler . '"/>';
 						}
-						echo '<img id="'.$post_number_reply.'" class="expand" style="display:none;" width="'.$full_width.'" height="'.$full_height.'" img-src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '"/>';
+						echo '<img img-id="'.$post_number_reply.'" class="expand" style="display:none;" width="'.$full_width.'" height="'.$full_height.'" img-src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '"/>';
 						//image full
 
 					echo '</a>';

@@ -48,7 +48,7 @@ if (board_type != 'txt') {
 
 
 
-
+//shift-click on upload to remove file
 document.addEventListener("DOMContentLoaded", function(event) {
   if (document.getElementById("upload")) {
     document.getElementById("upload").setAttribute("title", "Shift + Left Click to remove file.");
@@ -61,4 +61,43 @@ document.addEventListener("DOMContentLoaded", function(event) {
       },
       false);
   }
+});
+
+//post quoting
+document.addEventListener("DOMContentLoaded", function(event) { 
+  if (document.querySelector('body.thread')) { //Only allow post-quoting if thread is open.
+      //cite number + text if selected
+      function cite(id) {
+          const textArea = document.getElementById('body');
+          if (!textArea) {
+              return false;
+          }  
+              document.getElementById('post-form').scrollIntoView();
+              textArea.value += `>>${id}\n`;
+              const selection = window.getSelection().toString();
+          if (selection) {
+              textArea.value += `>${selection.split("\n").join("\n>")}\n`;
+          }
+              textArea.focus();
+      }
+
+      //call a cite if # is numeric (avoids #top #bottom) that will only run on inital page load
+      if (location.hash.substr(1) != '') {
+          var hash = location.hash.substr(1); //remove # and convert to number
+          const regex = new RegExp('q[0-9]+');
+          if (regex.test(hash) == true) { //if #q123
+            var hash = hash.substr(1); //remove q
+            cite(hash);
+          }
+      }
+
+      // Get all posts
+      const posts = document.querySelectorAll("[num]");
+      for (const post of posts) { 
+        post.addEventListener("click", (event) => {
+          event.preventDefault();
+          cite(post.getAttribute('num'));
+        });
+      }
+  };
 });
