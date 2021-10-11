@@ -100,21 +100,15 @@ $config['css'][] = 'Burichan';
 $config['css'][] = 'Futaba';
 
 $config['css'][] = 'Cyanide';
-
 $config['css'][] = 'Tomorrow';
-$config['css'][] = 'Late';
-$config['css'][] = 'Kind';
-
 
 //text styles
 $config['css'][] = 'Kareha';
 $config['css'][] = 'Sankarea';
-$config['css'][] = 'Kadena';
 
 //selectable styles on text boards, you may add IB styles if you want?
 $config['css_text'][] = 'Kareha';
 $config['css_text'][] = 'Sankarea';
-$config['css_text'][] = 'Kadena';
 
 
 $default_theme = 'Yotsuba';
@@ -134,6 +128,7 @@ $config['reply_body_max'] = 4000; //maximum characters
 
 $config['max_lines'] = 40;
 
+$config['linkify_urls'] = true; //converts http/https to links
 $config['wordfilters'][] = array('/little sister/i', 'imouto'); //regex
 
 

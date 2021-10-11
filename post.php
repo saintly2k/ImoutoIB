@@ -89,6 +89,10 @@ if (($config['mod']['thread_autosage'] <= $mod_level) && isset($_POST['autosage'
 //IF NEW REPLY
 if (isset($_POST['thread'])) {
 	//get thread info
+	$post_thread_number = phpClean($_POST['thread_number']);
+	if (!is_numeric($post_thread_number)) {
+		error('Invalid thread number.');
+	}
 	include ($path . '/' . $database_folder . '/boards/' . $post_board . '/' . phpClean($_POST['thread_number']) . "/info.php");
 	if (($info_locked == 1) && ($config['mod']['post_in_locked'] > $mod_level)) {
 		error('This thread is locked...');
@@ -118,24 +122,28 @@ if (isset($_POST['thread'])) {
 		//citations (probably gonna be a pain to fix dead links later?)
 		//todo
 		
+		//VERY TEMPORARY REPLY-FUNCTION
+		if (isset($_POST['thread'])) {
+			$post_body = preg_replace("/&gt;&gt;([0-9]+)/", "<a class='quotelink' href='" . $prefix_folder . '/' . $main_file . '?board=' . $post_board . '&thread=' . $post_thread_number . "#$1'>$0</a>", $post_body);
+		}
+
+
+		if ($config['linkify_urls'] == true) {
+			$post_body = preg_replace("/(http|https|ftp|ftps)\:\/\/(.*)?/i","<a class='post-link' href='$0' rel='nofollow' target='_blank'>$0</a>",$post_body);
+		}
+
+
 		//add quotes
 		$post_body = preg_replace("/^\s*&gt;.*$/m", "<span class='quote'>$0</span>", $post_body);
 		//add replyquotes
 		$post_body = preg_replace("/^\s*&lt;.*$/m", "<span class='rquote'>$0</span>", $post_body);
 
 		//AsciiArt [aa]
-		$post_body = preg_replace("/\[aa\](.+?)\[\/aa\]/ms", "<span class='aa'>$0</span>", $post_body);
-		$post_body = preg_replace("/\[aa\]/", "", $post_body);
-		$post_body = preg_replace("/\[\/aa\]/", "", $post_body);
+		$post_body = preg_replace("/\[aa\](.+?)\[\/aa\]/ms", "<span class='aa'>$1</span>", $post_body);
 		//Code [code]
-		$post_body = preg_replace("/\[code\](.+?)\[\/code\]/ms", "<div class='code'>$0</div>", $post_body);
-		$post_body = preg_replace("/\[code\]/", "", $post_body);
-		$post_body = preg_replace("/\[\/code\]/", "", $post_body);
-
+		$post_body = preg_replace("/\[code\](.+?)\[\/code\]/ms", "<div class='code'>$1</div>", $post_body);
 		//Spoilers
-		$post_body = preg_replace("/\[spoiler\](.+?)\[\/spoiler\]/ms", "<span class='spoiler'>$0</span>", $post_body);
-		$post_body = preg_replace("/\[spoiler\]/", "", $post_body);
-		$post_body = preg_replace("/\[\/spoiler\]/", "", $post_body);
+		$post_body = preg_replace("/\[spoiler\](.+?)\[\/spoiler\]/ms", "<span class='spoiler'>$1</span>", $post_body);
 
 		//remove newlines from start and end of string
 		$post_body = ltrim($post_body); //start
@@ -288,6 +296,9 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 if ((isset($post_board)) && (isset($_POST['thread']))) {
 	$post_is_thread = phpClean($_POST['thread']);
 	$post_thread_number = phpClean($_POST['thread_number']);
+	if (!is_numeric($post_thread_number)) {
+		error('Invalid thread number.');
+	}
 	//board exists?
 	if (!isset($config['boards'][$post_board])) {
 		error('This board shouldn\'t exist...');
@@ -295,7 +306,6 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 	//thread exists?
 	if (($post_is_thread == 'thread') && (file_exists($path . '/' . $database_folder . '/boards/' . $post_board . '/' . $post_thread_number . '/OP.php'))) {
 		//THREAD EXISTS
-
 
 		//CREATE/INCREASE COUNTER+LAST BUMPED. to do: (reset bump on post deletion by user or mod, do elsewhere)
 			$counter = file_get_contents($path . '/' . $database_folder . '/boards/' . $post_board . '/counter.php');

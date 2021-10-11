@@ -23,8 +23,9 @@ html[data-stylesheet="Tomorrow"] span.rquote {
   color: #bd6890;
 }
 html[data-stylesheet="Tomorrow"] .code {
-  background: #000;
-  color: #fff;
+  background: #292929;
+  color: #c5c8c6;
+  border-color: #6e6e6e99;
 }
 html[data-stylesheet="Tomorrow"] a, html[data-stylesheet="Tomorrow"] a:visited {
   color: #81a2be;
