@@ -22,8 +22,9 @@ html[data-stylesheet="Cyanide"] span.name {
 }
 
 html[data-stylesheet="Cyanide"] .code {
-  background: #000;
-  color: #fff;
+  background: #292929;
+  color: #c5c8c6;
+  border-color: #6e6e6e99;
 }
 
 html[data-stylesheet="Cyanide"] span.link.name {

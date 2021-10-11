@@ -97,6 +97,11 @@ a.download, a.download:visited {
 	font-weight: bold;
 }
 
+a.quotelink {
+	text-decoration: underline;
+	color: #d00;
+}
+
 div.file-info a {
 	text-decoration: underline;
 }
