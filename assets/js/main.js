@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           textArea.value = textArea.value.replace(/^\n/, ''); //cleanup if post begins with newline 
           if (selection != '') {
               textArea.value += `>${selection.split("\n").join("\n>")}\n`;
-              textArea.value = textArea.value.replace('> ', ''); //cleanup sometimes gets a space before the quote
+              textArea.value = textArea.value.replace('> ', '>'); //cleanup sometimes gets a space before the quote
               textArea.value = textArea.value.replace('\n>\n', '\n'); //cleanup if it ends with \n>\n then remove cuz it does that if u doubleclick to select on edge
           }
               textArea.focus();
