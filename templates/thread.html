@@ -159,7 +159,7 @@
 					    		<input type="hidden" name="thread" value="' . $post_number_op . '"/>
 					    		<input type="hidden" name="reply" value="' . $post_number_op . '"/>
 					    		<tr>
-									<td><input type="password" id="password_' . $post_number_op . '" name="password" maxlength="256" placeholder="Password"></td>
+									<td><input type="password" id="password_' . $post_number_op . '" name="password" maxlength="256" placeholder="Password" value="'. $_COOKIE['post_password'] . '"></td>
 									<td><input type="submit" name="delete" value="Delete"></td>
 									<td><label for="file_' . $post_number_op . '"><input type="checkbox" id="file_' . $post_number_op . '" name="file">File only</label></td>
 								</tr>

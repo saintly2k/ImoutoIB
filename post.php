@@ -2,6 +2,10 @@
 
 require 'require.php';
 
+if ($config['generated_in'] != true) {
+	$start_time = false;
+}
+
 if (!isset($_POST['board'])) {
 	//error('No board selected.');
 	$_POST['board'] = array_key_first($config['boards']); //set a board and allow seeing bans instead:
@@ -289,7 +293,7 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 	UpdateThreads($database_folder, $post_board, $current_count); //update recents.php and board bumps.
 	UpdateRecents($database_folder, $post_board, $current_count, $recent_replies);
 	include $path . '/includes/update-frontpage.php';
-	PostSuccess($prefix_folder . $main_file . '/?board=' . $post_board . '&thread=' . $counter . '#' . $counter, true);
+	PostSuccess($prefix_folder . $main_file . '/?board=' . $post_board . '&thread=' . $counter . '#' . $counter, true, $start_time);
 	
 	}
 
@@ -367,7 +371,7 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 		UpdateThreads($database_folder, $post_board, $current_count); //update recents.php and board bumps.
 		UpdateRecents($database_folder, $post_board, $post_thread_number, $recent_replies); //update recents.php and board bumps.
 		include $path . '/includes/update-frontpage.php';
-		PostSuccess($prefix_folder . $main_file . '/?board=' . $post_board . '&thread=' . $post_thread_number . '#' . $current_count, true);
+		PostSuccess($prefix_folder . $main_file . '/?board=' . $post_board . '&thread=' . $post_thread_number . '#' . $current_count, true, $start_time);
 		
 		}
 }

@@ -1,17 +1,39 @@
 
 
 
-//captcha refresh code
+//captcha code
 document.addEventListener("DOMContentLoaded", function(event) { 
   if (captcha_required = true) {
     if (document.getElementById("captcha")) {
-    var refreshButton = document.querySelector("#captcha");
-      refreshButton.onclick = function() {
-        document.querySelector("#captcha").src = install_location + '/captcha.php?' + Date.now();
-        document.querySelector("#captcha-field").value = '';
+    //load JS version of captcha.
+    const captcha_image = document.querySelector("#captcha");
+    const captcha_field = document.querySelector("#captcha-field");
+    document.getElementById("load-captcha").onclick = function() {
+      if (document.querySelector("details.js-captcha").open == false) {
+        captcha.src = captcha.getAttribute('js-src') + '?' + Date.now();
+        captcha_field.value = '';
+        captcha_field.focus();
+      } else {
+        captcha.src = '';
+        captcha_field.value = '';
+      }
+    }
+      //refresh
+    captcha_image.onclick = function() {
+      captcha.src = install_location + '/captcha.php?' + Date.now();
+      captcha_field.value = '';
+      captcha_field.focus();
+    }
+    captcha_field.onclick = function() {
+      if (captcha.src == location.href || captcha.src == '') { //if empty, yes this is weird it goes to href when emptied out by js, but '' if never changed before.
+        document.querySelector("details.js-captcha").open = true;
+        captcha.src = install_location + '/captcha.php?' + Date.now();
+        captcha_field.value = '';
+        captcha_field.focus();
       }
     }
 
+    }
   }
 });
 
@@ -63,20 +85,42 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 });
 
+//generate and save an insecure post deletion password
+document.addEventListener("DOMContentLoaded", function(event) {
+  if (document.getElementById("post_password")) { //only when post-form is on
+    if (localStorage.post_password != null) {
+      document.getElementById("post_password").value = localStorage.post_password;
+      let passwords = document.querySelectorAll("[type='password']");
+       for (const password of passwords) { 
+        password.value = localStorage.post_password;
+       }
+    } else {
+      localStorage.post_password = Math.random().toString(22).substr(2, 10); //generate
+      document.getElementById("post_password").value = localStorage.post_password;
+    }
+  }
+});
+
 //post quoting
 document.addEventListener("DOMContentLoaded", function(event) { 
-  if (document.querySelector('body.thread')) { //Only allow post-quoting if thread is open.
       //cite number + text if selected
       function cite(id) {
           const textArea = document.getElementById('body');
           if (!textArea) {
               return false;
-          }  
-              document.getElementById('post-form').scrollIntoView();
-              textArea.value += `>>${id}\n`;
-              const selection = window.getSelection().toString();
-          if (selection) {
+          }
+          document.getElementById('post-form').scrollIntoView();
+          textArea.value += `\n>>${id}\n`;
+          if (localStorage.getItem("text-selection")) {
+            var selection = localStorage.getItem("text-selection");
+          } else {
+            var selection = window.getSelection().toString();
+          }
+          textArea.value = textArea.value.replace(/^\n/, ''); //cleanup if post begins with newline 
+          if (selection != '') {
               textArea.value += `>${selection.split("\n").join("\n>")}\n`;
+              textArea.value = textArea.value.replace('> ', ''); //cleanup sometimes gets a space before the quote
+              textArea.value = textArea.value.replace('\n>\n', '\n'); //cleanup if it ends with \n>\n then remove cuz it does that if u doubleclick to select on edge
           }
               textArea.focus();
       }
@@ -88,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           if (regex.test(hash) == true) { //if #q123
             var hash = hash.substr(1); //remove q
             cite(hash);
+            localStorage.removeItem("text-selection");
           }
       }
 
@@ -95,11 +140,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
       const posts = document.querySelectorAll("[num]");
       for (const post of posts) { 
         post.addEventListener("click", (event) => {
-          event.preventDefault();
+          if (document.querySelector('body.thread')) {
+            event.preventDefault();
+          } else {
+            localStorage.setItem("text-selection", window.getSelection().toString());
+          }
           cite(post.getAttribute('num'));
         });
       }
-  };
 });
 
 
