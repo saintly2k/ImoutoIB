@@ -48,6 +48,9 @@ $thumb_download = 'download.png';
 $thumb_deleted = 'deleted.png';
 $spoiler_enabled = true;
 
+$video_width = 320;
+$video_height = 240;
+
 $icon_locked = 'lock.png';
 $icon_autosage = 'anchor.png';
 $icon_sticky = 'pin.png';

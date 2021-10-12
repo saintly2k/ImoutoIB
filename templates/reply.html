@@ -139,13 +139,13 @@
 						} else {
 						echo '<img img-id="'.$post_number_reply.'" class="thumb" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_spoiler . '"/>';
 						}
-						echo '<img img-id="'.$post_number_reply.'" class="expand dnone" width="'.$full_width.'" height="'.$full_height.'" img-src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '"/>';
+						echo '<img img-id="'.$post_number_reply.'" class="expand dnone" data-width="'.$full_width.'" data-height="'.$full_height.'" img-src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '"/>';
 						//image full
 
 					echo '</a>';
 				echo '</div>';
 				}
-				if ($reply_file[0][0] == 'audio') {
+				if (preg_match('/audio/', $reply_file[0][0])) {
 					echo ' (' . formatBytes($reply_file[0][4]) . ')';
 					echo '</div>';
 					echo '<div class="post-image" data-file="'.$reply_file[0][0].'">';
@@ -154,12 +154,15 @@
 					echo '</a>';
 					echo '</div>';
 				}
-				if ($reply_file[0][0] == 'video') {
+				if (preg_match('/video/', $reply_file[0][0])) {
 					echo ' (' . formatBytes($reply_file[0][4]) . ')';
 					echo '</div>';
-					echo '<div class="post-image" data-file="'.$reply_file[0][0].'">';
+					echo '<div class="post-image" data-file="video">';
 					echo '<a href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '">';
-					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_video . '"/>';
+					echo '<img class="thumb" vid-id="'.$post_number_reply.'" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_video . '"/>';
+					echo '	<video class="dnone" vid-type="'.$reply_file[0][0].'" vid-src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '" vid-id="'.$post_number_reply.'" width="320" height="240" controls autoplay>
+  							Your browser does not support the video tag.
+							</video>';
 					echo '</a>';
 					echo '</div>';
 				}

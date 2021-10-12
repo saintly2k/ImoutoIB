@@ -38,12 +38,12 @@
 
 				echo '</div>';
 				}
-				if ($op_file[0][0] == 'audio') {
+				if (preg_match('/audio/', $op_file[0][0])) {
 					echo '<div class="post-image">';
 					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_audio . '"/>';
 					echo '</div>';
 				}
-				if ($op_file[0][0] == 'video') {
+				if (preg_match('/video/', $op_file[0][0])) {
 					echo '<div class="post-image">';
 					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_video . '"/>';
 					echo '</div>';

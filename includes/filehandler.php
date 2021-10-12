@@ -115,7 +115,7 @@ if ($allow_files !== true && isset($_FILES['file'])) {
 			}
 
 			$isVideo_ = true;
-			$file_type = "video";
+			$file_type = $type;
 		}		
 
 

@@ -32,6 +32,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
         captcha_field.focus();
       }
     }
+    captcha_field.onfocus = function() { //if tabbing through fields
+      if (captcha.src == location.href || captcha.src == '') { //if empty, yes this is weird it goes to href when emptied out by js, but '' if never changed before.
+        document.querySelector("details.js-captcha").open = true;
+        captcha.src = install_location + '/captcha.php?' + Date.now();
+        captcha_field.value = '';
+        captcha_field.focus();
+      }
+    }
 
     }
   }
@@ -189,13 +197,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
     hlquotelink.addEventListener("mouseover", (event) => {
       //highlight type 2 (to not mess with click highlights)
-      let hlthis = document.querySelectorAll(`[id="`+number+`"]`);
+      let hlthis = document.querySelectorAll(`[id="${number}"]`);
       for (let i = 0; i<hlthis.length; i++) {
         hlthis[i].classList.add('mouse-highlight');
       }
     });
     hlquotelink.addEventListener("mouseout", (event) => {
-      let hlthis = document.querySelectorAll(`[id="`+number+`"]`);
+      let hlthis = document.querySelectorAll(`[id="${number}"]`);
       for (let i = 0; i<hlthis.length; i++) {
         hlthis[i].classList.remove('mouse-highlight');
       }
@@ -204,10 +212,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 });
 
-//expand images (TODO: video and audio later)
+//expand images
 document.addEventListener("DOMContentLoaded", function(event) { 
   if (document.querySelector('body.index') || document.querySelector("body.thread")) { //only on index/thread
-    
+
     function imageSwitcher(id) {
     //toggle dnone
     let switchthis = document.querySelectorAll(`[img-id="${id}"]`);
@@ -231,5 +239,41 @@ document.addEventListener("DOMContentLoaded", function(event) {
       });
     }
     //done? <- for images at least, need audio+video players too with a cute [close] button next to it.
+  }
+});
+
+//expand videos (Todo audio)
+document.addEventListener("DOMContentLoaded", function(event) { 
+  if (document.querySelector('body.index') || document.querySelector("body.thread")) { //only on index/thread
+    function videoSwitcher(id) {
+    let switchthis = document.querySelectorAll(`[vid-id="${id}"]`);
+      for (let i = 0; i<switchthis.length; i++) {
+        switchthis[i].classList.toggle('dnone');
+      }
+    }
+
+    const videos = document.querySelectorAll(".post-image[data-file='video']");
+    for (const video of videos) { 
+      let thumb = video.querySelector('a img.thumb');
+      let expand = video.querySelector('a video');
+      let vidid = expand.getAttribute('vid-id');
+      let fileinfo = video.parentNode.querySelector('div.file-info');
+      let expandsrc = expand.getAttribute('vid-src');
+      let expandtype = expand.getAttribute('vid-type');
+      let closebutton = `<span class="closevid" closevid-id="${vidid}">&nbsp;[<a closevid-id="${vidid}" href="#">Close</a>]</span>`;
+      thumb.addEventListener("click", (event) => {
+        event.preventDefault();
+        expand.innerHTML = `<source src-id="${vidid}" src="${expandsrc}" type="${expandtype}"/>`;
+        videoSwitcher(vidid);
+        fileinfo.insertAdjacentHTML('beforeend', closebutton);
+        document.querySelector(`span.closevid a[closevid-id="${vidid}"]`).addEventListener("click", (event) => {
+          event.preventDefault();
+          expand.pause();
+          let elem1 = document.querySelector(`span.closevid[closevid-id="${vidid}"]`);
+          elem1.parentNode.removeChild(elem1);
+          videoSwitcher(vidid);
+        });
+    });
+    }
   }
 });
