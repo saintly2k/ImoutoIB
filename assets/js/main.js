@@ -159,7 +159,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
       for (let i = 0; i<current.length; i++) {
         current[i].classList.remove('highlighted');
       }
-      console.log(element);
       let hlthis = document.querySelectorAll(`[id="${element}"]`);
       for (let i = 0; i<hlthis.length; i++) {
         hlthis[i].classList.toggle('highlighted');
@@ -185,7 +184,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
   const hlquotelinks = document.querySelectorAll(".quotelink");
   for (const hlquotelink of hlquotelinks) { 
     let number = hlquotelink.textContent.substr(2);
-    console.log(number);
     hlquotelink.addEventListener("click", (event) => {
       hl(number);
     });
@@ -204,4 +202,34 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
   }
 
+});
+
+//expand images (TODO: video and audio later)
+document.addEventListener("DOMContentLoaded", function(event) { 
+  if (document.querySelector('body.index') || document.querySelector("body.thread")) { //only on index/thread
+    
+    function imageSwitcher(id) {
+    //toggle dnone
+    let switchthis = document.querySelectorAll(`[img-id="${id}"]`);
+      for (let i = 0; i<switchthis.length; i++) {
+        switchthis[i].classList.toggle('dnone');
+      }
+    }
+
+    const images = document.querySelectorAll(".post-image[data-file='image']");
+    for (const image of images) { 
+      let thumb = image.querySelector('a img.thumb');
+      let expanded = image.querySelector('a img.expand'); //target images inside the image here and not the div
+      thumb.addEventListener("click", (event) => {
+        event.preventDefault();
+        imageSwitcher(thumb.getAttribute('img-id'));
+        image.querySelector('a img.expand').src = image.querySelector('a img.expand').getAttribute('img-src'); //set src first click
+      });
+      expanded.addEventListener("click", (event) => {
+        event.preventDefault();
+        imageSwitcher(expanded.getAttribute('img-id'));
+      });
+    }
+    //done? <- for images at least, need audio+video players too with a cute [close] button next to it.
+  }
 });

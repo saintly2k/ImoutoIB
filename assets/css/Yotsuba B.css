@@ -56,6 +56,10 @@ span.rquote {
   color: #e82323;
 }
 
+.dnone {
+	display: none;
+}
+
 .code {
 	font-family: 'MS PGothic', 'submona' !important;
 	background: #eeeeee45;
