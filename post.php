@@ -144,7 +144,7 @@ if (isset($_POST['thread'])) {
 
 
 		if ($config['linkify_urls'] == true) {
-			$post_body = preg_replace("/(http|https|ftp|ftps)\:\/\/(.*)?/i","<a class='post-link' href='$0' rel='nofollow' target='_blank'>$0</a>",$post_body);
+			$post_body = preg_replace("/(http|https|ftp|ftps)\:\/\/(.*)?/i","<a class='post-link' href='$0' target='_blank' rel='noopener noreferrer nofollow'>$0</a>",$post_body);
 		}
 
 
