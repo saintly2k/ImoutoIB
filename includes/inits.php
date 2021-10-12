@@ -117,6 +117,13 @@ if (isset($_GET["board"]) && htmlspecialchars($_GET["board"]) != '') {
 	}
 }
 
+if (!isset($_COOKIE['post_password'])) { //if no password cookie
+	$genpw = (rand() + time());
+	if (!isset(($_POST['password'])) || (($_POST['password']) == '')) {
+	$_POST['password'] = $genpw;
+	}
+	setcookie("post_password", $_POST['password'], 0,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+}
 
 
 if (isset(($_POST['password'])) && (($_POST['password']) !== '')) {

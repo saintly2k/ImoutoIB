@@ -135,7 +135,7 @@ function formatBytes($size) {
         return round($size, 1).$units[$i];
 }
 
-function PostSuccess($redirect = false, $auto = true) {
+function PostSuccess($redirect = false, $auto = true, $time= false) {
 
 	//TO DO: redirect to $post_board+thread parameter
 	require 'default.php'; //sets defaults
@@ -171,6 +171,13 @@ function PostSuccess($redirect = false, $auto = true) {
 	echo '<body current_page="message">';
 	echo '<div class="message">Sugoi!! Post success!!</div>';
 	echo '</body>';
+	echo '<div class="footer" style="position:absolute;bottom:20;width:99%;">';
+	if ($time != false) {
+		$end_time = microtime(true);
+		$generation_time = round($end_time - $time, 5);
+		echo '<p class="small">Post generated in ' . $generation_time . ' seconds.</p>';
+	}
+	echo '</div>';
 	echo '</html>';
 
 	exit();

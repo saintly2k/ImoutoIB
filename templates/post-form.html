@@ -64,10 +64,21 @@
 	} else {
 		echo '<textarea name="body" id="body" rows="5" cols="30"></textarea>';
 	}
-	echo '<input style="height:1;width:1;float:right;visibility:hidden;" type="text" id="username" name="username" value=""></td></tr>';
+	echo '<input style="height:1;width:1;z-index:-10;margin-left:-100px;margin-top:5px;position: absolute;" type="text" id="username" name="username" value=""></td></tr>';
 	?>
 	<?php if ($captcha_required == (true) && ($current_page == ('thread') && ($info_locked != 1 || $config['mod']['post_in_locked'] <= $mod_level) || $current_page == ('index') || $current_page == ('catalog'))) {
-		echo '<tr><th>Verification</th><td><img height="50" width="198" id="captcha" src="' . $prefix_folder . '/captcha.php' .'"/><br><input id="captcha-field" type="text" name="captcha" minlength="6" maxlength="6" autocomplete="off" required></td>
+		echo '<tr><th>Verification</th><td>
+			<details class="js-captcha"><summary id="load-captcha">View Verification</summary>
+			<span class="js-captcha">
+				<img title="Click Here To Refresh" height="50" width="198" id="captcha" js-src="' . $prefix_folder . '/captcha.php' .'"/><br>
+			</span>
+			</details>
+			<noscript>
+				<style>.js-captcha { display:none }</style>
+				<img height="50" width="198" id="captcha" src="' . $prefix_folder . '/captcha.php' .'"/><br>
+			</noscript>
+			<input id="captcha-field" type="text" name="captcha" minlength="6" maxlength="6" autocomplete="off" required>
+		</td>
 		';
 	}?>
 
@@ -89,7 +100,7 @@
 	    <table>
 	    	<tr>
 	    		<th>Password</th>
-	    		<td><input type="password" name="password" size="25" maxlength="256" value=""></td>
+	    		<td><input id="post_password" type="password" name="password" size="25" maxlength="256" value="<?php echo $_COOKIE['post_password']; ?>"></td>
 	    	</tr>
 	    	<tr>
 	    		<th>Options</th>
