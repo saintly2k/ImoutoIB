@@ -193,12 +193,12 @@ div.post.reply.banned {
 	margin-left: 10px;
 }
 
-div.post.reply.highlighted, div.post.reply.mouse-highlight {
+div.post.reply.highlighted, div.post.reply.mouse-highlight, div.post.reply:target {
 	background: #d6bad0;
 	border-color: #ba9dbf;
 }
 
-div.post.reply.highlighted.mouse-highlight {
+div.post.reply.highlighted.mouse-highlight, div.post.reply.mouse-highlight:target {
 	background: #bfa6ba;
 }
 

@@ -53,11 +53,11 @@ html[data-stylesheet="Kareha"] div.post.reply {
   border: none;
 }
 
-html[data-stylesheet="Kareha"] div.post.reply.highlighted, html[data-stylesheet="Kareha"] div.post.reply.mouse-highlight {
+html[data-stylesheet="Kareha"] div.post.reply.highlighted, html[data-stylesheet="Kareha"] div.post.reply.mouse-highlight, html[data-stylesheet="Kareha"] div.post.reply:target {
   background: #CCC;
 }
 
-html[data-stylesheet="Kareha"] div.post.reply.highlighted.mouse-highlight {
+html[data-stylesheet="Kareha"] div.post.reply.highlighted.mouse-highlight, html[data-stylesheet="Kareha"] div.post.reply.mouse-highlight:target {
   background: #BBB;
 }
 

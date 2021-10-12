@@ -101,12 +101,12 @@ html[data-stylesheet="Tomorrow"] .post.reply {
   border-color: #282a2e;
 }
 
-html[data-stylesheet="Tomorrow"] div.post.reply.highlighted, html[data-stylesheet="Tomorrow"] div.post.reply.mouse-highlight {
+html[data-stylesheet="Tomorrow"] div.post.reply.highlighted, html[data-stylesheet="Tomorrow"] div.post.reply.mouse-highlight, html[data-stylesheet="Tomorrow"] div.post.reply:target {
   background: #1d1d21;
   border-color: #111;
 }
 
-html[data-stylesheet="Tomorrow"] div.post.reply.highlighted.mouse-highlight {
+html[data-stylesheet="Tomorrow"] div.post.reply.highlighted.mouse-highlight, html[data-stylesheet="Tomorrow"] div.post.reply.mouse-highlight:target {
   background: #111;
 }
 

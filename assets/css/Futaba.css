@@ -72,11 +72,11 @@ html[data-stylesheet="Futaba"] .post.reply {
   border: none;
 }
 
-html[data-stylesheet="Futaba"] div.post.reply.highlighted, html[data-stylesheet="Futaba"] div.post.reply.mouse-highlight {
+html[data-stylesheet="Futaba"] div.post.reply.highlighted, html[data-stylesheet="Futaba"] div.post.reply.mouse-highlight, html[data-stylesheet="Futaba"] div.post.reply:target {
   background: #f0c0b0;
 }
 
-html[data-stylesheet="Futaba"] div.post.reply.highlighted.mouse-highlight {
+html[data-stylesheet="Futaba"] div.post.reply.highlighted.mouse-highlight, html[data-stylesheet="Futaba"] div.post.reply.mouse-highlight:target {
   background: #e8a690;
 }
 
