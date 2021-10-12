@@ -262,6 +262,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       let expandtype = expand.getAttribute('vid-type');
       let closebutton = `<span class="closevid" closevid-id="${vidid}">&nbsp;[<a closevid-id="${vidid}" href="#">Close</a>]</span>`;
       thumb.addEventListener("click", (event) => {
+        expand.play();
         event.preventDefault();
         expand.innerHTML = `<source src-id="${vidid}" src="${expandsrc}" type="${expandtype}"/>`;
         videoSwitcher(vidid);
