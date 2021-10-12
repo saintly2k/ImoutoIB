@@ -20,10 +20,6 @@ body {
 	text-decoration: underline;
 }
 
-.modlevel {
-  /*font-weight: normal;*/
-}
-
 .modlevel.admin {
   color: red;
 }
@@ -129,9 +125,6 @@ div.post-image img {
 	min-height: 16px;
 }
 
-div.post.reply .post-image img {
-}
-
 p {
 	margin: 0;
 	padding: 0;
@@ -198,6 +191,15 @@ span.banned {
 
 div.post.reply.banned {
 	margin-left: 10px;
+}
+
+div.post.reply.highlighted, div.post.reply.mouse-highlight {
+	background: #d6bad0;
+	border-color: #ba9dbf;
+}
+
+div.post.reply.highlighted.mouse-highlight {
+	background: #bfa6ba;
 }
 
 .main h2 {

@@ -76,6 +76,15 @@ html[data-stylesheet="Yotsuba"] .post.reply {
   border-color: #d9bfb7;
 }
 
+html[data-stylesheet="Yotsuba"] div.post.reply.highlighted, html[data-stylesheet="Yotsuba"] div.post.reply.mouse-highlight {
+  background: #f0c0b0;
+  border-color: #d99f91;
+}
+
+html[data-stylesheet="Yotsuba"] div.post.reply.highlighted.mouse-highlight {
+  background: #e8a690;
+}
+
 html[data-stylesheet="Yotsuba"] div.post-arrows {
   color: #e0bfb7;
 }

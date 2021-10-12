@@ -73,6 +73,14 @@ html[data-stylesheet="Sankarea"] div.post.reply {
   border: none;
 }
 
+html[data-stylesheet="Sankarea"] div.post.reply.highlighted, html[data-stylesheet="Sankarea"] div.post.reply.mouse-highlight {
+  background: #333;
+}
+
+html[data-stylesheet="Sankarea"] div.post.reply.highlighted.mouse-highlight {
+  background: #444;
+}
+
 html[data-stylesheet="Sankarea"] .post-arrows {
   display:none;
 }

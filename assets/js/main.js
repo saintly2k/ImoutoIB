@@ -101,3 +101,59 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
   };
 });
+
+
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  // Highlight
+  function hl(element) {
+      let current = document.getElementsByClassName('highlighted');
+      for (let i = 0; i<current.length; i++) {
+        current[i].classList.remove('highlighted');
+      }
+      console.log(element);
+      let hlthis = document.querySelectorAll(`[data-postid="${element}"]`);
+      for (let i = 0; i<hlthis.length; i++) {
+        hlthis[i].classList.toggle('highlighted');
+      }
+  }
+  if (location.hash.substr(1) != '') {
+      const hash = location.hash.substr(1); //remove #
+      let regex = new RegExp('[0-9]+');
+      if (regex.test(hash) == true) { //if #123
+        hl(hash);
+      }
+  }
+
+  // Get all anchor posts
+  const highlights = document.querySelectorAll(".post-number a.anchor");
+  for (const highlight of highlights) { 
+    highlight.addEventListener("click", (event) => {
+      hl(highlight.getAttribute('name'));
+    });
+  }
+
+  // Get all quotelink posts
+  const hlquotelinks = document.querySelectorAll(".quotelink");
+  for (const hlquotelink of hlquotelinks) { 
+    let number = hlquotelink.textContent.substr(2);
+    console.log(number);
+    hlquotelink.addEventListener("click", (event) => {
+      hl(number);
+    });
+    hlquotelink.addEventListener("mouseover", (event) => {
+      //highlight type 2 (to not mess with click highlights)
+      let hlthis = document.querySelectorAll(`[data-postid="`+number+`"]`);
+      for (let i = 0; i<hlthis.length; i++) {
+        hlthis[i].classList.add('mouse-highlight');
+      }
+    });
+    hlquotelink.addEventListener("mouseout", (event) => {
+      let hlthis = document.querySelectorAll(`[data-postid="`+number+`"]`);
+      for (let i = 0; i<hlthis.length; i++) {
+        hlthis[i].classList.remove('mouse-highlight');
+      }
+    });
+  }
+
+});
