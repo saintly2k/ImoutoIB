@@ -9,6 +9,7 @@ $config['boards']['img'] = array(
 	'description' => 'Imageboard Demo',
 	'locked' => 0,
 	'hidden' => 0,
+	'mod_only' => 0,
 	'type' => 'img'
 );
 
@@ -18,7 +19,18 @@ $config['boards']['txt'] = array(
 	'description' => 'Bulletin Board System',
 	'locked' => 0,
 	'hidden' => 0,
+	'mod_only' => 0,
 	'type' => 'txt'
+);
+
+$config['boards']['mod'] = array(
+	'url' => 'mod',
+	'title' => 'Moderator Board',
+	'description' => 'Only readable and writeable by moderators.',
+	'locked' => 0,
+	'hidden' => 1,
+	'mod_only' => 1,
+	'type' => 'img'
 );
 
 foreach ($config['boards'] as $boards) {

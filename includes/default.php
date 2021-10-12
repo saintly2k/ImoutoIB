@@ -146,6 +146,7 @@ $config['mod']['post_in_locked'] = "40";
 $config['mod']['public_mod_level'] = "40"; //type "showlevel" or click show level button to show moderator level to make statments etc.
 $config['mod']['edit_user'] = "9001"; //create,edit,delete
 $config['mod']['mod_log'] = "40"; //look at modlog, not coded yet.
+$config['mod']['mod_only'] = "10"; //Janitor, Mods, and Admins can read and post in mod_only board.
 
 $config['footer'] = []; //Display name, URL
 $config['footer'][] = array('Home', '?page=');

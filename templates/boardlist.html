@@ -8,7 +8,7 @@
 
 [<?php	
 	foreach ($config['boards'] as $boards) {
-		if ($boards['hidden'] === 0) {
+		if (($boards['hidden'] === 0) || ($config['mod']['mod_only'] <= $mod_level)) {
 			if ($boards['url'] != array_key_first($config['boards'])) {
 		        echo ' / ';
 		    }

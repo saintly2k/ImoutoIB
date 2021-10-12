@@ -11,6 +11,13 @@ if (!isset($_POST['board'])) {
 	$_POST['board'] = array_key_first($config['boards']); //set a board and allow seeing bans instead:
 }
 
+//if modonly
+if ($config['boards'][phpClean($_POST['board'])]['mod_only'] == 1) {
+	if ($config['mod']['mod_only'] > $mod_level) {
+		error('Permission denied. Authenticated staff only.');
+	}
+}
+
 //CHECK BANS, move this to a different file maybe.
 $check_ban = crypt($_SERVER['REMOTE_ADDR'] , $secure_hash);
 $check_ban = preg_replace('/(\/|\.)/i','' , $check_ban);
@@ -68,7 +75,11 @@ if (($config['mod']['thread_autosage'] <= $mod_level) && isset($_POST['autosage'
 
 //POST FIELDS
 	$post_board = phpClean($_POST['board']);
-	$post_name = phpClean($_POST['name']);
+	if (isset($_POST['name'])) {
+		$post_name = phpClean($_POST['name']);
+	} else {
+		$post_name = $default_name;
+	}
 
 	if ($disable_email !== true) {
 		$post_email = phpClean($_POST['link']);
@@ -188,6 +199,12 @@ if ($post_name === '') {
 }
 if (strlen($post_name) > 256) {
 	error('Name too long. Max 256.');
+}
+
+//if mod only board, show username and modlevel.
+if ($config['boards'][phpClean($_POST['board'])]['mod_only'] == 1) {
+	$post_name = $logged_in_user;
+	$_POST['mod_level'] = true;
 }
 
 //add extra stuff to name:

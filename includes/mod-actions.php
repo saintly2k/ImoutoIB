@@ -48,6 +48,8 @@ if (isset($_POST['logout'])) {
 	setcookie("mod_user", null, time() - 3600,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
 	setcookie("mod_session", null, time() - 3600,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
 	$logged_in = false;
+	$logged_in_as = false;
+	$mod_level = 0;
 }
 
 //EDIT PASSWORD
@@ -327,6 +329,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 	file_put_contents($path . '/' . $database_folder . '/users/' . $_POST['username'] . '.php', $user_info);
 
 	$logged_in = true;
+	$logged_in_as = $username;
+	$mod_level = $user_mod_level;
 }
 
 //CREATE FOLDER + DEFAULT USER

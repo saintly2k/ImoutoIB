@@ -91,6 +91,14 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 	$board_description = $config['boards'][$current_board]['description'];
 	$board_title = $config['boards'][$current_board]['title'];
 
+	//if modonly
+	if ($config['boards'][$current_board]['mod_only'] == 1) {
+		if ($config['mod']['mod_only'] > $mod_level) {
+			error('Permission denied. Authenticated staff only.');
+		}
+		$forced_anon = true; //all names will be username in post.php
+	}
+
 	if ($catalog_enable == true) {
 		//IF IMG CATALOG
 		if (htmlspecialchars($_GET["page"]) === "catalog") {
