@@ -76,12 +76,12 @@ html[data-stylesheet="Yotsuba"] .post.reply {
   border-color: #d9bfb7;
 }
 
-html[data-stylesheet="Yotsuba"] div.post.reply.highlighted, html[data-stylesheet="Yotsuba"] div.post.reply.mouse-highlight {
+html[data-stylesheet="Yotsuba"] div.post.reply.highlighted, html[data-stylesheet="Yotsuba"] div.post.reply.mouse-highlight, html[data-stylesheet="Yotsuba"] div.post.reply:target {
   background: #f0c0b0;
   border-color: #d99f91;
 }
 
-html[data-stylesheet="Yotsuba"] div.post.reply.highlighted.mouse-highlight {
+html[data-stylesheet="Yotsuba"] div.post.reply.highlighted.mouse-highlight, html[data-stylesheet="Yotsuba"] div.post.reply.mouse-highlight:target {
   background: #e8a690;
 }
 

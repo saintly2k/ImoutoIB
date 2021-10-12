@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         current[i].classList.remove('highlighted');
       }
       console.log(element);
-      let hlthis = document.querySelectorAll(`[data-postid="${element}"]`);
+      let hlthis = document.querySelectorAll(`[id="${element}"]`);
       for (let i = 0; i<hlthis.length; i++) {
         hlthis[i].classList.toggle('highlighted');
       }
@@ -191,13 +191,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
     hlquotelink.addEventListener("mouseover", (event) => {
       //highlight type 2 (to not mess with click highlights)
-      let hlthis = document.querySelectorAll(`[data-postid="`+number+`"]`);
+      let hlthis = document.querySelectorAll(`[id="`+number+`"]`);
       for (let i = 0; i<hlthis.length; i++) {
         hlthis[i].classList.add('mouse-highlight');
       }
     });
     hlquotelink.addEventListener("mouseout", (event) => {
-      let hlthis = document.querySelectorAll(`[data-postid="`+number+`"]`);
+      let hlthis = document.querySelectorAll(`[id="`+number+`"]`);
       for (let i = 0; i<hlthis.length; i++) {
         hlthis[i].classList.remove('mouse-highlight');
       }

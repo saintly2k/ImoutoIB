@@ -14,7 +14,7 @@
 	?>
 	</span>
 
-<div class="post op <?php echo $post_number_op ?>" data-postid="<?php echo $post_number_op; ?>">
+<div class="post op <?php echo $post_number_op ?>" id="<?php echo $post_number_op; ?>">
 	<?php 
 	if ($op_file[0][0] == "deleted") {
 		echo '<div class="post-file"><img class="file-deleted" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_deleted . '"/></div>';
@@ -33,24 +33,24 @@
 						if ($op_file[0][5] != "1") {
 						echo '<img id="'.$post_number_op.'" class="thumb" width="'.$thmb_width.'" height="'.$thmb_height.'" src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][6] . '"/>';
 						} else {
-						echo '<img id="'.$post_number_op.'" class="thumb" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_spoiler . '"/>';
+						echo '<img id="'.$post_number_op.'" class="thumb" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_spoiler . '"/>';
 						}
 
 				echo '</div>';
 				}
 				if ($op_file[0][0] == 'audio') {
 					echo '<div class="post-image">';
-					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_audio . '"/>';
+					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_audio . '"/>';
 					echo '</div>';
 				}
 				if ($op_file[0][0] == 'video') {
 					echo '<div class="post-image">';
-					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_video . '"/>';
+					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_video . '"/>';
 					echo '</div>';
 				}
 				if ($op_file[0][0] == 'download') {
 					echo '<div class="post-image">';
-					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_download . '"/>';
+					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_download . '"/>';
 					echo '</div>';
 				}				
 			echo '</div>';

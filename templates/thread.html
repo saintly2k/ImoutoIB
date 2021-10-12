@@ -1,6 +1,6 @@
 <div class="thread <?php echo $post_number_op ?>">
 
-<div class="post op" data-postid="<?php echo $post_number_op; ?>">
+<div class="post op" id="<?php echo $post_number_op; ?>">
 	<?php 
 	if ($op_file[0][0] == "deleted") {
 		echo '<div class="post-file"><div class="file-info deleted">File Deleted</div><div class="post-image"><img class="file-deleted" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_deleted . '"/></div></div>';
@@ -50,7 +50,7 @@
 						if ($op_file[0][5] != "1") {
 						echo '<img img-id="'.$post_number_op.'" class="thumb" width="'.$thmb_width.'" height="'.$thmb_height.'" src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][6] . '"/>';
 						} else {
-						echo '<img img-id="'.$post_number_op.'" class="thumb" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_spoiler . '"/>';
+						echo '<img img-id="'.$post_number_op.'" class="thumb" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_spoiler . '"/>';
 						}
 						echo '<img img-id="'.$post_number_op.'" class="expand" style="display:none;" width="'.$full_width.'" height="'.$full_height.'" img-src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][1] . '"/>';
 						//image full
@@ -63,7 +63,7 @@
 					echo '</div>';
 					echo '<div class="post-image">';
 					echo '<a href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][1] . '">';
-					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_audio . '"/>';
+					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_audio . '"/>';
 					echo '</a>';
 					echo '</div>';
 				}
@@ -72,7 +72,7 @@
 					echo '</div>';
 					echo '<div class="post-image">';
 					echo '<a href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][1] . '">';
-					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_video . '"/>';
+					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_video . '"/>';
 					echo '</a>';
 					echo '</div>';
 				}
@@ -81,7 +81,7 @@
 					echo '</div>';
 					echo '<div class="post-image">';
 					echo '<a href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][1] . '">';
-					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/' . '/assets/img/' . $thumb_download . '"/>';
+					echo '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_download . '"/>';
 					echo '</a>';
 					echo '</div>';
 				}				

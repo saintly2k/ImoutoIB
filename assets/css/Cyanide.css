@@ -96,12 +96,12 @@ html[data-stylesheet="Cyanide"] .post.reply {
   border-color: #264048;
 }
 
-html[data-stylesheet="Cyanide"] div.post.reply.highlighted, html[data-stylesheet="Cyanide"] div.post.reply.mouse-highlight {
+html[data-stylesheet="Cyanide"] div.post.reply.highlighted, html[data-stylesheet="Cyanide"] div.post.reply.mouse-highlight, html[data-stylesheet="Cyanide"] div.post.reply:target {
   background: #0f3f4f;
   border-color: #26606e;
 }
 
-html[data-stylesheet="Cyanide"] div.post.reply.highlighted.mouse-highlight {
+html[data-stylesheet="Cyanide"] div.post.reply.highlighted.mouse-highlight, html[data-stylesheet="Cyanide"] div.post.reply.mouse-highlight:target {
   background: #17596f;
 }
 
