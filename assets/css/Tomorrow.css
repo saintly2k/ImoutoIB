@@ -101,6 +101,15 @@ html[data-stylesheet="Tomorrow"] .post.reply {
   border-color: #282a2e;
 }
 
+html[data-stylesheet="Tomorrow"] div.post.reply.highlighted, html[data-stylesheet="Tomorrow"] div.post.reply.mouse-highlight {
+  background: #1d1d21;
+  border-color: #111;
+}
+
+html[data-stylesheet="Tomorrow"] div.post.reply.highlighted.mouse-highlight {
+  background: #111;
+}
+
 html[data-stylesheet="Tomorrow"] div.post-arrows {
   color: #c5c8c6;
 }
@@ -128,7 +137,7 @@ html[data-stylesheet="Tomorrow"] .catalog .container {
 }
 
 html[data-stylesheet="Tomorrow"] .catalog .container:hover {
-    background: #2c2e33;
+  background: #2c2e33;
 }
 
 html[data-stylesheet="Tomorrow"] .box.left, html[data-stylesheet="Tomorrow"] .box.right {

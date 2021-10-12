@@ -96,6 +96,16 @@ html[data-stylesheet="Cyanide"] .post.reply {
   border-color: #264048;
 }
 
+html[data-stylesheet="Cyanide"] div.post.reply.highlighted, html[data-stylesheet="Cyanide"] div.post.reply.mouse-highlight {
+  background: #0f3f4f;
+  border-color: #26606e;
+}
+
+html[data-stylesheet="Cyanide"] div.post.reply.highlighted.mouse-highlight {
+  background: #17596f;
+}
+
+
 html[data-stylesheet="Cyanide"] div.post-arrows {
   color: #1f4048;
 }

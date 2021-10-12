@@ -53,6 +53,14 @@ html[data-stylesheet="Kareha"] div.post.reply {
   border: none;
 }
 
+html[data-stylesheet="Kareha"] div.post.reply.highlighted, html[data-stylesheet="Kareha"] div.post.reply.mouse-highlight {
+  background: #CCC;
+}
+
+html[data-stylesheet="Kareha"] div.post.reply.highlighted.mouse-highlight {
+  background: #BBB;
+}
+
 html[data-stylesheet="Kareha"] div.file-info.deleted {
   display: block;
 }

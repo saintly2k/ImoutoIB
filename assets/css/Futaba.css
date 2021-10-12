@@ -72,6 +72,14 @@ html[data-stylesheet="Futaba"] .post.reply {
   border: none;
 }
 
+html[data-stylesheet="Futaba"] div.post.reply.highlighted, html[data-stylesheet="Futaba"] div.post.reply.mouse-highlight {
+  background: #f0c0b0;
+}
+
+html[data-stylesheet="Futaba"] div.post.reply.highlighted.mouse-highlight {
+  background: #e8a690;
+}
+
 html[data-stylesheet="Futaba"] div.post-arrows, html[data-stylesheet="Futaba"] div.omitted, html[data-stylesheet="Futaba"] div.page-info  {
   color: #800;
 }
