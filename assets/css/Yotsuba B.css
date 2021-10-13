@@ -476,7 +476,7 @@ div.post details table {
 }
 
 .pager form {
-    height: 5px;
+    display: inline;
 }
 
 .pager {
