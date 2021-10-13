@@ -10,30 +10,30 @@
 
 	$title = 'Manage Bans - ' . $site_name;
 	if (isset($_GET['theme'])) {
-		echo '<html data-stylesheet="'. htmlspecialchars($_GET['theme']) .'">';
+		$output_html .= '<html data-stylesheet="'. htmlspecialchars($_GET['theme']) .'">';
 	} else {
-		echo '<html data-stylesheet="'. $current_theme .'">';	
+		$output_html .= '<html data-stylesheet="'. $current_theme .'">';	
 	}
-	echo '<head>';
-	include $path . '/templates/header.html';
-	echo '</head>';
-	echo '<body class="frontpage">';
-	include $path . '/templates/boardlist.html';
-	echo '<div class="page-info"><h1>Dashbord</h1><div class="small">Try not to ruin everything.</div>';
-	echo $logged_in_as;
-	echo '</div>';
-	echo $dashboard_notifications;
-	echo '<br>';
-	echo '<div class="box flex">';
-	echo $mod_navigation;
-	echo '<div class="container-right">';
+	$output_html .= '<head>';
+	include $path . '/templates/header.php';
+	$output_html .= '</head>';
+	$output_html .= '<body class="frontpage">';
+	include $path . '/templates/boardlist.php';
+	$output_html .= '<div class="page-info"><h1>Dashbord</h1><div class="small">Try not to ruin everything.</div>';
+	$output_html .= $logged_in_as;
+	$output_html .= '</div>';
+	$output_html .= $dashboard_notifications;
+	$output_html .= '<br>';
+	$output_html .= '<div class="box flex">';
+	$output_html .= $mod_navigation;
+	$output_html .= '<div class="container-right">';
 
-	echo '<div class="box right">';
-	echo '<h2>Ban IP</h2>';
-	echo '<div class="box-content">';
-	echo '<p>';
-	echo '<details><summary>Ban IP</summary>';
-	echo '<form name="create-ban" action="' . $prefix_folder . '/mod.php?page=bans" method="post">
+	$output_html .= '<div class="box right">';
+	$output_html .= '<h2>Ban IP</h2>';
+	$output_html .= '<div class="box-content">';
+	$output_html .= '<p>';
+	$output_html .= '<details><summary>Ban IP</summary>';
+	$output_html .= '<form name="create-ban" action="' . $prefix_folder . '/mod.php?page=bans" method="post">
 				<table id="post-form" style="width:initial;">
 					<tbody><tr><th>IP:</th><td><input type="text" name="create-ban-ip" size="25" maxlength="32" autocomplete="off" placeholder="IP (hash)" required></td></tr>
 					<tr><th>Reason:</th><td><input type="text" name="create-ban-reason" size="25" maxlength="256" autocomplete="off" placeholder="Reason" required></td></tr>
@@ -54,20 +54,20 @@
 					<tr><th style="visibility:hidden;"></th><td><input type="submit" name="create-ban" value="Create Ban" style="float: right;"></td></tr>
 				</tbody></table>
 			</form>';
-	echo '</details>';
-	echo '</p>';
-	echo '</div>';
-	echo '</div>';
+	$output_html .= '</details>';
+	$output_html .= '</p>';
+	$output_html .= '</div>';
+	$output_html .= '</div>';
 
-	echo '<br>';
-	echo '<div class="box right">';
-	echo '<h2>Manage Bans</h2>'; //at some point i will need to rewrite this+reports+users to have pages if it grows large!!!
-	echo '<div class="box-content">';
+	$output_html .= '<br>';
+	$output_html .= '<div class="box right">';
+	$output_html .= '<h2>Manage Bans</h2>'; //at some point i will need to rewrite this+reports+users to have pages if it grows large!!!
+	$output_html .= '<div class="box-content">';
 	
 	//foreach
 	
-	echo '<table><thead> <td>ID</td> <td>IP</td> <td>Reason</td> <td>Expires</td> <td>Read</td> <td>Actions</td></thead>';
-	echo '<tbody>';
+	$output_html .= '<table><thead> <td>ID</td> <td>IP</td> <td>Reason</td> <td>Expires</td> <td>Read</td> <td>Actions</td></thead>';
+	$output_html .= '<tbody>';
 
 	//TO DO: multiarray and sort by ID, alternatively use JS.
 	// I should also first take the admins, sort them by id, then the mods by id, then the jannies by id, etc.
@@ -84,87 +84,88 @@
 			include $banfile;
 
 			if ($ban['duration'] == 'warning') {
-				echo '<tr style="text-decoration:line-through;">';
+				$output_html .= '<tr style="text-decoration:line-through;">';
 			} elseif (($ban['duration'] != 'permanent') && (($ban['time'] + $ban['duration']) < time())) { //if warning or expired
-				echo '<tr style="text-decoration:line-through;">';
+				$output_html .= '<tr style="text-decoration:line-through;">';
 			} else {
-				echo '<tr>';
+				$output_html .= '<tr>';
 			}
 
-			echo '<td>' . $ban['id'] . '</td>';
-			echo '<td>' . $ban['original_ip'] . '</td>';
-			echo '<td title="' . $ban['reason'] . '"style="white-space:pre;word-wrap:break-word;max-width:150px;overflow:hidden;text-overflow:ellipsis">' . $ban['reason'] . '</td>';
+			$output_html .= '<td>' . $ban['id'] . '</td>';
+			$output_html .= '<td>' . $ban['original_ip'] . '</td>';
+			$output_html .= '<td title="' . $ban['reason'] . '"style="white-space:pre;word-wrap:break-word;max-width:150px;overflow:hidden;text-overflow:ellipsis">' . $ban['reason'] . '</td>';
 			
 			if ($ban['duration'] == 'warning') {
-				echo '<td>---------</td>';
+				$output_html .= '<td>---------</td>';
 			} elseif ($ban['duration'] == 'permanent') {
-				echo '<td>Never</td>';
+				$output_html .= '<td>Never</td>';
 			} elseif (($ban['time'] + $ban['duration']) < time()) {
-				echo '<td>'. timeago($ban['time'] + $ban['duration']) .'</td>';
+				$output_html .= '<td>'. timeago($ban['time'] + $ban['duration']) .'</td>';
 			} else {
-				echo '<td>'. timeuntil($ban['time'] + $ban['duration']) .'</td>';
+				$output_html .= '<td>'. timeuntil($ban['time'] + $ban['duration']) .'</td>';
 			}
 			
-			echo '<td>' . $ban['is_read'] . '</td>';
-			echo '<td>';
-			echo '<details><summary>More</summary>';
+			$output_html .= '<td>' . $ban['is_read'] . '</td>';
+			$output_html .= '<td>';
+			$output_html .= '<details><summary>More</summary>';
 
 			if ($ban["post-body"] != false) { //manual ban or not?
-				echo '<details><summary class="small">View</summary>'; //see post that caused ban
-				echo '<div class="post reply banned"><div class="post-info">';
+				$output_html .= '<details><summary class="small">View</summary>'; //see post that caused ban
+				$output_html .= '<div class="post reply banned"><div class="post-info">';
 				if ($ban['post-subject'] != '') {
-				echo '<span class="subject">'.$ban['post-subject'].'&nbsp;</span>';
+				$output_html .= '<span class="subject">'.$ban['post-subject'].'&nbsp;</span>';
 				}
 				if ($ban['post-email'] != '') {
-					echo '<span class="name"><a href="mailto:'.$ban['post-email'].'">'.$ban['post-name'].'</a>&nbsp;</span>';
+					$output_html .= '<span class="name"><a href="mailto:'.$ban['post-email'].'">'.$ban['post-name'].'</a>&nbsp;</span>';
 				} else {
-					echo '<span class="name">'.$ban['post-name'].'&nbsp;</span>';
+					$output_html .= '<span class="name">'.$ban['post-name'].'&nbsp;</span>';
 				}
 				
-				echo '<span class="post-time" data-tooltip="'.timeConvert($ban['post-time'], $time_method_hover).'" data-timestamp="'.$ban['post-time'].'">'.timeConvert($ban['post-time'], $time_method).'&nbsp;</span>';
-				echo '<span class="post-number">No.'.$ban['reply'].'</span>';
-				echo '</div><blockquote class="post-content">'.$ban['post-body'].'</blockquote></div>';
-				echo '</details>'; //"view file"
+				$output_html .= '<span class="post-time" data-tooltip="'.timeConvert($ban['post-time'], $time_method_hover).'" data-timestamp="'.$ban['post-time'].'">'.timeConvert($ban['post-time'], $time_method).'&nbsp;</span>';
+				$output_html .= '<span class="post-number">No.'.$ban['reply'].'</span>';
+				$output_html .= '</div><blockquote class="post-content">'.$ban['post-body'].'</blockquote></div>';
+				$output_html .= '</details>'; //"view file"
 			} else {
-				echo 'Manual ban.';
+				$output_html .= 'Manual ban.';
 			}
 
 			//delete
-			echo '<details><summary class="small">Delete</summary><details><summary>Are you sure you want to remove this ban?</summary>';
-			echo '	<form name="delete-ban" action="' . $prefix_folder . '/mod.php?page=bans" method="post">
+			$output_html .= '<details><summary class="small">Delete</summary><details><summary>Are you sure you want to remove this ban?</summary>';
+			$output_html .= '	<form name="delete-ban" action="' . $prefix_folder . '/mod.php?page=bans" method="post">
 								<input type="hidden" name="delete-ban-ip" value="' . $ban['ip'] . '">
 								<input type="hidden" name="delete-ban-id" value="' . $ban['id'] . '">
 								<input type="submit" name="delete-ban" value="Delete"></td>
 								</form>';
-			echo '</details></details>';
+			$output_html .= '</details></details>';
 
-			echo '</details></td>';
-			echo '<tr>';
+			$output_html .= '</details></td>';
+			$output_html .= '<tr>';
 		}
 	}
 
-	echo '</tbody></table>';
+	$output_html .= '</tbody></table>';
 	
-	echo '</div>';
-	echo '</div>';
+	$output_html .= '</div>';
+	$output_html .= '</div>';
 
-	echo '</div>';
-	echo '<br>';
-	echo '</div>';
+	$output_html .= '</div>';
+	$output_html .= '<br>';
+	$output_html .= '</div>';
 
 	if ($ban_removed == true) {
-		echo '<div class="message" style="margin-top:0;">Ban has been deleted.</div>';
+		$output_html .= '<div class="message" style="margin-top:0;">Ban has been deleted.</div>';
 	}
 	if ($ban_created == true) {
-		echo '<div class="message" style="margin-top:0;">Ban has been created.</div>';
+		$output_html .= '<div class="message" style="margin-top:0;">Ban has been created.</div>';
 	}
 	if ($warning_created == true) {
-		echo '<div class="message" style="margin-top:0;">Warning has been created.</div>';
+		$output_html .= '<div class="message" style="margin-top:0;">Warning has been created.</div>';
 	}
 
-	include $path . '/templates/footer.html';
-	echo '</body>';
-	echo '</html>';
+	include $path . '/templates/footer.php';
+	$output_html .= '</body>';
+	$output_html .= '</html>';
+	echo $output_html;
 	exit();
 
 ?>

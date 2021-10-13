@@ -31,7 +31,8 @@ if (file_exists($path . '/' . $database_folder . '/bans/' . $check_ban)) {
 		if ($ban['is_active'] == "1") {
 			if ($ban['duration'] == 'permanent') {
 				//SHOW BAN MESSAGE
-				include $path . '/templates/banned.html';
+				include $path . '/templates/banned.php';
+				echo $output_html;
 				exit();
 			}
 			if (($ban['time'] + $ban['duration']) < time()) {
@@ -40,11 +41,12 @@ if (file_exists($path . '/' . $database_folder . '/bans/' . $check_ban)) {
 				$edit_ban = preg_replace('/ban\[\'is_active\'\] = "1";/i' , 'ban[\'is_active\'] = "0";' , $edit_ban);
 				//save as expired
 				file_put_contents($bans, $edit_ban);
-				$ban['is_active'] = "0"; //remind banned.html that its no longer active
+				$ban['is_active'] = "0"; //remind banned.php that its no longer active
 			} else {
 				//this ban hasnt expired...
 				//SHOW BAN MESSAGE
-				include $path . '/templates/banned.html';
+				include $path . '/templates/banned.php';
+				echo $output_html;
 				exit();
 			}
 		}
@@ -55,7 +57,8 @@ if (file_exists($path . '/' . $database_folder . '/bans/' . $check_ban)) {
 			$edit_ban = preg_replace('/ban\[\'is_read\'\] = "0";/i' , 'ban[\'is_read\'] = "1";' , $edit_ban);
 			file_put_contents($bans, $edit_ban);
 			//SHOW BAN MESSAGE
-			include $path . '/templates/banned.html';
+			include $path . '/templates/banned.php';
+			echo $output_html;
 			exit();
 		}
 		//cool lets continue

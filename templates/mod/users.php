@@ -4,31 +4,31 @@
 	}
 	$title = 'Manage Users - ' . $site_name;
 	if (isset($_GET['theme'])) {
-		echo '<html data-stylesheet="'. htmlspecialchars($_GET['theme']) .'">';
+		$output_html .= '<html data-stylesheet="'. htmlspecialchars($_GET['theme']) .'">';
 	} else {
-		echo '<html data-stylesheet="'. $current_theme .'">';	
+		$output_html .= '<html data-stylesheet="'. $current_theme .'">';	
 	}
-	echo '<head>';
-	include $path . '/templates/header.html';
-	echo '</head>';
-	echo '<body class="frontpage">';
-	include $path . '/templates/boardlist.html';
-	echo '<div class="page-info"><h1>Dashbord</h1><div class="small">Try not to ruin everything.</div>';
-	echo $logged_in_as;
-	echo '</div>';
-	echo $dashboard_notifications;
-	echo '<br>';
-	echo '<div class="box flex">';
-	echo $mod_navigation;
-	echo '<div class="container-right">';
+	$output_html .= '<head>';
+	include $path . '/templates/header.php';
+	$output_html .= '</head>';
+	$output_html .= '<body class="frontpage">';
+	include $path . '/templates/boardlist.php';
+	$output_html .= '<div class="page-info"><h1>Dashbord</h1><div class="small">Try not to ruin everything.</div>';
+	$output_html .= $logged_in_as;
+	$output_html .= '</div>';
+	$output_html .= $dashboard_notifications;
+	$output_html .= '<br>';
+	$output_html .= '<div class="box flex">';
+	$output_html .= $mod_navigation;
+	$output_html .= '<div class="container-right">';
 
-	echo '<div class="box right">';
-	echo '<h2>Create User</h2>';
-	echo '<div class="box-content">';
-	echo '<p>';
-	echo '<details><summary>Create User</summary>';
+	$output_html .= '<div class="box right">';
+	$output_html .= '<h2>Create User</h2>';
+	$output_html .= '<div class="box-content">';
+	$output_html .= '<p>';
+	$output_html .= '<details><summary>Create User</summary>';
 	//CREATE USER
-	echo '<form name="create-user" action="' . $prefix_folder . '/mod.php?page=users" method="post">
+	$output_html .= '<form name="create-user" action="' . $prefix_folder . '/mod.php?page=users" method="post">
 				<table id="post-form" style="width:initial;">
 					<tbody><tr><th>Username:</th><td><input type="text" name="create-username" size="25" maxlength="32" autocomplete="off" placeholder="Username" required></td></tr>
 					<tr><th>Password:</th><td><input type="password" name="create-password" size="25" maxlength="256" autocomplete="off" placeholder="Password" required></td></tr>
@@ -44,20 +44,20 @@
 					<tr><th style="visibility:hidden;"></th><td><input type="submit" name="create-user" value="Create User" style="float: right;"></td></tr>
 				</tbody></table>
 			</form>';
-	echo '</details>';
-	echo '</p>';
-	echo '</div>';
-	echo '</div>';
+	$output_html .= '</details>';
+	$output_html .= '</p>';
+	$output_html .= '</div>';
+	$output_html .= '</div>';
 
-	echo '<br>';
-	echo '<div class="box right">';
-	echo '<h2>Manage Users</h2>';
-	echo '<div class="box-content">';
+	$output_html .= '<br>';
+	$output_html .= '<div class="box right">';
+	$output_html .= '<h2>Manage Users</h2>';
+	$output_html .= '<div class="box-content">';
 	
 	//foreach
 	
-	echo '<table><thead> <td>ID</td> <td>Username</td> <td>Mod Level</td> <td>Actions</td></thead>';
-	echo '<tbody>';
+	$output_html .= '<table><thead> <td>ID</td> <td>Username</td> <td>Mod Level</td> <td>Actions</td></thead>';
+	$output_html .= '<tbody>';
 
 	//TO DO: multiarray and sort by ID, alternatively use JS.
 	// I should also first take the admins, sort them by id, then the mods by id, then the jannies by id, etc.
@@ -69,33 +69,33 @@
 			continue; //not a user, go next iteration
 		}
 		include $user;
-		echo '<tr>';
-		echo '<td>' . $user_id . '</td>';
-		echo '<td>' . $username . '</td>';
-		echo '<td>';
+		$output_html .= '<tr>';
+		$output_html .= '<td>' . $user_id . '</td>';
+		$output_html .= '<td>' . $username . '</td>';
+		$output_html .= '<td>';
 		switch ($user_mod_level) {
 			case 9001:
-				echo 'Admin';
+				$output_html .= 'Admin';
 				break;
 			case 40:
-				echo 'Mod';
+				$output_html .= 'Mod';
 				break;
 			case 10:
-				echo 'Janitor';
+				$output_html .= 'Janitor';
 				break;
 			case 0:
-				echo 'User';
+				$output_html .= 'User';
 				break;
 			default:
-				echo 'Unknown';
+				$output_html .= 'Unknown';
 				break;
 		}
-		echo ' (' . $user_mod_level . ')</td>';
-		echo '<td><details><summary>More</summary>';
-		echo '<details><summary style="font-size:smaller;">Edit</summary>';
+		$output_html .= ' (' . $user_mod_level . ')</td>';
+		$output_html .= '<td><details><summary>More</summary>';
+		$output_html .= '<details><summary style="font-size:smaller;">Edit</summary>';
 
 		//EDIT USER
-		echo '<form name="edit-user" action="' . $prefix_folder . '/mod.php?page=users" method="post">
+		$output_html .= '<form name="edit-user" action="' . $prefix_folder . '/mod.php?page=users" method="post">
 				<table id="post-form" style="width:initial;">
 					<tbody><tr><th>Username:</th><td><input type="hidden" name="edit-username" value="' . $username . '"><input type="text" name="edit-username-view" size="25" maxlength="32" autocomplete="off" value="' . $username . '" disabled></td></tr>
 					<!---<tr><th>Password:</th><td><input type="password" name="edit-password" size="25" maxlength="256" autocomplete="off" placeholder="Leave Empty To Not Change"></td></tr>
@@ -105,65 +105,66 @@
 
 		switch ($user_mod_level) {
 			case 9001:
-				echo '<option value="9001" selected>Admin (9001)</option>
+				$output_html .= '<option value="9001" selected>Admin (9001)</option>
 					  <option value="40">Moderator (40)</option>
 					  <option value="10">Janitor (10)</option>
 					  <option value="0">User (0)</option>';
 				break;
 			case 40:
-				echo '<option value="9001">Admin (9001)</option>
+				$output_html .= '<option value="9001">Admin (9001)</option>
 					  <option value="40" selected>Moderator (40)</option>
 					  <option value="10">Janitor (10)</option>
 					  <option value="0">User (0)</option>';
 				break;
 			case 10:
-				echo '<option value="9001">Admin (9001)</option>
+				$output_html .= '<option value="9001">Admin (9001)</option>
 					  <option value="40">Moderator (40)</option>
 					  <option value="10" selected>Janitor (10)</option>
 					  <option value="0">User (0)</option>';
 				break;
 			default:
-				echo '<option value="9001">Admin (9001)</option>
+				$output_html .= '<option value="9001">Admin (9001)</option>
 					  <option value="40" selected>Moderator (40)</option>
 					  <option value="10">Janitor (10)</option>
 					  <option value="0" selected>User (0)</option>';
 				break;
 		}
 
-		echo '			</select>
+		$output_html .= '			</select>
 					</td></tr>
 					<tr><th style="visibility:hidden;"></th><td><input type="submit" name="edit-user" value="Edit User" style="float: right;"></td></tr>
 				</tbody></table>
 			</form>';
 
-		echo '</details>';
-		echo '<details><summary style="font-size:smaller;">Delete</summary><details><summary>Are you sure you want to delete this user ('.$username.')?</summary><details><summary>Yes!</summary><form name="delete-user" action="' . $prefix_folder . '/mod.php?page=users" method="post"><input type="hidden" id="delete-username" name="delete-username" value="' . $username . '"><input type="Submit" name="delete-user" value="Delete"></form></details></details></details>';
-		echo '</details></td>';
-		echo '</tr>';
+		$output_html .= '</details>';
+		$output_html .= '<details><summary style="font-size:smaller;">Delete</summary><details><summary>Are you sure you want to delete this user ('.$username.')?</summary><details><summary>Yes!</summary><form name="delete-user" action="' . $prefix_folder . '/mod.php?page=users" method="post"><input type="hidden" id="delete-username" name="delete-username" value="' . $username . '"><input type="Submit" name="delete-user" value="Delete"></form></details></details></details>';
+		$output_html .= '</details></td>';
+		$output_html .= '</tr>';
 		
 	}
-	echo '</tbody></table>';
+	$output_html .= '</tbody></table>';
 	
-	echo '</div>';
-	echo '</div>';
+	$output_html .= '</div>';
+	$output_html .= '</div>';
 
-	echo '</div>';
-	echo '<br>';
-	echo '</div>';
+	$output_html .= '</div>';
+	$output_html .= '<br>';
+	$output_html .= '</div>';
 
 	if ($user_created == true) {
-		echo '<div class="message" style="margin-top:0;">User created.</div>';
+		$output_html .= '<div class="message" style="margin-top:0;">User created.</div>';
 	}
 	if ($user_edited == true) {
-		echo '<div class="message" style="margin-top:0;">User edited.</div>';
+		$output_html .= '<div class="message" style="margin-top:0;">User edited.</div>';
 	}
 	if ($user_deleted == true) {
-		echo '<div class="message" style="margin-top:0;">User deleted.</div>';
+		$output_html .= '<div class="message" style="margin-top:0;">User deleted.</div>';
 	}
 
-	include $path . '/templates/footer.html';
-	echo '</body>';
-	echo '</html>';
+	include $path . '/templates/footer.php';
+	$output_html .= '</body>';
+	$output_html .= '</html>';
+	echo $output_html;
 	exit();
 
 ?>

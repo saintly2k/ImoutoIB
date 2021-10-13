@@ -362,18 +362,18 @@ if ($logged_in == false) {
 	
 	$title = 'Login - ' . $site_name;
 	if (isset($_GET["theme"])) {
-		echo '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
+		$output_html .= '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
 	} else {
-		echo '<html data-stylesheet="'. $current_theme .'">';	
+		$output_html .= '<html data-stylesheet="'. $current_theme .'">';	
 	}
-	echo '<head>';
-	include $path . '/templates/header.html';
-	echo '</head>';
-	echo '<body class="frontpage">';
-	include $path . '/templates/boardlist.html';
-	echo '<div class="page-info"><h1>Login Page</h1><div class="small">Permission required.</div></div><br><br>';
-	echo '<div class="main first"><h2>Login.</h2>';
-	echo '<div id="post-form">
+	$output_html .= '<head>';
+	include $path . '/templates/header.php';
+	$output_html .= '</head>';
+	$output_html .= '<body class="frontpage">';
+	include $path . '/templates/boardlist.php';
+	$output_html .= '<div class="page-info"><h1>Login Page</h1><div class="small">Permission required.</div></div><br><br>';
+	$output_html .= '<div class="main first"><h2>Login.</h2>';
+	$output_html .= '<div id="post-form">
 			<form name="login" action="' . $prefix_folder . '/mod.php" method="post">
 				<table id="login" style="margin:auto;">
 					<tr><th>Username</th><td><input type="text" name="username" size="25" maxlength="256" autocomplete="off" placeholder="Username"></td></tr>
@@ -383,17 +383,19 @@ if ($logged_in == false) {
 				</table>
 			</form>
 			</div>';
-	echo '</div>';
+	$output_html .= '</div>';
 
 	if ($changed_password == true) {
-		echo '<div class="message" style="margin-top:0;">Password has been changed.</div>';
+		$output_html .= '<div class="message" style="margin-top:0;">Password has been changed.</div>';
 	} else {
-		echo '<div class="message"></div>';
+		$output_html .= '<div class="message"></div>';
 	}
 
-	include $path . '/templates/footer.html';
-	echo '</body>';
-	echo '</html>';
+	include $path . '/templates/footer.php';
+	$output_html .= '</body>';
+	$output_html .= '</html>';
+
+	echo $output_html;
 	exit();
 }
 
