@@ -30,7 +30,7 @@ if ($allow_files !== true && isset($_FILES['file'])) {
 
 //function handleFile() 
 	if(!isset($_FILES['file']) || $_FILES['file']['error'] == UPLOAD_ERR_NO_FILE) {
-	    //echo "No file selected"; 
+	    //$output_html .= "No file selected"; 
 	} else {
 
 		$filesize_ = $_FILES['file']['size'];
@@ -40,13 +40,15 @@ if ($allow_files !== true && isset($_FILES['file'])) {
 
 		//is it too big?
 		if ($_FILES['file']['size'] > $max_filesize) {
-			echo formatBytes($_FILES['file']['size']) . 'is too big. Maximum filesize is' . formatBytes($max_filesize) . '.';
+			$output_html .= formatBytes($_FILES['file']['size']) . 'is too big. Maximum filesize is' . formatBytes($max_filesize) . '.';
+			echo $output_html;
 			exit();
 		}
 	  	
 	  	//is it supported?
 		if (!isAllowedFile($fileext_, $config['allowed_ext']['img']) === true && !isAllowedFile($fileext_, $config['allowed_ext']['audio']) === true && !isAllowedFile($fileext_, $config['allowed_ext']['video']) === true && !isAllowedFile($fileext_, $config['allowed_ext']['downloads']) === true) {
-			echo $fileext_ . ' is not supported.';
+			$output_html .= $fileext_ . ' is not supported.';
+			echo $output_html;
 			exit();
 		}
 
@@ -79,7 +81,6 @@ if ($allow_files !== true && isset($_FILES['file'])) {
 			    break;
 			    default:
 			        error('Format not supported!');
-			        exit();
 			    break;
 			}
 
@@ -110,7 +111,6 @@ if ($allow_files !== true && isset($_FILES['file'])) {
 			    break;
 			    default:
 			        error('Format not supported!');
-			        exit();
 			    break;
 			}
 
@@ -123,7 +123,8 @@ if ($allow_files !== true && isset($_FILES['file'])) {
 	    if (isAllowedFile($fileext_, $config['allowed_ext']['img']) === true) {
 		    //is valid image?
 		    if(!exif_imagetype($tmpname_)) {
-		    	echo 'This is an invalid image MIME...';
+		    	$output_html .= 'This is an invalid image MIME...';
+		    	echo $output_html;
 		    	exit();
 			}
 			//is valid resolution?
@@ -131,7 +132,8 @@ if ($allow_files !== true && isset($_FILES['file'])) {
 			$width = $imagedetails_[0];
 			$height = $imagedetails_[1];
 			if ($image_max_res < $width || $image_max_res < $height) {
-				echo 'Maximum image resolution is ' . $image_max_res . 'x' . $image_max_res . '.';
+				$output_html .= 'Maximum image resolution is ' . $image_max_res . 'x' . $image_max_res . '.';
+		    	echo $output_html;
 		    	exit();
 			}
 

@@ -121,19 +121,20 @@ if ($_GET["page"] == 'bans') {
 //If literally none of the above activates.
 	$title = 'Error! - ' . $site_name;
 	if (isset($_GET['theme'])) {
-		echo '<html data-stylesheet="'. htmlspecialchars($_GET['theme']) .'">';
+		$output_html .= '<html data-stylesheet="'. htmlspecialchars($_GET['theme']) .'">';
 	} else {
-		echo '<html data-stylesheet="'. $current_theme .'">';	
+		$output_html .= '<html data-stylesheet="'. $current_theme .'">';	
 	}
-	echo '<head>';
-	include $path . '/templates/header.html';
-	echo '</head>';
-	echo '<body class="frontpage">';
-	//include $path . '/templates/boardlist.html';
-	echo '<div class="message">Gomen nasai... Woah — Unknown Error!<br>Please leave a detailed bug report... Page may not exist, if this was unintended please let me know.</div>';
-	//include $path . '/templates/footer.html';
-	echo '</body>';
-	echo '</html>';
+	$output_html .= '<head>';
+	include $path . '/templates/header.php';
+	$output_html .= '</head>';
+	$output_html .= '<body class="frontpage">';
+	//include $path . '/templates/boardlist.php';
+	$output_html .= '<div class="message">Gomen nasai... Woah — Unknown Error!<br>Please leave a detailed bug report... Page may not exist, if this was unintended please let me know.</div>';
+	//include $path . '/templates/footer.php';
+	$output_html .= '</body>';
+	$output_html .= '</html>';
+	echo $output_html;
 	exit();
 
 ?>

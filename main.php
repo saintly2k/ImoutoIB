@@ -27,19 +27,20 @@ if ((!isset($_GET["board"])) || ($_GET["board"] == '') && $_GET["page"] == '') {
 	}
 	
 	if (isset($_GET["theme"])) {
-		echo '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
+		$output_html .= '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
 	} else {
-		echo '<html data-stylesheet="'. $current_theme .'">';	
+		$output_html .= '<html data-stylesheet="'. $current_theme .'">';	
 	}
-	echo '<head>';
-	include $path . '/templates/header.html';
-	echo '</head>';
-	echo '<body class="frontpage">';
-	include $path . '/templates/boardlist.html';
-	include $path . '/templates/frontpage.html';
-	include $path . '/templates/footer.html';
-	echo '</body>';
-	echo '</html>';
+	$output_html .= '<head>';
+	include $path . '/templates/header.php';
+	$output_html .= '</head>';
+	$output_html .= '<body class="frontpage">';
+	include $path . '/templates/boardlist.php';
+	include $path . '/templates/frontpage.php';
+	include $path . '/templates/footer.php';
+	$output_html .= '</body>';
+	$output_html .= '</html>';
+	echo $output_html;
 	exit();
 }
 
@@ -49,35 +50,37 @@ if ((!isset($_GET["board"])) || ($_GET["board"] == '') && $_GET["page"] != '') {
 		error('Invalid page.');
 	}
 	if (!file_exists($path . '/templates/pages/' . $_GET["page"] . '.php')) {
+		http_response_code(404);
 		error('Page does not exist.');
 	}
 	include $path . '/templates/pages/' . $_GET["page"] . '.php';
 
 	if (isset($_GET["theme"])) {
-		echo '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
+		$output_html .= '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
 	} else {
-		echo '<html data-stylesheet="'. $current_theme .'">';	
+		$output_html .= '<html data-stylesheet="'. $current_theme .'">';	
 	}
-	echo '<head>';
-	include $path . '/templates/header.html';
-	echo '</head>';
-	echo '<body class="page">';
-	include $path . '/templates/boardlist.html';
+	$output_html .= '<head>';
+	include $path . '/templates/header.php';
+	$output_html .= '</head>';
+	$output_html .= '<body class="page">';
+	include $path . '/templates/boardlist.php';
 
 	if ($config['display_banner'] === true) {
 		include $path . '/assets/img/banner.php';
 	}
 
-	echo '<div class="page-info">';
-	echo '<h1>' . $h1 . '</h1>';
-	echo '<span class="small">' . $description . '</span>';
-	echo '</div>';
+	$output_html .= '<div class="page-info">';
+	$output_html .= '<h1>' . $h1 . '</h1>';
+	$output_html .= '<span class="small">' . $description . '</span>';
+	$output_html .= '</div>';
 
-	echo $page_content; //taken from the file
+	$output_html .= $page_content; //taken from the file
 
-	include $path . '/templates/footer.html';
-	echo '</body>';
-	echo '</html>';
+	include $path . '/templates/footer.php';
+	$output_html .= '</body>';
+	$output_html .= '</html>';
+	echo $output_html;
 	exit();
 
 }	
@@ -89,6 +92,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 
 	$current_board = htmlspecialchars($_GET["board"]);
 	$board_description = $config['boards'][$current_board]['description'];
+	$board_slogan = $config['boards'][$current_board]['slogan'];
 	$board_title = $config['boards'][$current_board]['title'];
 
 	//if modonly
@@ -106,34 +110,36 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			$title = '/' . $current_board . '/ - ' . $config['boards'][$current_board]['title'] . ' - Catalog - ' . $site_name;
 
 			if (isset($_GET["theme"])) {
-				echo '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
+				$output_html .= '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
 			} else {
-				echo '<html data-stylesheet="'. $current_theme .'">';	
+				$output_html .= '<html data-stylesheet="'. $current_theme .'">';	
 			}
-			echo '<head>';
-			echo '<link rel="stylesheet" type="text/css" href="' . $prefix_folder . '/assets/css/catalog.css">';
-			include $path . '/templates/header.html';
-			echo '</head>';
-			echo '<body class="' . $current_page . '">';
-			include $path . '/templates/boardlist.html';
-			include $path . '/templates/page-info.html';
+			$output_html .= '<head>';
+			$output_html .= '<link rel="stylesheet" type="text/css" href="' . $prefix_folder . '/assets/css/catalog.css">';
+			include $path . '/templates/header.php';
+			$output_html .= '</head>';
+			$output_html .= '<body class="' . $current_page . '">';
+			include $path . '/templates/boardlist.php';
+			include $path . '/templates/page-info.php';
 			if ($config['boards'][$current_board]['locked'] != 1) {
-			include $path . '/templates/post-form.html';
+			include $path . '/templates/post-form.php';
 			} else {
-				echo '<div class="blotter">This board is locked by the board owner.</div><hr>';
+				$output_html .= '<div class="blotter">This board is locked by the board owner.</div><hr>';
 			}
-			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
-			echo '[<a href="#bottom">Bottom</a>]&nbsp;';
-			echo '<hr>';
+			$output_html .= '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
+			$output_html .= '[<a href="#bottom">Bottom</a>]&nbsp;';
+			$output_html .= '<hr>';
 			if (!file_exists($path . '/' . $database_folder . '/boards/' . $current_board)) {
-				echo 'This board has no threads yet.';
-				include $path . '/templates/footer.html';
+				$output_html .= 'This board has no threads yet.';
+				include $path . '/templates/footer.php';
+				echo $output_html;
 				exit();
 			}
 
 			if (file_get_contents($path . '/' . $database_folder . '/boards/' . $current_board . '/counter.php') === "1") {
-				echo 'This board has no threads yet.';
-				include $path . '/templates/footer.html';
+				$output_html .= 'This board has no threads yet.';
+				include $path . '/templates/footer.php';
+				echo $output_html;
 				exit();
 			}
 			include $path . '/' . $database_folder . '/boards/' . $current_board . '/threads.php';
@@ -158,34 +164,34 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 				$threads = array_merge($stickied_threads, $not_sticky_threads);
 			}
 
-			echo 'Displaying ' . count($threads) . ' threads in total.'; //maybe at some point add a limit to IB catalog, or just no thumbnails after 100 threads.
-			echo '<hr>';
+			$output_html .= 'Displaying ' . count($threads) . ' threads in total.'; //maybe at some point add a limit to IB catalog, or just no thumbnails after 100 threads.
+			$output_html .= '<hr>';
 
 
-			echo '<div class="catalog-threads">';
+			$output_html .= '<div class="catalog-threads">';
 			foreach (array_keys($threads) as $key => $value) {
 				include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/OP.php';
 				include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/info.php';
 				include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/recents.php';
 				$post_number_op = $threads[$key]['id'];
 
-				echo '<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '">';
-				echo '<div data-thread="' . $post_number_op . '" class="container">';
-				include $path . '/templates/catalog-thread.html';
-			   	echo '</div>';
-			   	echo '</a>';
+				$output_html .= '<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '">';
+				$output_html .= '<div data-thread="' . $post_number_op . '" class="container">';
+				include $path . '/templates/thread-catalog.php';
+			   	$output_html .= '</div>';
+			   	$output_html .= '</a>';
 		   	}
-		   	echo '</div>';
+		   	$output_html .= '</div>';
 
-		   	echo '<div class="catalog-footer">';
-			echo '<hr>';
-			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
-			echo '[<a href="#top">Top</a>]&nbsp;';
-			include $path . '/templates/footer.html';
-			echo '</div>';
-			echo '</body>';
-			echo '</html>';
-
+		   	$output_html .= '<div class="catalog-footer">';
+			$output_html .= '<hr>';
+			$output_html .= '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
+			$output_html .= '[<a href="#top">Top</a>]&nbsp;';
+			include $path . '/templates/footer.php';
+			$output_html .= '</div>';
+			$output_html .= '</body>';
+			$output_html .= '</html>';
+			echo $output_html;
 			exit();
 		}
 
@@ -200,39 +206,41 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 		$title = '/' . $current_board . '/ - ' . $config['boards'][$current_board]['title'] . ' - ' . $site_name;
 
 	if (isset($_GET["theme"])) {
-		echo '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
+		$output_html .= '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
 	} else {
-		echo '<html data-stylesheet="'. $current_theme .'">';	
+		$output_html .= '<html data-stylesheet="'. $current_theme .'">';	
 	}
-	echo '<head>';
-	include $path . '/templates/header.html';
-	echo '</head>';
-	echo '<body class="' . $current_page . '">';
-	include $path . '/templates/boardlist.html';
-	include $path . '/templates/page-info.html';
+	$output_html .= '<head>';
+	include $path . '/templates/header.php';
+	$output_html .= '</head>';
+	$output_html .= '<body class="' . $current_page . '">';
+	include $path . '/templates/boardlist.php';
+	include $path . '/templates/page-info.php';
 	if ($config['boards'][$current_board]['locked'] != 1) {
-	include $path . '/templates/post-form.html';
+	include $path . '/templates/post-form.php';
 	} else {
-		echo '<div class="blotter">This board is locked by the board owner.</div><hr>';
+		$output_html .= '<div class="blotter">This board is locked by the board owner.</div><hr>';
 	}
 
 	if ($catalog_enable == true) {
-		echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&page=catalog">Catalog</a>]&nbsp;';
+		$output_html .= '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&page=catalog">Catalog</a>]&nbsp;';
 	}
 
-	echo '[<a href="#bottom">Bottom</a>]&nbsp;';
-	echo '<hr>';
+	$output_html .= '[<a href="#bottom">Bottom</a>]&nbsp;';
+	$output_html .= '<hr>';
 
 			//if zero threads aka new board
 		if (!file_exists($path . '/' . $database_folder . '/boards/' . $current_board)) {
-			echo 'This board has no threads yet.';
-			include $path . '/templates/footer.html';
+			$output_html .= 'This board has no threads yet.';
+			include $path . '/templates/footer.php';
+			echo $output_html;
 			exit();
 		}
 
 		if (file_get_contents($path . '/' . $database_folder . '/boards/' . $current_board . '/counter.php') === "1") {
-			echo 'This board has no threads yet.';
-			include $path . '/templates/footer.html';
+			$output_html .= 'This board has no threads yet.';
+			include $path . '/templates/footer.php';
+			echo $output_html;
 			exit();
 		}
 
@@ -309,7 +317,7 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			$threads = array_slice($threads, 0, $threads_page);
 			}
 			//$hidden_threads = $total_threads - $threads_page;
-			//echo 'There are ' . $hidden_threads . ' undisplayed threads. I\'ll make a pagination for them all...' ;
+			//$output_html .= 'There are ' . $hidden_threads . ' undisplayed threads. I\'ll make a pagination for them all...' ;
 
 		}
 
@@ -321,29 +329,30 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/recents.php';
 			$post_number_op = $threads[$key]['id'];
 
-			echo '<div data-thread="' . $post_number_op . '" class="container">';
+			$output_html .= '<div data-thread="' . $post_number_op . '" class="container">';
 			//SHOW THREADS
-			include $path . '/templates/thread.html';
+			include $path . '/templates/thread.php';
 			//SHOW SHOW REPLIES
 
 			foreach (array_keys($recents) as $rkey => $value) {
 				include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . '/' . $recents[$value] . '.php';
 				$post_number_reply = $recents[$value];
-				include $path . '/templates/reply.html';
+				include $path . '/templates/reply.php';
 		   	}
-		   	echo '</div>';
+		   	$output_html .= '</div>';
 			if ($key != array_key_last($threads)) {
-		        echo '<hr data-thread="' . $post_number_op . '">';
+		        $output_html .= '<hr data-thread="' . $post_number_op . '">';
 		    }
 	   	}
-	echo '<hr>';
+	$output_html .= '<hr>';
 	if ($catalog_enable == true) {
-		echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&page=catalog">Catalog</a>]&nbsp;';
+		$output_html .= '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&page=catalog">Catalog</a>]&nbsp;';
 	}
-	echo '[<a href="#top">Top</a>]&nbsp;';
-	include $path . '/templates/footer.html';
-	echo '</body>';
-	echo '</html>';
+	$output_html .= '[<a href="#top">Top</a>]&nbsp;';
+	include $path . '/templates/footer.php';
+	$output_html .= '</body>';
+	$output_html .= '</html>';
+	echo $output_html;
 	exit();
 
 
@@ -352,9 +361,9 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 	// IF THREAD
 	if (htmlspecialchars($_GET["thread"]) != '') {
 		if (isset($_GET["theme"])) {
-			echo '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
+			$output_html .= '<html data-stylesheet="'. htmlspecialchars($_GET["theme"]) .'">';
 		} else {
-			echo '<html data-stylesheet="'. $current_theme .'">';	
+			$output_html .= '<html data-stylesheet="'. $current_theme .'">';	
 		}
 		if (!is_numeric($_GET["thread"])) {
 			error('Thread number must be a number.');
@@ -362,19 +371,20 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 		//IF DOESNT EXIST
 		if (!file_exists($path . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"]))) {
 			$title = "Oh no!! A 404...";
-			echo '<head>';
-			include $path . '/templates/header.html';
-			echo '</head>';
-			echo '<body class="' . $current_page . '">';
-			include $path . '/templates/boardlist.html';
-			include $path . '/templates/page-info.html';
-			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
-			echo '<hr>';
-			echo '<div class="message">This thread doesn\'t exist.. Did the glowies get it — or worse, a janny??<br><img style="height: 500px;width: 500px;margin-top: 5px;" src="'. $prefix_folder . '/assets/img/404.png" width="" height=""></div><style>.message { margin-top: 0!important }</style>';
-			echo '<div class="message">[<a href="' . $prefix_folder . $main_file . '?board=' . $current_board . '">Return</a>]</div>';
-			echo '<hr>';
-			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
-			include $path . '/templates/footer.html';
+			$output_html .= '<head>';
+			include $path . '/templates/header.php';
+			$output_html .= '</head>';
+			$output_html .= '<body class="' . $current_page . '">';
+			include $path . '/templates/boardlist.php';
+			include $path . '/templates/page-info.php';
+			$output_html .= '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
+			$output_html .= '<hr>';
+			$output_html .= '<div class="message">This thread doesn\'t exist.. Did the glowies get it — or worse, a janny??<br><img style="height: 500px;width: 500px;margin-top: 5px;" src="'. $prefix_folder . '/assets/img/404.png" width="" height=""></div><style>.message { margin-top: 0!important }</style>';
+			$output_html .= '<div class="message">[<a href="' . $prefix_folder . $main_file . '?board=' . $current_board . '">Return</a>]</div>';
+			$output_html .= '<hr>';
+			$output_html .= '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
+			include $path . '/templates/footer.php';
+			echo $output_html;
 			exit();
 
 		} else {
@@ -389,27 +399,27 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 				$title = '/' . $current_board . '/' . ' - ' . $op_subject . ' - ' . $config['boards'][$current_board]['title'] . ' - ' . $site_name;
 			}
 
-			echo '<head>';
-			include $path . '/templates/header.html';
-			echo '</head>';
-			echo '<body class="' . $current_page . '">';
-			include $path . '/templates/boardlist.html';
-			include $path . '/templates/page-info.html';
-			include $path . '/templates/post-form.html';
+			$output_html .= '<head>';
+			include $path . '/templates/header.php';
+			$output_html .= '</head>';
+			$output_html .= '<body class="' . $current_page . '">';
+			include $path . '/templates/boardlist.php';
+			include $path . '/templates/page-info.php';
+			include $path . '/templates/post-form.php';
 			include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . "/info.php";
 			$thread_stats = '<span class="thread-stats">Replies: ' . $info_replies . ' Posters: ' . $info_uniqueids . '</span>';
-			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
+			$output_html .= '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
 			if ($catalog_enable == true) {
-				echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&page=catalog">Catalog</a>]&nbsp;';
+				$output_html .= '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&page=catalog">Catalog</a>]&nbsp;';
 			}
-			echo '[<a href="#bottom">Bottom</a>]&nbsp;';
-			echo $thread_stats;
-			echo '<hr>';
+			$output_html .= '[<a href="#bottom">Bottom</a>]&nbsp;';
+			$output_html .= $thread_stats;
+			$output_html .= '<hr>';
 	
 			include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . htmlspecialchars($_GET["thread"]) . '/OP.php';
 			$post_number_op = htmlspecialchars($_GET["thread"]);
-			echo '<div data-thread="' . $post_number_op . '" class="container">'; //start thread
-			include $path . '/templates/thread.html';
+			$output_html .= '<div data-thread="' . $post_number_op . '" class="container">'; //start thread
+			include $path . '/templates/thread.php';
 			$current_thread = $post_number_op;
 
 
@@ -429,20 +439,22 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			foreach (array_keys($replies) as $key => $value) {
 				include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $post_number_op . '/' . $replies[$value] . '.php';
 				$post_number_reply = $replies[$value];
-				include $path . '/templates/reply.html';
+				include $path . '/templates/reply.php';
 		   	}
-		   	echo '</div>'; //end thread
+		   	$output_html .= '</div>'; //end thread
 
-			echo '<hr>';
-			echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
+			$output_html .= '<hr>';
+			$output_html .= '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '">Return</a>]&nbsp;';
 			if ($catalog_enable == true) {
-				echo '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&page=catalog">Catalog</a>]&nbsp;';
+				$output_html .= '[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&page=catalog">Catalog</a>]&nbsp;';
 			}
-			echo '[<a href="#top">Top</a>]&nbsp;';
-			echo $thread_stats;
-			include $path . '/templates/footer.html';
-			echo '</body>';
-			echo '</html>';
+			$output_html .= '[<a href="#top">Top</a>]&nbsp;';
+			$output_html .= $thread_stats;
+			include $path . '/templates/footer.php';
+			$output_html .= '</body>';
+			$output_html .= '</html>';
+			echo $output_html;
+			exit();
 	}	
 	}
 	

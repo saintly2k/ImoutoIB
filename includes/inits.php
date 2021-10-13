@@ -6,12 +6,16 @@ if ($config['debug'] === true) {
 	error_reporting(E_ALL);
 }
 
+$output_html = '';
+$output_api = ''; //to allow .= everywhere
+
 $title = '$title';
 $current_page = '$current_page';
 $current_board = '';
 $current_thread = '';
 $board_title = '$board_title';
-$board_description = '$board_title';
+$board_slogan = '$board_slogan';
+$board_description = '$board_description';
 $post_number_op = '';
 
 $reply = '';
@@ -123,6 +127,7 @@ if (!isset($_COOKIE['post_password'])) { //if no password cookie
 	$_POST['password'] = $genpw;
 	}
 	setcookie("post_password", $_POST['password'], 0,  $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+	$_COOKIE['post_password'] = $_POST['password'];
 }
 
 

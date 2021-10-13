@@ -3,8 +3,14 @@
 // INSTALL LOCATION
 $path = dirname(__FILE__);
 
-// CONFIGURATIONS
+//is API call?
+if ($_GET['api']) {
+	$api = true;
+} else {
+	$api = false;
+}
 
+// CONFIGURATIONS
 require $path . '/includes/default.php'; //sets defaults
 
 // DATABASE

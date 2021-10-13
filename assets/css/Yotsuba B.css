@@ -322,7 +322,7 @@ input[name="captcha"] {
 }
 
 .abovefooter {
-	height: 30px;
+	height: 60px;
 }
 
 .float-right {
@@ -450,7 +450,6 @@ label {
 
 div.post details {
 	display: inline;
-	margin-right: -4px;
 }
 
 div.post td details {
@@ -485,6 +484,10 @@ div.post details table {
 	padding: 4px;
 	border-right: 1px solid #b7c5d9;
 	border-bottom: 1px solid #b7c5d9;
+}
+
+.pager table {
+    font-size: inherit;
 }
 
 .box {

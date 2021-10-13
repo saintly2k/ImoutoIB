@@ -2,9 +2,13 @@ DirectoryIndex main.php
 
 Options -Indexes 
 
+#ErrorDocument 403 'Temporary unavailable for template changing.'
+#Order Allow,Deny
+#Allow from (IP here and uncomment)
+
 # temporary
 <IfModule mod_headers.c>
-	Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains"
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains"
 </IfModule>
 <IfModule mod_expires.c>
   ExpiresActive On

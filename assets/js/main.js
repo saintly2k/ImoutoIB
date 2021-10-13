@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const videos = document.querySelectorAll(".post-image[data-file='video']");
     for (const video of videos) { 
       let thumb = video.querySelector('a img.thumb');
-      let expand = video.querySelector('a video');
+      let expand = video.querySelector('video');
       let vidid = expand.getAttribute('vid-id');
       let fileinfo = video.parentNode.querySelector('div.file-info');
       let expandsrc = expand.getAttribute('vid-src');

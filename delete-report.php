@@ -6,7 +6,8 @@ require 'require.php';
 //if captcha required?
 
 if (empty($_POST)) {
-	echo 'No post request received.';
+	$output_html .= 'No post request received.';
+	echo $output_html;
 	exit();
 }
 
@@ -49,19 +50,22 @@ if (ctype_alnum($delrep_board) != true || ctype_alnum($delrep_thread) != true ||
 
 //DOES BOARD EXIST?
 if (!in_Array($delrep_board, $config['boardlist'])) {
-	echo 'Board ' . $delrep_board . ' does not exist.';
+	$output_html .= 'Board ' . $delrep_board . ' does not exist.';
+	echo $output_html;
 	exit();
 }
 //DOES REPLY EXIST
 if ($delrep_reply != $delrep_thread) {
 	if (isset($delrep_reply) && (!file_exists($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/' . $delrep_reply . '.php'))) {
-		echo 'Reply ' . $delrep_reply . ' does not exist.';
+		$output_html .= 'Reply ' . $delrep_reply . ' does not exist.';
+		echo $output_html;
 		exit();
 	}
 }
 //DOES THREAD EXIST?
 if (isset($delrep_thread) && (!file_exists($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/OP.php'))) {
-		echo 'Thread ' . $delrep_thread . ' does not exist.';
+		$output_html .= 'Thread ' . $delrep_thread . ' does not exist.';
+		echo $output_html;
 		exit();
 }
 
@@ -295,10 +299,11 @@ if (isset($_POST["report"]) && $_POST["report"] != "") {
 		ReportCounter($database_folder, 'global'); //refresh report counter
 		//done
 		if (file_exists($path . '/' . $database_folder . '/reportsglobal/' . $newcount . '.php')) {
-		echo 'Global Report Created!';
+		$output_html .= 'Global Report Created!';
 		} else {
-		echo 'Failed generating Global Report...';
+		$output_html .= 'Failed generating Global Report...';
 		}
+		echo $output_html;
 		exit();	
 	}
 
@@ -334,10 +339,11 @@ if (isset($_POST["report"]) && $_POST["report"] != "") {
 	ReportCounter($database_folder, 'normal'); //refresh report counter
 	//done
 	if (file_exists($path . '/' . $database_folder . '/reports/' . $delrep_board . '/' . $newcount . '.php')) {
-	echo 'Board Report Created!';
+	$output_html .= 'Board Report Created!';
 	} else {
-	echo 'Failed generating Board Report...';
+	$output_html .= 'Failed generating Board Report...';
 	}
+	echo $output_html;
 	exit();	
 
 
@@ -345,9 +351,10 @@ if (isset($_POST["report"]) && $_POST["report"] != "") {
 
 
 /*foreach($_POST as $key => $value) {
-  echo "POST parameter '$key' has '$value'<hr>";
+  $output_html .= "POST parameter '$key' has '$value'<hr>";
 }*/
 
-echo 'uh... supposed to exit before this';
+$output_html .= 'uh... supposed to exit before this';
+echo $output_html;
 
 ?>

@@ -8,43 +8,43 @@ function error($error, $success = false) {
 
 	require __dir__ . '/../' . $database_folder . '/boards.php';
 
-	echo '<html data-stylesheet="'. $current_theme .'">';
-	echo '<head>';
+	$output_html .= '<html data-stylesheet="'. $current_theme .'">';
+	$output_html .= '<head>';
 	if ($success == false) {
-		echo '<title>Error!</title>';
+		$output_html .= '<title>Error!</title>';
 	} else {
-		echo '<title>Success!</title>';
+		$output_html .= '<title>Success!</title>';
 	}
-	echo '<script>';
+	$output_html .= '<script>';
 	if (isset($_POST['board'])) {
 		if ($config['boards'][$_POST['board']]['type'] == 'txt') {
-			echo 'var board_type = "txt";';
+			$output_html .= 'var board_type = "txt";';
 		} else {
-			echo 'var board_type = "img";';
+			$output_html .= 'var board_type = "img";';
 		}
 	} else {
-		echo 'var board_type = "img";';
+		$output_html .= 'var board_type = "img";';
 	}
-	echo '</script>';
+	$output_html .= '</script>';
 
-	echo '<link rel="icon" type="image/png" href="' . $prefix_folder  . '/assets/img/favicon.png"/>';
+	$output_html .= '<link rel="icon" type="image/png" href="' . $prefix_folder  . '/assets/img/favicon.png"/>';
 	foreach ($config['css'] as $css) {
-		echo '<link rel="stylesheet" type="text/css" href="' . $prefix_folder . '/assets/css/' . $css . '.css">';
+		$output_html .= '<link rel="stylesheet" type="text/css" href="' . $prefix_folder . '/assets/css/' . $css . '.css">';
 	}
 	foreach ($config['js'] as $js) {
-		echo '<script type="text/javascript" src="' . $prefix_folder . '/assets/js/' . $js . '"></script>';
+		$output_html .= '<script type="text/javascript" src="' . $prefix_folder . '/assets/js/' . $js . '"></script>';
 	}
 
-	echo '</head>';
-	echo '<body current_page="message">';
+	$output_html .= '</head>';
+	$output_html .= '<body current_page="message">';
 	if ($success == true) {
-	echo '<div class="message">' . $error . '</div>';
+	$output_html .= '<div class="message">' . $error . '</div>';
 	} else {
-	echo '<div class="message">Gomen nasai... ' . $error . '</div>';		
+	$output_html .= '<div class="message">Gomen nasai... ' . $error . '</div>';		
 	}
-	echo '</body>';
-	echo '</html>';
-
+	$output_html .= '</body>';
+	$output_html .= '</html>';
+	echo $output_html;
 	exit();
 }
 
@@ -143,43 +143,43 @@ function PostSuccess($redirect = false, $auto = true, $time= false) {
 	require 'custom.php'; // only change this, it will replace the default initialized settings.
 	require __dir__ . '/../' . $database_folder . '/boards.php';
 
-	echo '<html data-stylesheet="'. $current_theme .'">';
-	echo '<head>';
+	$output_html .= '<html data-stylesheet="'. $current_theme .'">';
+	$output_html .= '<head>';
 
-	echo '<script>';
+	$output_html .= '<script>';
 	if ($config['boards'][$_POST['board']]['type'] == 'txt') {
-		echo 'var board_type = "txt";';
+		$output_html .= 'var board_type = "txt";';
 	} else {
-		echo 'var board_type = "img";';
+		$output_html .= 'var board_type = "img";';
 	}
-	echo '</script>';
+	$output_html .= '</script>';
 
-	echo '<title>Success!</title>';
-	echo '<link rel="icon" type="image/png" href="' . $prefix_folder  . '/assets/img/favicon.png"/>';
+	$output_html .= '<title>Success!</title>';
+	$output_html .= '<link rel="icon" type="image/png" href="' . $prefix_folder  . '/assets/img/favicon.png"/>';
 	foreach ($config['css'] as $css) {
-		echo '<link rel="stylesheet" type="text/css" href="' . $prefix_folder . '/assets/css/' . $css . '.css">';
+		$output_html .= '<link rel="stylesheet" type="text/css" href="' . $prefix_folder . '/assets/css/' . $css . '.css">';
 	}
 	foreach ($config['js'] as $js) {
-		echo '<script type="text/javascript" src="' . $prefix_folder . '/assets/js/' . $js . '"></script>';
+		$output_html .= '<script type="text/javascript" src="' . $prefix_folder . '/assets/js/' . $js . '"></script>';
 	}
 
 	if (($redirect !== false) && $auto == true) {
-	echo '<meta http-equiv="refresh" content="2; URL=' . $redirect . '" />';
+	$output_html .= '<meta http-equiv="refresh" content="2; URL=' . $redirect . '" />';
 	}
 
-	echo '</head>';
-	echo '<body current_page="message">';
-	echo '<div class="message">Sugoi!! Post success!!</div>';
-	echo '</body>';
-	echo '<div class="footer" style="position:absolute;bottom:20;width:99%;">';
+	$output_html .= '</head>';
+	$output_html .= '<body current_page="message">';
+	$output_html .= '<div class="message">Sugoi!! Post success!!</div>';
+	$output_html .= '</body>';
+	$output_html .= '<div class="footer" style="position:absolute;bottom:20;width:99%;">';
 	if ($time != false) {
 		$end_time = microtime(true);
 		$generation_time = round($end_time - $time, 5);
-		echo '<p class="small">Post generated in ' . $generation_time . ' seconds.</p>';
+		$output_html .= '<p class="small">Post generated in ' . $generation_time . ' seconds.</p>';
 	}
-	echo '</div>';
-	echo '</html>';
-
+	$output_html .= '</div>';
+	$output_html .= '</html>';
+	echo $output_html;
 	exit();
 }
 
