@@ -45,7 +45,7 @@ $output_html .= '</div>
 <div class="main">
 	<h2>Stats</h2>
 	<div class="stats">
-		<div><b>Total Posts:</b> <?php echo $total_posts; ?></div>
+		<div><b>Total Posts:</b> ' . $total_posts . '</div>
 		<div><b>Unique Posters:</b> ';
 				@include $path . '/' . $database_folder . '/frontpage.php'; 
 				$output_html .= $frontpage_uniqueids;

@@ -25,12 +25,7 @@ $page_content = '
 	<p><br>
 		Quotes break on new lines.<br>
 	</p>
-	<div class="post reply">
-		<div class="post-info">
-			<input type="checkbox">
-			<span class="name">Anonymous</span>		<span class="post-time" data-tooltip="' . timeConvert(0, $time_method_hover) . '">' . timeConvert(0, $time_method) . '</span>
-			<span class="id">ID: Heaven</span>&nbsp;<span class="post-number">No.1</span>
-		</div>
+	<div class="post reply banned">
 		<blockquote class="post-content">
 			<span class="quote">&gt;Quoting Text</span><br>
 			<span class="rquote">&lt;Reply Quoting Text</span>
@@ -43,7 +38,7 @@ $page_content = '
 		ImoutoIB uses a BBcode system. BBcode does not break on newlines. Markdown may be created later.<br>
 	</p>
 		<p>Spoiler:</p>
-		<div class="post reply">
+		<div class="post reply banned">
 		<blockquote class="post-content">
 			[spoiler]<span class="spoiler">Spoiler Text</span>[/spoiler]
 		</blockquote>
@@ -56,7 +51,7 @@ $page_content = '
 	<br><hr style="margin: 0 6px 0 6px;"><br>
 
 	<p>Code tags:</p>
-	<div class="post reply">
+	<div class="post reply banned">
 		<blockquote class="post-content">
 			[code]
 				<div class="code">if () {<br>
@@ -72,7 +67,7 @@ $page_content = '
 		<br><hr style="margin: 0 6px 0 6px;"><br>
 
 	<p>Ascii Art tags:</p>
-	<div class="post reply">
+	<div class="post reply banned">
 		<blockquote class="post-content">
 		[aa]
 		<div class="aa">
