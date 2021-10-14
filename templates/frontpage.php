@@ -23,7 +23,7 @@ $output_html .= '<br>
 	<h2>Boards</h2>';
 
 	$output_html .= '<table id="boards">';
-	$output_html .= '<thead><th>Board</th><th>Description</th><th>Posts</th></thead>';
+	$output_html .= '<thead><tr><th>Board</th><th>Description</th><th>Posts</th></tr></thead>';
 	$output_html .= '<tbody>';
 	foreach ($config['boards'] as $boards) {
 		if ($boards['hidden'] === 0) {
