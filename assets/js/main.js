@@ -317,3 +317,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
   }
 });
+
+// https://stackoverflow.com/a/3028037
+document.addEventListener("DOMContentLoaded", function(event) { 
+  if (document.querySelector('body.index') || document.querySelector("body.thread")) { //only on index/thread. this can probably be multipurposed later for things like a settings menu
+
+    function hideOnClickOutside(element) {
+        const outsideClickListener = event => {
+            if (!element.contains(event.target) && isVisible(element)) { // or use: event.target.closest(selector) === null
+              element.removeAttribute('open');
+              removeClickListener();
+            }
+        }
+        const removeClickListener = () => {
+            document.removeEventListener('click', outsideClickListener)
+        }
+        document.addEventListener('click', outsideClickListener)
+    }
+    const isVisible = elem => !!elem && !!( elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length ) // source (2018-03-11): https://github.com/jquery/jquery/blob/master/src/css/hiddenVisibleSelectors.js 
+
+    const postButtons = document.querySelectorAll('.post-info details');
+     for (const postButton of postButtons) { 
+        postButton.addEventListener("click", (event) => {
+          hideOnClickOutside(postButton);
+        });
+    }
+
+  }
+});

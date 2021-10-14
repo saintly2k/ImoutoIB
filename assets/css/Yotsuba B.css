@@ -557,3 +557,24 @@ div.post details table {
 	padding: 4px;
 	margin: 0;
 }
+
+
+
+/* More modern Details tag */
+/* Things to consider: /*
+/* Default functionality for Details may change across browsers in the future. */
+/* Will need to update this if we want deeper nests, for now it's only functional for 3 nests as I don't have any deeper. If I make one with more than 3 will need to update this. */
+details summary::marker {
+  content: '';
+}
+details summary:before, details[open] details summary:before, details[open] details[open] details summary:before {
+  content: '▲';
+  font-size: 10pt;
+  margin-right: 2px;
+  display: inline-block;
+  transform: rotate(90deg);
+  transition: transform 0.05s 0s linear;
+}
+details[open] summary:before, details[open] details[open] summary:before, details[open] details[open] details[open] summary:before {
+  transform: rotate(180deg);
+}
