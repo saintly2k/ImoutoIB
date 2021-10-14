@@ -4,7 +4,7 @@
 $path = dirname(__FILE__);
 
 //is API call?
-if ($_GET['api']) {
+if (isset($_GET['api'])) {
 	$api = true;
 } else {
 	$api = false;
