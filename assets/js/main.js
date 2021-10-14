@@ -241,11 +241,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         imageSwitcher(expanded.getAttribute('img-id'));
       });
     }
-    //done? <- for images at least, need audio+video players too with a cute [close] button next to it.
   }
 });
 
-//expand videos (Todo audio)
+//expand videos
 document.addEventListener("DOMContentLoaded", function(event) { 
   if (document.querySelector('body.index') || document.querySelector("body.thread")) { //only on index/thread
     function videoSwitcher(id) {
@@ -276,6 +275,43 @@ document.addEventListener("DOMContentLoaded", function(event) {
           let elem1 = document.querySelector(`span.closevid[closevid-id="${vidid}"]`);
           elem1.parentNode.removeChild(elem1);
           videoSwitcher(vidid);
+        });
+    });
+    }
+  }
+});
+
+//expand audios
+document.addEventListener("DOMContentLoaded", function(event) { 
+  if (document.querySelector('body.index') || document.querySelector("body.thread")) { //only on index/thread
+    function audioSwitcher(id) {
+    let switchthis = document.querySelectorAll(`[audio-id="${id}"]`);
+      for (let i = 0; i<switchthis.length; i++) {
+        switchthis[i].classList.toggle('dnone');
+      }
+    }
+
+    const audios = document.querySelectorAll(".post-image[data-file='audio']");
+    for (const audio of audios) { 
+      let thumb = audio.querySelector('a img.thumb');
+      let expand = audio.querySelector('audio');
+      let audioid = expand.getAttribute('audio-id');
+      let fileinfo = audio.parentNode.querySelector('div.file-info');
+      let expandsrc = expand.getAttribute('audio-src');
+      let expandtype = expand.getAttribute('audio-type');
+      let closebutton = `<span class="closeaudio" closeaudio-id="${audioid}">&nbsp;[<a closeaudio-id="${audioid}" href="#">Close</a>]</span>`;
+      thumb.addEventListener("click", (event) => {
+        expand.play();
+        event.preventDefault();
+        expand.innerHTML = `<source src-id="${audioid}" src="${expandsrc}" type="${expandtype}"/>`;
+        audioSwitcher(audioid);
+        fileinfo.insertAdjacentHTML('beforeend', closebutton);
+        document.querySelector(`span.closeaudio a[closeaudio-id="${audioid}"]`).addEventListener("click", (event) => {
+          event.preventDefault();
+          expand.pause();
+          let elem1 = document.querySelector(`span.closeaudio[closeaudio-id="${audioid}"]`);
+          elem1.parentNode.removeChild(elem1);
+          audioSwitcher(audioid);
         });
     });
     }

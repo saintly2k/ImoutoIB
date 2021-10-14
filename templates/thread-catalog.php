@@ -32,9 +32,9 @@ $output_html .= '<div class="post op ' . $post_number_op . '" id="' . $post_numb
 						$full_height = preg_replace('/^[^x]*x/', '', $op_file[0][3]);
 
 						if ($op_file[0][5] != "1") {
-						$output_html .= '<img id="'.$post_number_op.'" class="thumb" width="'.$thmb_width.'" height="'.$thmb_height.'" src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][6] . '"/>';
+						$output_html .= '<img img-id="'.$post_number_op.'" class="thumb" width="'.$thmb_width.'" height="'.$thmb_height.'" src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][6] . '"/>';
 						} else {
-						$output_html .= '<img id="'.$post_number_op.'" class="thumb" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_spoiler . '"/>';
+						$output_html .= '<img img-id="'.$post_number_op.'" class="thumb" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_spoiler . '"/>';
 						}
 
 				$output_html .= '</div>';

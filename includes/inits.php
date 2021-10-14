@@ -6,7 +6,7 @@ if ($config['debug'] === true) {
 	error_reporting(E_ALL);
 }
 
-$output_html = '';
+$output_html = '<!DOCTYPE html>';
 $output_api = ''; //to allow .= everywhere
 
 $title = '$title';
