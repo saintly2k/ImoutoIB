@@ -145,10 +145,11 @@ $output_html .=	'</div>';
 				if (preg_match('/audio/', $reply_file[0][0])) {
 					$output_html .= ' (' . formatBytes($reply_file[0][4]) . ')';
 					$output_html .= '</div>';
-					$output_html .= '<div class="post-image" data-file="'.$reply_file[0][0].'">';
+					$output_html .= '<div class="post-image" data-file="audio">';
 					$output_html .= '<a href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '">';
-					$output_html .= '<img width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_audio . '"/>';
+					$output_html .= '<img class="thumb" audio-id="'.$post_number_reply.'" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_audio . '"/>';
 					$output_html .= '</a>';
+					$output_html .= '<audio class="dnone" audio-type="'.$reply_file[0][0].'" audio-src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $reply_file[0][1] . '" audio-id="'.$post_number_reply.'" controls autoplay loop> Your browser does not support the audio tag.</audio>';
 					$output_html .= '</div>';
 				}
 				if (preg_match('/video/', $reply_file[0][0])) {
