@@ -217,10 +217,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
   if (document.querySelector('body.index') || document.querySelector("body.thread")) { //only on index/thread
 
     function imageSwitcher(id) {
-    //toggle dnone
+    //toggle dnone and expanded
     let switchthis = document.querySelectorAll(`[img-id="${id}"]`);
       for (let i = 0; i<switchthis.length; i++) {
         switchthis[i].classList.toggle('dnone');
+        if (i == 0) { //only do once
+          switchthis[i].parentNode.parentNode.classList.toggle('expanded');//toggle float on parent div
+        }
       }
     }
 

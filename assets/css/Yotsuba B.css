@@ -65,10 +65,19 @@ span.rquote {
 	background: #eeeeee45;
 	color: #000;
 	border: 1px solid gray;
+	display: inline-block;
+	white-space: pre-wrap;
+	padding: 2px;
 }
 .aa {
 	font-family: 'MS PGothic', 'submona' !important;
+	display: inline-block;
+	white-space: pre-line;
 }
+.aa br, .code br {
+    display: none;
+}
+
 .active {
 	font-weight: bold;
 }
@@ -122,6 +131,10 @@ div.container {
 div.post-image {
 	float: left;
 	margin: 4px 15px 10px 15px;
+}
+
+div.post-image.expanded {
+    float: none;
 }
 
 div.post-image img {

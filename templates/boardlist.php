@@ -1,7 +1,7 @@
 <?php 
 
 $output_html .= '<a name="top"></a>
-<div id="boardlist">[<a href="' . $prefix_folder . '/' . $main_file . '">Home</a>]&nbsp;[ ';
+<div id="boardlist">[<a href="' . $prefix_folder . '/' . $main_file . '">Home</a>]&nbsp;[';
 
 	foreach ($config['boards'] as $boards) {
 		if (($boards['hidden'] === 0) || ($config['mod']['mod_only'] <= $mod_level)) {
@@ -20,4 +20,4 @@ $output_html .= '<a name="top"></a>
 		}
 	}
 
-$output_html .= ' ]</div>';
+$output_html .= ']</div>';
