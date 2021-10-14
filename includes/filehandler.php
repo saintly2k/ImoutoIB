@@ -85,7 +85,7 @@ if ($allow_files !== true && isset($_FILES['file'])) {
 			}
 
 			$isAudio_ = true;
-			$file_type = "audio";
+			$file_type = $type;
 		}
 
 		// IS THIS VIDEO?
