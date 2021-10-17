@@ -62,7 +62,7 @@ $output_html .= '<div class="post-arrows">&gt;&gt;</div>
 					</details>';
 		}
 
-		if ($reply_subject != '') { $output_html .= '<span class="subject">' . $reply_subject . '&nbsp;</span>'; }
+		if ($reply_subject != '') { $output_html .= '<span class="subject">' . $reply_subject . ' </span>'; }
 		if (($reply_email != '') && ($show_email != false)) { $output_html .= '<a href="mailto:' . $reply_email . '">';} $output_html .= '<span class="'; if(($reply_email != '') && ($show_email != false)) { $output_html .= 'link '; } $output_html .= 'name">' . $reply_name . '</span>'; if (($reply_email != '') && ($show_email != false)) { $output_html .= '</a>'; }
 		$output_html .= '<span class="post-time" data-timestamp="' . $reply_time . '" data-tooltip="' . timeConvert($reply_time, $time_method_hover) . '"> ' . timeConvert($reply_time, $time_method) . '</span>';
 	

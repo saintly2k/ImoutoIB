@@ -2,9 +2,9 @@ DirectoryIndex main.php
 
 Options -Indexes 
 
-#ErrorDocument 403 'Temporary unavailable for template changing.'
+#ErrorDocument 403 'Temporary unavailable.'
 #Order Allow,Deny
-#Allow from (IP here and uncomment)
+#Allow from (IP)
 
 # temporary
 <IfModule mod_headers.c>

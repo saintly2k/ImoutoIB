@@ -178,7 +178,7 @@ $output_html .= '<div class="post-info">';
 
 				}
 		
-		if ($op_subject != '') { $output_html .= '<span class="subject">' . $op_subject . '&nbsp;</span>'; }
+		if ($op_subject != '') { $output_html .= '<span class="subject">' . $op_subject . ' </span>'; }
 		if (($op_email != '') && ($show_email != false)) { $output_html .= '<a href="mailto:' . $op_email . '">';} $output_html .= '<span class="'; if(($op_email != '') && ($show_email != false)) { $output_html .= 'link '; } $output_html .= 'name">' . $op_name . '</span>'; if ($op_email != '') { $output_html .= '</a>'; }
 		$output_html .= '<span class="post-time" data-timestamp="' . $op_time . '" data-tooltip="' . timeConvert($op_time, $time_method_hover) . '"> ' . timeConvert($op_time, $time_method) . '</span>';
 		

@@ -166,7 +166,8 @@ if ($allow_files !== true && isset($_FILES['file'])) {
 
 		function getFilename ($method, $ext_) {
 			if ($method == 'unix') {
-				return time() . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT) . $ext_;
+				return preg_replace('/\./', '' , substr(microtime(true), 0, -1)) . $ext_; //time + 3decimals
+				//return time() . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT) . $ext_; //time + 3 random digits
 			}
 			if ($method == 'uniq') {
 				return uniqid() . time() . $ext_;

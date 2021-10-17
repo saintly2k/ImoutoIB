@@ -27,6 +27,8 @@ $display_id = true;
 
 $catalog_enable = true;
 
+$config['api'] = true; //if true, generates jsons.
+
 $disable_email = false; //Disables the email field. Checkboxes will still work.
 $show_email = true; //shows email in post name
 

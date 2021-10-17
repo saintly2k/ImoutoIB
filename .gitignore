@@ -6,3 +6,4 @@ database/reportsglobal/*
 database/users/*
 database/bans/*
 database/frontpage.php
+api/*
