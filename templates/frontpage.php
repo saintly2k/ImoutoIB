@@ -47,7 +47,9 @@ $output_html .= '</div>
 	<div class="stats">
 		<div><b>Total Posts:</b> ' . $total_posts . '</div>
 		<div><b>Unique Posters:</b> ';
-				@include $path . '/' . $database_folder . '/frontpage.php'; 
+if (file_exists($path . '/' . $database_folder . '/frontpage.php')) {
+	include $path . '/' . $database_folder . '/frontpage.php'; 
+}
 				$output_html .= $frontpage_uniqueids;
 $output_html .= '</div>
 		<div><b>Active Content:</b> ' . formatBytes($frontpage_active) . '</div>
