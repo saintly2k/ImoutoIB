@@ -77,7 +77,7 @@ $output_html .= '<div class="post op" id="' . $post_number_op . '">';
 					$output_html .= '<a href="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][1] . '">';
 					$output_html .= '<img class="thumb" vid-id="'.$post_number_op.'" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_video . '"/>';
 					$output_html .= '</a>';
-					$output_html .= '<video class="dnone" vid-type="'.$op_file[0][0].'" vid-src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][1] . '" vid-id="'.$post_number_op.'" width="320" height="240" controls autoplay loop> Your browser does not support the video tag.</video>';
+					$output_html .= '<video class="dnone" vid-type="'.$op_file[0][0].'" vid-src="' . $prefix_folder . '/' . $uploads_folder . '/' . $current_board . '/' . $op_file[0][1] . '" vid-id="'.$post_number_op.'" controls autoplay loop> Your browser does not support the video tag.</video>';
 					$output_html .= '</div>';
 				}
 				if ($op_file[0][0] == 'download') {

@@ -142,6 +142,15 @@ div.post-image img {
 	min-height: 16px;
 }
 
+video {
+	max-width: 480px;
+	max-height: 480px;
+}
+
+.post-content, .post-info {
+    overflow: hidden;
+}
+
 p {
 	margin: 0;
 	padding: 0;

@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
       //refresh
     captcha_image.onclick = function() {
+      captcha.src = '';
       captcha.src = install_location + '/captcha.php?' + Date.now();
       captcha_field.value = '';
       captcha_field.focus();
