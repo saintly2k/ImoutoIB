@@ -169,18 +169,74 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 
 
 			$output_html .= '<div class="catalog-threads">';
-			foreach (array_keys($threads) as $key => $value) {
-				include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/OP.php';
-				include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/info.php';
-				include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/recents.php';
-				$post_number_op = $threads[$key]['id'];
 
-				$output_html .= '<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '">';
-				$output_html .= '<div data-thread="' . $post_number_op . '" class="container">';
-				include $path . '/templates/thread-catalog.php';
-			   	$output_html .= '</div>';
-			   	$output_html .= '</a>';
-		   	}
+			//IF TEXTBOARD:
+			if ($config["boards"][$current_board]["type"] == "txt") {
+				$output_html .= '<div class="textboard-catalog">';
+					$output_html .= '<table>';
+						$output_html .= '<thead>';
+						$output_html .= '<tr><td>Num</td> <td>Title</td>	<td>Posts</td>	<td>Last Reply</td> <td>Bumped</td></tr>';
+						$output_html .= '</thead>';
+						$output_html .= '<tbody>';
+									foreach (array_keys($threads) as $key => $value) {
+										include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/OP.php';
+										include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/info.php';
+										include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/recents.php';
+										$post_number_op = $threads[$key]['id'];
+
+										$output_html .= '<tr>';
+										$output_html .= '<td>' . ($key+1) . '</td>';
+										$output_html .= '<td><a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '">';
+														if ($op_subject == '') {
+															$output_html .= substr(strip_tags($op_body),0,120);
+														} else {
+															$output_html .= $op_subject;
+														}
+										$output_html .= '</a></td>';
+										$output_html .= '<td>' . $info_replies . '</td>';
+
+										$last_reply = end($recents);
+										if ($last_reply == '') {
+											$output_html .= '<td><span class="post-time" data-timestamp="' . $op_time . '" data-tooltip="' . timeConvert($op_time, $time_method_hover) . '"> ' . timeConvert($op_time, $time_method) . '</span></td>';
+										} else {
+											include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/' . $last_reply . '.php';
+											$output_html .= '<td><span class="post-time" data-timestamp="' . $reply_time . '" data-tooltip="' . timeConvert($reply_time, $time_method_hover) . '"> ' . timeConvert($reply_time, $time_method) . '</span></td>';
+										}
+										
+										if (file_exists($path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/' . 'bumped.php')) {
+											$bumped = file_get_contents($path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/' . 'bumped.php');
+										} else {
+											$bumped =  $post_number_op;
+										}
+										if ($bumped == $post_number_op) {
+											$output_html .= '<td><span class="post-time" data-timestamp="' . $op_time . '" data-tooltip="' . timeConvert($op_time, $time_method_hover) . '"> ' . timeConvert($op_time, $time_method) . '</span></td>';
+										} else {
+											include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/' . $bumped . '.php';
+											$output_html .= '<td><span class="post-time" data-timestamp="' . $reply_time . '" data-tooltip="' . timeConvert($reply_time, $time_method_hover) . '"> ' . timeConvert($reply_time, $time_method) . '</span></td>';
+										}
+
+									   	$output_html .= '</tr>';
+								   	}
+						$output_html .= '</tbody>';
+					$output_html .= '</table>';
+				$output_html .= '</div><hr>';
+			}
+
+			//IMG/else
+			//if ($config["boards"][$current_board]["type"] != "txt") {
+				foreach (array_keys($threads) as $key => $value) {
+					include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/OP.php';
+					include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/info.php';
+					include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/recents.php';
+					$post_number_op = $threads[$key]['id'];
+
+					$output_html .= '<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '">';
+					$output_html .= '<div data-thread="' . $post_number_op . '" class="container">';
+					include $path . '/templates/thread-catalog.php';
+				   	$output_html .= '</div>';
+				   	$output_html .= '</a>';
+			   	}
+		   	//}
 		   	$output_html .= '</div>';
 
 		   	$output_html .= '<div class="catalog-footer">';
@@ -194,9 +250,6 @@ if (in_Array(htmlspecialchars($_GET["board"]), $config['boardlist'])) {
 			echo $output_html;
 			exit();
 		}
-
-
-		//IF TXT CATALOG
 
 	}
 

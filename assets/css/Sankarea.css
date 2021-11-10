@@ -168,3 +168,8 @@ html[data-stylesheet="Sankarea"] .box h2 {
   background: #111;
   color: #fff;
 }
+
+html[data-stylesheet="Sankarea"] .textboard-catalog {
+  background: #111;
+  border: 3px solid #aaa;
+}
