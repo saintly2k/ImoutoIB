@@ -124,3 +124,8 @@ html[data-stylesheet="Kareha"] .pager {
     background: #efefef;
     border: 1px solid #000;
 }
+
+html[data-stylesheet="Kareha"] .textboard-catalog {
+background: #cfc;
+border: 1px solid black;
+}

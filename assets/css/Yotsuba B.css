@@ -142,7 +142,7 @@ div.post-image img {
 	min-height: 16px;
 }
 
-video {
+div.post video {
 	max-width: 480px;
 	max-height: 480px;
 }
