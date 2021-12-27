@@ -147,10 +147,6 @@ div.post video {
 	max-height: 480px;
 }
 
-.post-content, .post-info {
-    overflow: hidden;
-}
-
 p {
 	margin: 0;
 	padding: 0;

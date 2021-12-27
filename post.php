@@ -102,6 +102,14 @@ if (($config['mod']['thread_autosage'] <= $mod_level) && isset($_POST['autosage'
 	$post_subject = phpClean($_POST['subject']);
 	$post_body = phpClean($_POST['body']);
 
+	//filter zalgo from all
+	if ($config['filter_zalgo'] == true) {
+		$post_name = preg_replace("~(?:[\p{M}]{1})([\p{M}])~uis","", $post_name);
+		$post_email = preg_replace("~(?:[\p{M}]{1})([\p{M}])~uis","", $post_email);
+		$post_subject = preg_replace("~(?:[\p{M}]{1})([\p{M}])~uis","", $post_subject);
+		$post_body = preg_replace("~(?:[\p{M}]{1})([\p{M}])~uis","", $post_body);
+	}
+
 
 //CHECK SOME REQS BEFORE BODY EDIT, length. Check newlines after by scanning <br>'s
 //IF NEW REPLY

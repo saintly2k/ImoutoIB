@@ -134,6 +134,7 @@ $config['reply_body_max'] = 4000; //maximum characters
 $config['max_lines'] = 40;
 
 $config['linkify_urls'] = true; //converts http/https to links
+$config['filter_zalgo'] = true; //you want this, trust me
 $config['wordfilters'][] = array('/little sister/i', 'imouto'); //regex
 
 
