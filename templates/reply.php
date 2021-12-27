@@ -37,24 +37,41 @@ $output_html .= '<div class="post-arrows">&gt;&gt;</div>
 				</tbody></table></details>';
 				}
 
-				$output_html .= '<hr></td></tr>';
+				$output_html .= '</td></tr>';
 			}
 
 
 
-			$output_html .= '
-					    		<input type="hidden" name="board" value="' . $current_board . '"/>
+			$output_html .= '<tr><td>
+
+							<details><summary>Delete</summary>
+								<input type="hidden" name="board" value="' . $current_board . '"/>
 					    		<input type="hidden" name="thread" value="' . $post_number_op . '"/>
 					    		<input type="hidden" name="reply" value="' . $post_number_reply . '"/>
-					    		<tr>
-									<td><input type="password" id="password_' . $post_number_reply . '" name="password" maxlength="256" placeholder="Password" value="' . $_COOKIE['post_password'] . '"></td>
-									<td><input type="submit" name="delete" value="Delete"></td>
-									<td><label for="file_' . $post_number_reply . '"><input type="checkbox" id="file_' . $post_number_reply . '" name="file">File only</label></td>
-								</tr>
+
+					    		<input type="password" id="password_' . $post_number_reply . '" name="password" maxlength="256" placeholder="Password" value="' . $_COOKIE['post_password'] . '">
+					    		<input type="submit" name="delete" value="Delete">
+					    		<label for="file_' . $post_number_reply . '"><input type="checkbox" id="file_' . $post_number_reply . '" name="file">File only</label>
+
+							</details>
+
+							</td></tr>
 								<tr>
-									<td><input type="text" id="reason_' . $post_number_reply . '" name="reason" maxlength="256" autocomplete="off" value="" placeholder="Reason"></td>
-									<td><input type="submit" name="report" value="Report"></td>
-									<td><label for="global_' . $post_number_reply . '"><input type="checkbox" id="global_' . $post_number_reply . '" name="global">Global</label></td>
+									<td>
+
+									<details><summary>Report</summary><a href="'.$prefix_folder.'/report.php?board='.$current_board.'&thread='.$post_number_op.'&reply='.$post_number_reply.'" onclick="window.open(this.href,\'targetWindow\',
+                                   `toolbar=no,
+                                    location=no,
+                                    status=no,
+                                    menubar=no,
+                                    scrollbars=yes,
+                                    resizable=yes,
+                                    width=400,
+                                    height=190`);
+                                    return false;">[Report]</a>
+                                    </details>
+
+									</td>
 								</tr>
 							</tbody>
 						</table>

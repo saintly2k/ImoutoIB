@@ -6,9 +6,7 @@ require 'require.php';
 //if captcha required?
 
 if (empty($_POST)) {
-	$output_html .= 'No post request received.';
-	echo $output_html;
-	exit();
+	error('No post request received.');
 }
 
 //cleanse
@@ -50,23 +48,17 @@ if (ctype_alnum($delrep_board) != true || ctype_alnum($delrep_thread) != true ||
 
 //DOES BOARD EXIST?
 if (!in_Array($delrep_board, $config['boardlist'])) {
-	$output_html .= 'Board ' . $delrep_board . ' does not exist.';
-	echo $output_html;
-	exit();
+	error('Board does not exist.');
 }
 //DOES REPLY EXIST
 if ($delrep_reply != $delrep_thread) {
 	if (isset($delrep_reply) && (!file_exists($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/' . $delrep_reply . '.php'))) {
-		$output_html .= 'Reply ' . $delrep_reply . ' does not exist.';
-		echo $output_html;
-		exit();
+		error('Reply does not exist.');
 	}
 }
 //DOES THREAD EXIST?
 if (isset($delrep_thread) && (!file_exists($path . '/' . $database_folder . '/boards/' . $delrep_board . '/' . $delrep_thread . '/OP.php'))) {
-		$output_html .= 'Thread ' . $delrep_thread . ' does not exist.';
-		echo $output_html;
-		exit();
+	error('Thread does not exist.');
 }
 
 //OK THEN CONTINUE:
@@ -271,6 +263,19 @@ if (isset($_POST["delete"]) && $_POST["delete"] != "") {
 
 if (isset($_POST["report"]) && $_POST["report"] != "") {
 
+if ($captcha_required == true) {
+	if(isset($_POST['captcha'])){
+		session_start();
+		if (($captcha_required == true) && ($_SESSION['captcha_text'] != strtolower($_POST['captcha']))) {
+			error('Wrong captcha!! How annoying...');
+		} else {
+		session_destroy();
+		}
+	} else {
+		error('No captcha entered.');
+	}
+}
+
 	//CREATE GLOBAL REPORT
 	if (isset($_POST["global"]) && $_POST["global"] == "on") {
 
@@ -299,12 +304,10 @@ if (isset($_POST["report"]) && $_POST["report"] != "") {
 		ReportCounter($database_folder, 'global'); //refresh report counter
 		//done
 		if (file_exists($path . '/' . $database_folder . '/reportsglobal/' . $newcount . '.php')) {
-		$output_html .= 'Global Report Created!';
+			error('Global Report Created!', true);
 		} else {
-		$output_html .= 'Failed generating Global Report...';
+			error('Failed generating Global Report...');
 		}
-		echo $output_html;
-		exit();	
 	}
 
 	//CREATE BOARD REPORT
@@ -339,22 +342,14 @@ if (isset($_POST["report"]) && $_POST["report"] != "") {
 	ReportCounter($database_folder, 'normal'); //refresh report counter
 	//done
 	if (file_exists($path . '/' . $database_folder . '/reports/' . $delrep_board . '/' . $newcount . '.php')) {
-	$output_html .= 'Board Report Created!';
+		error('Board Report Created!', true);
 	} else {
-	$output_html .= 'Failed generating Board Report...';
+	error('Failed generating Board Report...');
 	}
-	echo $output_html;
-	exit();	
-
 
 }
 
 
-/*foreach($_POST as $key => $value) {
-  $output_html .= "POST parameter '$key' has '$value'<hr>";
-}*/
-
-$output_html .= 'uh... supposed to exit before this';
-echo $output_html;
+error('uh... supposed to exit before this');
 
 ?>
