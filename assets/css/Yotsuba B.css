@@ -572,6 +572,13 @@ div.post details table {
 details summary::marker {
   content: '';
 }
+
+/*marker animations do not work on safari for mac+ios as of 2021/12/27. Compat fix */
+summary::-webkit-details-marker {
+	display: none;
+}
+/* end fix */
+
 details summary:before, details[open] details summary:before, details[open] details[open] details summary:before {
   content: '▲';
   font-size: 10pt;
