@@ -4,16 +4,29 @@ $output_html .= '<div class="post-arrows">&gt;&gt;</div>
 <div class="post reply" id="' . $post_number_reply . '">
 	<div class="post-info">';
 
-		if ($post_buttons == true) {
-			include 'post-buttons-reply.php';
-		}
 
-		if ($reply_subject != '') { $output_html .= '<span class="subject">' . $reply_subject . ' </span>'; }
-		if (($reply_email != '') && ($show_email != false)) { $output_html .= '<a href="mailto:' . $reply_email . '">';} $output_html .= '<span class="'; if(($reply_email != '') && ($show_email != false)) { $output_html .= 'link '; } $output_html .= 'name">' . $reply_name . '</span>'; if (($reply_email != '') && ($show_email != false)) { $output_html .= '</a>'; }
+		$output_html .= '<span class="post-number">';
+		//$output_html .= '<a class="anchor" name="' . $post_number_reply . '" href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_reply . '"> No.</a>';
+		$output_html .= '<b><a class="click" num="' . $post_number_reply . '" id="cite_' . $post_number_reply . '" href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#q' . $post_number_reply . '">' . $post_number_reply . '</a></b>';
+		$output_html .= '&nbsp;</span>';
+
+		$output_html .= ' Name: ';
+		
+		if (($reply_email != '') && ($show_email != false)) {
+			$output_html .= '<a href="mailto:' . $reply_email . '">';
+		} 
+		$output_html .= '<span class="'; 
+		if(($reply_email != '') && ($show_email != false)) {
+			$output_html .= 'link ';
+		} 
+		$output_html .= 'name">' . $reply_name . '</span>';
+		if (($reply_email != '') && ($show_email != false)) {
+			$output_html .= '</a>';
+		}
 		$output_html .= '<span class="post-time" data-timestamp="' . $reply_time . '" data-tooltip="' . timeConvert($reply_time, $time_method_hover) . '"> ' . timeConvert($reply_time, $time_method) . '</span>';
 	
 		if ($display_id == true) {
-			$output_html .= '<span class="id"> ID:&nbsp;';
+			$output_html .= '<span class="id"> ID:';
 			if ($reply_email == "sage") {
 				$output_html .= 'Heaven';
 			} else {
@@ -25,10 +38,9 @@ $output_html .= '<div class="post-arrows">&gt;&gt;</div>
 			$output_html .= '</span>';
 		}
 
-		$output_html .= '<span class="post-number">';
-		$output_html .= '<a class="anchor" name="' . $post_number_reply . '" href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_reply . '"> No.</a>';
-		$output_html .= '<a class="click" num="' . $post_number_reply . '" id="cite_' . $post_number_reply . '" href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#q' . $post_number_reply . '">' . $post_number_reply . '</a>';
-		$output_html .= '&nbsp;</span>';
+		if ($post_buttons == true) {
+			include 'post-buttons-reply.php';
+		}
 
 $output_html .=	'</div>';
 

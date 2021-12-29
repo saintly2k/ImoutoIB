@@ -1,0 +1,28 @@
+
+.page-info-txt h1 {
+    font-size: 1.7em;
+    font-weight: normal;
+}
+
+div.textboard {
+	max-width: 95%;
+	margin: auto;
+}
+
+div#post-form {
+    width: 100%!important;
+}
+
+.thread-stats {
+	position: absolute;
+	right: 5%!important;
+}
+
+.subject small {
+	font-weight: normal;
+}
+
+div.post.reply {
+	margin: 0!important;
+	padding: 0!important;
+}

@@ -20,7 +20,12 @@ if (!isset($_GET["board"]) || !isset($_GET["thread"]) || !isset($_GET["reply"]) 
 	error('missing parameter board/thread/reply');
 }
 
+if (ctype_alnum($rep_board) != true || ctype_alnum($rep_thread) != true || ctype_alnum($rep_reply) != true) {
+	error('Invalid board, thread, or reply. Must be alphanumeric.');
+}
+
 $title = 'Report Post No.' . $rep_reply;
+$current_board = htmlspecialchars($_GET["board"]);
 
 $output_html .= '<html data-stylesheet="'. $current_theme .'">';	
 $output_html .= '<head>';

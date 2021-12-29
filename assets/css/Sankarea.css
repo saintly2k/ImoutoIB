@@ -100,6 +100,7 @@ html[data-stylesheet="Sankarea"] .subject {
 html[data-stylesheet="Sankarea"] .code {
   background: #333;
   color: #fff;
+  border: none;
 }
 
 html[data-stylesheet="Sankarea"] div#post-form {
@@ -172,4 +173,8 @@ html[data-stylesheet="Sankarea"] .box h2 {
 html[data-stylesheet="Sankarea"] .textboard-catalog {
   background: #111;
   border: 3px solid #aaa;
+}
+
+html[data-stylesheet="Sankarea"] .textboard-catalog a {
+  color: red!important;
 }

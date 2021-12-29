@@ -55,6 +55,11 @@ html[data-stylesheet="Burichan"] hr {
   border-top: 2px solid grey;
 }
 
+html[data-stylesheet="Burichan"] .code {
+  background: #fff;
+  border: none;
+}
+
 html[data-stylesheet="Burichan"] .pager td {
   border: 1px solid;
   padding: 3px;

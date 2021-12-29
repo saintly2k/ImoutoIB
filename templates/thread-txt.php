@@ -97,17 +97,107 @@ $output_html .= '<div class="post op" id="' . $post_number_op . '">';
 	
 
 $output_html .= '<div class="post-info">';
-		
-		if ($post_buttons == true) {
-			include 'post-buttons-op.php';
+
+		if ($op_subject != '') { 
+			if ($current_page === 'index') {
+				$output_html .= '<h2 class="subject"><a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op . '">' . $op_subject;
+
+				$output_html .= ' <small>';
+				$output_html .= ' (' . $info_replies . ') ';
+				if ($info_sticky == 1) {
+					$output_html .= '(sticky) ';
+				}
+				if ($info_locked == 1) {
+					$output_html .= '(locked) ';
+				}
+				if ($info_autosage == 1) {
+					$output_html .= '(permasaged) ';
+				}
+				$output_html .= '</small>';
+
+				$output_html .= '</a></h2>'; 
+			} else {
+				$output_html .= '<h3 class="subject">' . $op_subject;
+
+				$output_html .= ' (' . $info_replies . ') ';
+
+				if ($info_sticky == 1 || $info_locked == 1 || $info_autosage == 1) {
+					if ($info_sticky == 1) {
+						$output_html .= '(sticky) ';
+					}
+					if ($info_locked == 1) {
+						$output_html .= '(locked) ';
+					}
+					if ($info_autosage == 1) {
+						$output_html .= '(permasaged) ';
+					}
+				}
+
+				$output_html .= '</h3>';
+			}
+		} else {
+
+			if ($current_page === 'index') {
+				$output_html .= '<h2 class="subject"><a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op . '">no subject';
+
+				$output_html .= ' <small>';
+				$output_html .= ' (' . $info_replies . ') ';
+				if ($info_sticky == 1) {
+					$output_html .= '(sticky) ';
+				}
+				if ($info_locked == 1) {
+					$output_html .= '(locked) ';
+				}
+				if ($info_autosage == 1) {
+					$output_html .= '(permasaged) ';
+				}
+				$output_html .= '</small>';
+
+				$output_html .= '</a></h2>'; 
+			} else {
+				$output_html .= '<h3 class="subject">no subject';
+
+				$output_html .= ' (' . $info_replies . ') ';
+
+				if ($info_sticky == 1 || $info_locked == 1 || $info_autosage == 1) {
+					if ($info_sticky == 1) {
+						$output_html .= '(sticky) ';
+					}
+					if ($info_locked == 1) {
+						$output_html .= '(locked) ';
+					}
+					if ($info_autosage == 1) {
+						$output_html .= '(permasaged) ';
+					}
+				}
+
+				$output_html .= '</h3>';
+			}
 		}
+
+		$output_html .= '<span class="post-number"><b>';
+		//$output_html .= '<a class="anchor" name="' . $post_number_op . '" href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op . '">•</a> ';
+		$output_html .= '<a class="click" num="' . $post_number_op . '" id="cite_' . $post_number_op . '" href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#q' . $post_number_op . '">' . $post_number_op . '</a>';
+		$output_html .= '&nbsp;</b></span>';
+
+		$output_html .= ' Name: ';
 		
-		if ($op_subject != '') { $output_html .= '<span class="subject">' . $op_subject . ' </span>'; }
-		if (($op_email != '') && ($show_email != false)) { $output_html .= '<a href="mailto:' . $op_email . '">';} $output_html .= '<span class="'; if(($op_email != '') && ($show_email != false)) { $output_html .= 'link '; } $output_html .= 'name">' . $op_name . '</span>'; if ($op_email != '') { $output_html .= '</a>'; }
+		
+		if (($op_email != '') && ($show_email != false)) { 
+			$output_html .= '<a href="mailto:' . $op_email . '">';
+		} 
+		$output_html .= '<span class="'; 
+		if(($op_email != '') && ($show_email != false)) { 
+			$output_html .= 'link '; 
+		}
+		$output_html .= 'name">' . $op_name . '</span> :'; 
+		if ($op_email != '') { 
+			$output_html .= '</a> :';
+		}
 		$output_html .= '<span class="post-time" data-timestamp="' . $op_time . '" data-tooltip="' . timeConvert($op_time, $time_method_hover) . '"> ' . timeConvert($op_time, $time_method) . '</span>';
 		
 		if ($display_id == true) {
-			$output_html .= '<span class="id"> ID:&nbsp;';
+			$output_html .= '<span class="id"> ID:';
 			if ($op_email == "sage") {
 				$output_html .= 'Heaven';
 			} else {
@@ -119,23 +209,8 @@ $output_html .= '<div class="post-info">';
 			$output_html .= '</span>';
 		}
 
-		$output_html .= '<span class="post-number">';
-		$output_html .= '<a class="anchor" name="' . $post_number_op . '" href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#' . $post_number_op . '"> No.</a>';
-		$output_html .= '<a class="click" num="' . $post_number_op . '" id="cite_' . $post_number_op . '" href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '#q' . $post_number_op . '">' . $post_number_op . '</a>';
-		$output_html .= '&nbsp;</span>';
-
-		if ($info_sticky == 1) {
-			$output_html .= '<span title="Sticky" class="icon"><img width="16" height="16" src="'. $prefix_folder .'/assets/img/' . $icon_sticky . '"/></span>';
-		}
-		if ($info_locked == 1) {
-			$output_html .= '<span title="Locked" class="icon"><img width="16" height="16" src="'. $prefix_folder .'/assets/img/' . $icon_locked . '"/></span>';
-		}
-		if ($info_autosage == 1) {
-			$output_html .= '<span title="Autosage" class="icon"><img width="16" height="16" src="'. $prefix_folder .'/assets/img/' . $icon_autosage . '"/></span>';
-		}
-
-		if ($current_page === 'index') { 
-				$output_html .= '&nbsp;<span>[<a href="' . $prefix_folder . '/' . $main_file . '?board=' . $current_board . '&thread=' . $post_number_op . '">Reply</a>]</span>';
+		if ($post_buttons == true) {
+			include 'post-buttons-op.php';
 		}
 
 $output_html .= '</div>

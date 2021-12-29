@@ -17,6 +17,23 @@ $output_html .= '<!--Hidden Inputs-->';
 	if ($current_page === 'thread') { $output_html .= '<input type="hidden" id="thread_number" name="thread_number" value="' . $post_number_op . '">'; }
 	if ($current_page === 'index' || $current_page === 'catalog') { $output_html .= '<input type="hidden" id="index" name="index" value="index">'; }
 	
+
+
+	if ($info_locked == 1 && $config['mod']['post_in_locked'] > $mod_level) {
+		$submit_button = '<input type="submit" name="post" value="Locked" disabled>';
+	} elseif ($info_locked == 1 && $config['mod']['post_in_locked'] <= $mod_level) {
+		$submit_button = '<input type="submit" name="post" value="Locked">';
+	} else {
+		if ($current_page == 'index' || $current_page == 'catalog') {
+			$submit_button = '<input type="submit" name="post" value="Submit">';
+		}
+		if ($current_page == 'thread') {
+			$submit_button = '<input type="submit" name="post" value="Reply">';
+		}
+	}
+
+
+
 	if ($forced_anon !== true) { 
 	$output_html .= '<tr>';
 	$output_html .=	'<th>Name</th>';
@@ -32,28 +49,38 @@ $output_html .= '<!--Hidden Inputs-->';
 		$output_html .= '<tr>';
 		$output_html .= '<th>Email</th>';
 	if ($info_locked == 1 && $config['mod']['post_in_locked'] > $mod_level) { 
-		$output_html .= '<td><input type="text" name="link" size="25" maxlength="256" autocomplete="off" disabled></td>';
+		if ($current_page != 'thread') {
+			$output_html .= '<td><input type="text" name="link" size="25" maxlength="256" autocomplete="off" disabled></td>';
+		} else {
+			$output_html .= '<td><input type="text" name="link" size="25" maxlength="256" autocomplete="off" disabled> ' . $submit_button . '</td>';
+		}
 	} else {
-		$output_html .= '<td><input type="text" name="link" size="25" maxlength="256" autocomplete="off"></td>';
+		if ($current_page != 'thread') {
+			$output_html .= '<td><input type="text" name="link" size="25" maxlength="256" autocomplete="off"></td>';
+		} else {
+			$output_html .= '<td><input type="text" name="link" size="25" maxlength="256" autocomplete="off"> ' . $submit_button . '</td>';
+		}
 	}
 		$output_html .= '</tr>';
 	}
 
-	$output_html .= '<tr>';
-	$output_html .= '<th>Subject</th>';
-	if ($info_locked == 1 && $config['mod']['post_in_locked'] > $mod_level) {
-		$output_html .= '<td><input type="text" name="subject" size="25" maxlength="256" autocomplete="off" disabled>&nbsp;<input type="submit" name="post" value="Locked" disabled></td>';
-	} elseif ($info_locked == 1 && $config['mod']['post_in_locked'] <= $mod_level) {
-		$output_html .= '<td><input type="text" name="subject" size="25" maxlength="256" autocomplete="off">&nbsp;<input type="submit" name="post" value="Locked"></td>';
-	} else {
-		$output_html .= '<td><input type="text" name="subject" size="25" maxlength="256" autocomplete="off">&nbsp;';
-		if ($current_page == 'index' || $current_page == 'catalog') {
-			$output_html .= '<input type="submit" name="post" value="Submit"></td>';
+	if ($current_page != 'thread') {
+		$output_html .= '<tr>';
+		$output_html .= '<th>Subject</th>';
+		if ($info_locked == 1 && $config['mod']['post_in_locked'] > $mod_level) {
+			$output_html .= '<td><input type="text" name="subject" size="25" maxlength="256" autocomplete="off" disabled>&nbsp;' . $submit_button . '</td>';
+		} elseif ($info_locked == 1 && $config['mod']['post_in_locked'] <= $mod_level) {
+			$output_html .= '<td><input type="text" name="subject" size="25" maxlength="256" autocomplete="off" required>&nbsp;' . $submit_button . '</td>';
+		} else {
+			$output_html .= '<td><input type="text" name="subject" size="25" maxlength="256" autocomplete="off" required>&nbsp;';
+			if ($current_page == 'index' || $current_page == 'catalog') {
+				$output_html .= $submit_button . '</td>';
+			}
+			if ($current_page == 'thread') {
+				$output_html .= $submit_button . '</td>';
+			}
+			$output_html .= '</tr>';
 		}
-		if ($current_page == 'thread') {
-			$output_html .= '<input type="submit" name="post" value="Reply"></td>';
-		}
-		$output_html .= '</tr>';
 	}
 
 	$output_html .= '<tr>';
