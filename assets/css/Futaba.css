@@ -27,6 +27,11 @@ html[data-stylesheet="Futaba"] a:hover, html[data-stylesheet="Futaba"] a span.li
   color: #d00;
 }
 
+html[data-stylesheet="Futaba"] .code {
+  background: #fff;
+  border: none;
+}
+
 html[data-stylesheet="Futaba"] div.main {
   border-color: #800;
 }

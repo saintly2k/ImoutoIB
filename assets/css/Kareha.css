@@ -1,12 +1,13 @@
-@font-face {
+/*@font-face {
 	font-family: 'submona';
 	src: url('fonts/submona.woff') format('woff');
-}
+}*/
 
 html[data-stylesheet="Kareha"] body {
   background: url(data:image/gif;base64,R0lGODdhPAA8AJkAANCznMWtmbOektzApiwAAAAAPAA8AAAC/5SPqcvtCJ6c1IUAsgZ48wuG4qV1njYMZxmkbjYGQpipJeDmuo7zdYoTRSwiRGuFg3lio4HpswF9SJzhobpMSXsZAVQoS6KcpoH3MsPIZsAtVWAbDoVYziuZ3nhhnavWVASVFkYVNdbixKbH0mXQQ8I0FdERVnOi4tXWcqFVZXKAqAbJNEoTdUT28vSlZvUoFRmpxIdh87LXw1Z4cAc5wzFIulIbt+FS6MELVBJsMPK7utqTAmfrbAPoqAlCVknaOkWsclej7VzlRyYJAhc+slTllDNFbZBIq+10I3WGJks77cc4bCSgAcsUp1SESd9+hRv4Q9wiT/aWwWIHMEQaXP/GyNn52EEfjIrYoGGkpVHaGEuF2kTZiFASvm8qp+2YR4xlophqHEKpcwlFOWjO0IB6cGRQMBlMm86oAFXBnzVRHcwbs2xFDkQ8lt28aSzMPHWFCHHNKkaDo44etk5LM7DerFJ/6hSTM6xSWrUkgGDieOIIl46IgNJxl7JwrnY34tzViuQiw2c1+k662wmoVhqC3yD29YOPLnhIbqBE9hOl0tBmLht6VDqy5NPPOKmQYabFRko+I7OAtEQYoTZeTAaLPQslI3d8RHPWzXiQpc3DlnsD468Wy+g1p58S9WTL7yItG5E5DgPtxOa/v7u5sgSOP62ARWr+GFimUcEsurX/wraQcslVFxgVIdhSgg243GZfW7EBAo+BCwqFW3L+hSYGf0pYhAsT9ghESFo7CHRXNIq5ch86cCxw0FI0ZXdOEQlQtQCNMjqjwIvi6YgaSV/9qENIQA75VXCzxdBIgJ005NBF2rBz23MxKKVMN/14otYezXyYR4bAuccOfFFK80lZfWDAESAGAhQOAlvpFU1yKUmnJikuUjXNc5J0GSZT0iUE3gf9+IejRwO+duYay+3DzkWBIPSYkZHYc1h7NLGB0IEjPahHP0Zl9A4TrW2TJVmBYNTneJfSkGmKoi1ayjmqIjlZcaGwFxxtbjB1ymd2ihVprgaWEqqHUzZajSYFKYq3J7FgZneqn1zAgtxIomQEqilTFjcYcibimlodUjrKrXqyOWqZFAUAADs=);
   background-color: #C5AD99;
-  font-family: 'MS PGothic', 'submona' !important;
+  /*font-family: 'MS PGothic', 'submona' !important;*/
+  font-family: unset;
   font-size: 12pt;
 }
 
@@ -44,8 +45,16 @@ html[data-stylesheet="Kareha"] hr {
 html[data-stylesheet="Kareha"] div.container {
   background: #EFEFEF;
   padding: 8px;
-  border: 1px solid #333;
-  max-width: 95%;
+  border: 1px solid grey;
+  width: unset;
+  display: block;
+}
+
+
+html[data-stylesheet="Kareha"] .thread-outer {
+  background: #EFEFEF;
+  padding: 7px;
+  border: 1px solid grey;
 }
 
 html[data-stylesheet="Kareha"] div.post.reply {
@@ -74,17 +83,40 @@ html[data-stylesheet="Kareha"] .page-info, html[data-stylesheet="Kareha"] .post-
 }
 
 html[data-stylesheet="Kareha"] .page-info h1 {
- font-family: inherit;
+  font-family: inherit;
 }
 
 html[data-stylesheet="Kareha"] .subject {
-  color: red;
+  color: #CC1105;
+}
+
+html[data-stylesheet="Kareha"] h3.subject {
+  font-weight: normal;
+}
+
+html[data-stylesheet="Kareha"] .subject a {
+  color: #CC1105!important;
+}
+
+html[data-stylesheet="Kareha"] .subject a:hover {
+  text-decoration: underline;
+}
+
+html[data-stylesheet="Kareha"] .code {
+  background: #fff;
+  border: none;
 }
 
 html[data-stylesheet="Kareha"] div#post-form {
   background: #CFC;
-  border: 1px solid #333;
+  border: 1px outset grey;
   width: 80%;
+}
+
+html[data-stylesheet="Kareha"] div.post-form-txt-out {
+  background: #CCFFCC;
+  border: 1px outset grey;
+  padding: 7px;
 }
 
 html[data-stylesheet="Kareha"] div#post-form form {
@@ -121,11 +153,37 @@ html[data-stylesheet="Kareha"] div.post details table {
 }
 
 html[data-stylesheet="Kareha"] .pager {
-    background: #efefef;
-    border: 1px solid #000;
+  background: #efefef;
+  border: 1px solid #000;
 }
 
 html[data-stylesheet="Kareha"] .textboard-catalog {
-background: #cfc;
-border: 1px solid black;
+  background: #CCFFCC;
+  border: 1px outset grey;
+  padding: 7px;
+}
+
+html[data-stylesheet="Kareha"] .textboard-catalog a {
+  color: blue!important;
+  text-decoration: underline;
+}
+
+html[data-stylesheet="Kareha"] .textboard-catalog a:visited {
+  color: #609!important;
+}
+
+html[data-stylesheet="Kareha"] .textboard-catalog a:hover, html[data-stylesheet="Kareha"] .link.name:hover {
+  color: red!important;
+}
+
+
+html[data-stylesheet="Kareha"] .page-info-txt {
+  background: #CCFFCC;
+  border: 1px outset grey;
+  padding: 7px;
+}
+
+html[data-stylesheet="Kareha"] .page-info-txt-inner {
+  border: 1px outset grey;
+  padding: 6px;
 }

@@ -44,10 +44,18 @@ $output_html .= '
 </script>';
  
 $output_html .= '<link rel="icon" type="image/png" href="' . $prefix_folder  . '/assets/img/favicon.png"/>';
+	
+	if (isset($current_board) && $current_board != '') {
+		if ($config["boards"][$current_board]["type"] == "txt") {
+			$output_html .= '<link rel="stylesheet" type="text/css" href="' . $prefix_folder . '/assets/css/textboard.css">';
+		}
+	}
 
 	foreach ($config['css'] as $css) {
 		$output_html .= '<link rel="stylesheet" type="text/css" href="' . $prefix_folder . '/assets/css/' . rawurlencode($css) . '.css">';
 	}
+
+	
 
 	foreach ($config['js'] as $js) {
 		$output_html .= '<script type="text/javascript" src="' . $prefix_folder . '/assets/js/' . $js . '"></script>';

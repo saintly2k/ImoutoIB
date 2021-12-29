@@ -367,7 +367,7 @@ input[name="captcha"] {
     color: #000;
 }
 
-img#captcha {
+img#captcha, img#no-js-captcha {
 	border: 1px solid #000;
 }
 
