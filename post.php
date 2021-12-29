@@ -99,7 +99,11 @@ if (($config['mod']['thread_autosage'] <= $mod_level) && isset($_POST['autosage'
 		$post_email = 'sage';
 	}
 
-	$post_subject = phpClean($_POST['subject']);
+	if (isset($_POST['subject'])) {
+		$post_subject = phpClean($_POST['subject']);
+	} else {
+		$post_subject = '';
+	}
 	$post_body = phpClean($_POST['body']);
 
 	//filter zalgo from all
