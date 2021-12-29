@@ -36,6 +36,17 @@ $config['boards']['mod'] = array(
 	'type' => 'img'
 );
 
+$config['boards']['hidden'] = array(
+	'url' => 'hidden',
+	'title' => 'hidden',
+	'slogan' => 'shh.',
+	'description' => 'testing.',
+	'locked' => 0,
+	'hidden' => 1,
+	'mod_only' => 0,
+	'type' => 'txt'
+);
+
 foreach ($config['boards'] as $boards) {
 	$config['boardlist'][] = $boards['url'];
 }

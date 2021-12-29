@@ -28,14 +28,16 @@
 
 			//if zero threads aka new board
 		if (!file_exists($path . '/' . $database_folder . '/boards/' . $current_board)) {
-			$output_html .= 'This board has no threads yet.';
+			$output_html .= 'This board has no threads yet.<br><br>';
+			include 'post-form-txt.php';
 			include 'footer.php';
 			echo $output_html;
 			exit();
 		}
 
 		if (file_get_contents($path . '/' . $database_folder . '/boards/' . $current_board . '/counter.php') === "1") {
-			$output_html .= 'This board has no threads yet.';
+			$output_html .= 'This board has no threads yet.<br><br>';
+			include 'post-form-txt.php';
 			include 'footer.php';
 			echo $output_html;
 			exit();

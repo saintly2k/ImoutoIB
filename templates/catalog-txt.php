@@ -23,14 +23,14 @@
 			$output_html .= '<br>';
 			if (!file_exists($path . '/' . $database_folder . '/boards/' . $current_board)) {
 				$output_html .= 'This board has no threads yet.';
-				include $path . '/templates/footer.php';
+				include 'footer.php';
 				echo $output_html;
 				exit();
 			}
 
 			if (file_get_contents($path . '/' . $database_folder . '/boards/' . $current_board . '/counter.php') === "1") {
 				$output_html .= 'This board has no threads yet.';
-				include '/footer.php';
+				include 'footer.php';
 				echo $output_html;
 				exit();
 			}
