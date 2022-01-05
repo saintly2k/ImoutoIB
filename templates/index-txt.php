@@ -175,8 +175,12 @@
 										if ($bumped == $post_number_op) {
 											$output_html .= '<td><span class="post-time" data-timestamp="' . $op_time . '" data-tooltip="' . timeConvert($op_time, $time_method_hover) . '"> ' . timeConvert($op_time, $time_method) . '</span></td>';
 										} else {
+											if (file_exists($path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/' . $bumped . '.php')) {
 											include $path . '/' . $database_folder . '/boards/' . $current_board . '/' . $threads[$key]['id'] . '/' . $bumped . '.php';
 											$output_html .= '<td><span class="post-time" data-timestamp="' . $reply_time . '" data-tooltip="' . timeConvert($reply_time, $time_method_hover) . '"> ' . timeConvert($reply_time, $time_method) . '</span></td>';
+											} else {
+												$output_html .= '<td>bump deleted</td>';
+											}
 										}
 
 									   	$output_html .= '</tr>';

@@ -243,6 +243,12 @@ function UpdateThreads($database_folder, $board, $thread) {
 	$threads_full = [];
 	$threads_full = glob(__dir__ . '/../' . $database_folder . '/boards/' . $board . "/*", GLOB_ONLYDIR);
 	
+	//IF ALL DELETED
+	if ($threads_full == null) {
+		file_put_contents(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/threads.php' , '<?php $threads = []; ?>');
+		error('Deleted. No threads on board.', true);
+	}
+
 	//SORTING
 	foreach ($threads_full as $key => $thread_) {
 		$threadz= basename($thread_);
@@ -341,7 +347,17 @@ function DeletePost($database_folder, $uploads_folder, $board, $thread, $post, $
 			error('File deleted.', true);
 		} else {
 
+			//DELETE OP FILES if they exist
+			if ($op_file[0][0] != '' && $op_file[0][0] != 'deleted') {
+				if ($op_file[0][0] == 'image') { //add or video here too if thumbnailing video function is made, prob wont.
+					unlink(__dir__ . '/../' . $uploads_folder . '/' . $board . '/' . $op_file[0][1]); //delete file
+					unlink(__dir__ . '/../' . $uploads_folder . '/' . $board . '/' . $op_file[0][6]); //delete thumb
+				} else {
+					unlink(__dir__ . '/../' . $uploads_folder . '/' . $board . '/' . $op_file[0][1]); //delete file
+				}
+			}
 
+			//DELETE REPLIES FILES
 			$replies_ = glob(__dir__ . '/../' . $database_folder . '/boards/' . $board . '/' . $thread . "/*");
 			foreach ($replies_ as $reply) {
 				if (is_numeric(basename($reply, '.php'))) {
