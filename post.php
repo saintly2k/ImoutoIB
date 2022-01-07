@@ -129,17 +129,17 @@ if (isset($_POST['thread'])) {
 	}
 	if(!isset($_FILES['file']) || $_FILES['file']['error'] == UPLOAD_ERR_NO_FILE) {
 		if (strlen($post_body) < $config['reply_body_min']) {
-			error('Reply too short. Min: 10.');
+			error('Reply too short. Min: ' . $config['reply_body_min'] . '.');
 		}
 	} else {
 		if ($config['reply_file_only'] == false) {
 			if (strlen($post_body) < $config['reply_body_min']) {
-				error('Reply too short. Min: 10.');
+				error('Reply too short. Min: ' . $config['reply_body_min'] . '.');
 			}
 		}
 	}
 	if (strlen($post_body) > $config['reply_body_max']) {
-		error('Reply too long. Max: 4000.');
+		error('Reply too long. Max: ' . $config['reply_body_max'] . '.');
 	}
 }
 
@@ -193,7 +193,7 @@ if (isset($_POST['thread'])) {
 
 	//max lines?
 	if (preg_match_all('/<br>/', $post_body) > $config['max_lines']) { 
-		error('Too many new lines. Max 40.');
+		error('Too many new lines. Max: ' . $config['max_lines'] . '.');
 	}
 
 if ($captcha_required == true) {
@@ -258,11 +258,28 @@ if (strlen($post_password) > 256) {
 //IF NEW THREAD
 if (isset($_POST['index'])) {
 	if (strlen($post_body) > $config['post_body_max']) {
-		error('Post too long. Max: 4000.');
+		error('Post too long. Max: ' . $config['post_body_max'] . '.');
 	}
 	if (strlen($post_body) < $config['post_body_min']) {
-		error('Comment too short. Min: 10.');
-	} 
+		error('Comment too short. Min: ' . $config['post_body_min'] . '.');
+	}
+	if ($config["boards"][$post_board]["type"] == "img") {
+		if ($config['post_require_file'] == true) { //if no file then error
+			if(!isset($_FILES['file']) || $_FILES['file']['error'] == UPLOAD_ERR_NO_FILE) {
+				error('You must upload a file to start a thread.');
+			}
+		}
+		if ($config['post_require_subject'] == true) {
+			if ($post_subject == '') {
+				error('You must submit a subject.');
+			}
+		} else {
+			//check if neither file nor text is given
+			if((!isset($_FILES['file']) || $_FILES['file']['error'] == UPLOAD_ERR_NO_FILE) && ($post_body == '' && $post_subject == '')) {
+				error('You must either upload a file or input some text in the subject or comment field.');
+			}
+		}
+	}
 }
 
 
