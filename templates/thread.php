@@ -7,6 +7,9 @@ $output_html .= '<div class="post op" id="' . $post_number_op . '">';
 	if ($op_file[0][0] == "deleted") {
 		$output_html .= '<div class="post-file"><div class="file-info deleted">File Deleted</div><div class="post-image"><img class="file-deleted" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_deleted . '"/></div></div>';
 	}
+	elseif ($op_file[0][0] == "") { //nofile, but not deleted
+		$output_html .= '<div class="post-file"><div class="post-image"><img class="file-nofile" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_nofile . '"/></div></div>';
+	}
 	elseif ($op_file[0][0] != '') {
 		
 			$output_html .= '<div class="post-file" data-file="'.$op_file[0][0].'">';

@@ -21,6 +21,9 @@ $output_html .= '<div class="post op ' . $post_number_op . '" id="' . $post_numb
 	if ($op_file[0][0] == "deleted") {
 		$output_html .= '<div class="post-file"><img class="file-deleted" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_deleted . '"/></div>';
 	}
+	elseif ($op_file[0][0] == "") { //nofile, but not deleted
+		$output_html .= '<div class="post-file"><div class="post-image"><img class="file-nofile" width="'.$thumb_res_reply.'" height="'.$thumb_res_reply.'" src="' . $prefix_folder . '/assets/img/' . $thumb_nofile . '"/></div></div>';
+	}
 	elseif ($op_file[0][0] != '') {
 			$output_html .= '<div class="post-file">';
 				if ($op_file[0][0] == 'image') {

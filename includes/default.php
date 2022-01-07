@@ -48,6 +48,7 @@ $thumb_audio = 'audio.png';
 $thumb_video = 'video.png';
 $thumb_download = 'download.png';
 $thumb_deleted = 'deleted.png';
+$thumb_nofile = 'nofile.png';
 $spoiler_enabled = true;
 
 $video_width = 320;
