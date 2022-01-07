@@ -202,7 +202,7 @@ if ($captcha_required == true) {
 		if (($captcha_required == true) && ($_SESSION['captcha_text'] != strtolower($_POST['captcha']))) {
 			error('Wrong captcha!! How annoying...');
 		} else {
-		session_destroy();
+		//session_destroy();
 		}
 	} else {
 		error('No captcha entered.');
@@ -270,14 +270,19 @@ if (isset($_POST['index'])) {
 			}
 		}
 		if ($config['post_require_subject'] == true) {
-			if ($post_subject == '') {
+			if (trim($post_subject) == '') {
 				error('You must submit a subject.');
 			}
 		} else {
 			//check if neither file nor text is given
 			if((!isset($_FILES['file']) || $_FILES['file']['error'] == UPLOAD_ERR_NO_FILE) && ($post_body == '' && $post_subject == '')) {
-				error('You must either upload a file or input some text in the subject or comment field.');
+				error('You must either upload a file or input some text in the subject or comments.');
 			}
+		}
+	}
+	if ($config["boards"][$post_board]["type"] == "txt") { //check if empty subject in textboard
+		if (trim($post_subject) == '') {
+			error('You must enter a subject when creating a thread.');
 		}
 	}
 }
@@ -336,7 +341,9 @@ if ((isset($post_board)) && (isset($_POST['index']))) {
 	$newcount = $counter + 1;
 	file_put_contents($path . '/' . $database_folder . '/boards/' . $post_board . '/counter.php', $newcount);
 
-	//
+	if ($captcha_required == true) {
+		session_destroy(); //reset captcha only when passed all requirements
+	}
 
 	UpdateOP($database_folder, $post_board, $current_count, 1, 0, $current_count, 1, $info_sticky, $info_locked, $info_autosage); //information about thread and replies
 	UpdateThreads($database_folder, $post_board, $current_count); //update recents.php and board bumps.
@@ -415,6 +422,9 @@ if ((isset($post_board)) && (isset($_POST['thread']))) {
 		}
 		$ip_counter = count(array_unique($ips_)); 
 
+		if ($captcha_required == true) {
+			session_destroy(); //reset captcha only when passed all requirements
+		}
 
 		UpdateOP($database_folder, $post_board, $post_thread_number, 0, $reply_counter, $current_count, $ip_counter, $info_sticky, $info_locked, $info_autosage);
 		UpdateThreads($database_folder, $post_board, $current_count); //update recents.php and board bumps.

@@ -291,6 +291,20 @@ if (isset($_POST['create-ban'])) {
 
 //LOGGIN IN?
 if (isset($_POST['username']) && isset($_POST['password'])) {
+
+	if ($captcha_required == true) {
+		if(isset($_POST['captcha'])){
+			session_start();
+			if (($captcha_required == true) && ($_SESSION['captcha_text'] != strtolower($_POST['captcha']))) {
+				error('Wrong captcha.');
+			} else {
+			session_destroy();
+			}
+		} else {
+			error('No captcha entered.');
+		}
+	}
+
 	if ($_POST['username'] == "") {
 		error('No username given.');
 	}
@@ -377,8 +391,27 @@ if ($logged_in == false) {
 			<form name="login" action="' . $prefix_folder . '/mod.php" method="post">
 				<table id="login" style="margin:auto;">
 					<tr><th>Username</th><td><input type="text" name="username" size="25" maxlength="256" autocomplete="off" placeholder="Username"></td></tr>
-					<tr><th>Password</th><td><input type="password" name="password" size="25" maxlength="256" autocomplete="off" placeholder="Password"></td></tr>
-					<tr><th style="visibility:hidden;"></th><td><input type="checkbox" id="remember" name="remember"
+					<tr><th>Password</th><td><input type="password" name="password" size="25" maxlength="256" autocomplete="off" placeholder="Password"></td></tr>';
+	if ($captcha_required == true) {
+		$output_html .= '
+		<tr>
+			<th>Verification</th>
+			<td>
+				<span class="js-captcha" id="load-captcha" style="max-width:200px">
+				<span class="js-captcha">
+					<img title="Click Here To Refresh" height="50" width="198" id="captcha" src="' . $prefix_folder . '/captcha.php' .'" js-src="' . $prefix_folder . '/captcha.php' .'"/><br>
+				</span>
+				</span>
+				<noscript>
+					<style>.js-captcha { display:none }</style>
+					<img height="50" width="198" id="no-js-captcha" src="' . $prefix_folder . '/captcha.php' .'"/><br>
+				</noscript>
+				<input id="captcha-field" type="text" name="captcha" minlength="6" maxlength="6" autocomplete="off" required>
+				</span>
+			</td>
+		</tr>';
+	}
+	$output_html .= '<tr><th style="visibility:hidden;"></th><td><input type="checkbox" id="remember" name="remember"
          checked><label for="remember">Remember Me</label><input type="submit" name="post" value="Login" style="float: right;"></td></tr>
 				</table>
 			</form>
