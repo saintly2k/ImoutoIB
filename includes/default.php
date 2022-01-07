@@ -124,7 +124,9 @@ $config['js'][] = 'main.js'; //mandatory
 //$config['js'][] = 'extensions.js';
 
 //POST SETTINGS
-$config['post_body_min'] = 10; //minimum characters, 0 to allow
+$config['post_require_file'] = false; //OP on imageboard must submit file if true.
+$config['post_require_subject'] = false; //OP subject on imageboard, textboard OP has always on.
+$config['post_body_min'] = 0; //minimum characters, 0 to allow
 $config['post_body_max'] = 4000; //maximum characters
 
 $config['reply_file_only'] = true; //allows zero text if contains file

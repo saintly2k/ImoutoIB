@@ -46,7 +46,11 @@ $output_html .= '<!--Hidden Inputs-->';
 	} elseif ($info_locked == 1 && $config['mod']['post_in_locked'] <= $mod_level) {
 		$output_html .= '<td><input type="text" name="subject" size="25" maxlength="256" autocomplete="off">&nbsp;<input type="submit" name="post" value="Locked"></td>';
 	} else {
-		$output_html .= '<td><input type="text" name="subject" size="25" maxlength="256" autocomplete="off">&nbsp;';
+		if (($config['post_require_subject'] == true) && ($current_page === 'index')) {
+			$output_html .= '<td><input type="text" name="subject" size="25" maxlength="256" autocomplete="off" required>&nbsp;';
+		} else {
+			$output_html .= '<td><input type="text" name="subject" size="25" maxlength="256" autocomplete="off">&nbsp;';
+		}
 		if ($current_page == 'index' || $current_page == 'catalog') {
 			$output_html .= '<input type="submit" name="post" value="Submit"></td>';
 		}
