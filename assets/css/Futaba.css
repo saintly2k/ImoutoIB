@@ -42,7 +42,7 @@ html[data-stylesheet="Futaba"] div.main h2 {
 }
 
 html[data-stylesheet="Futaba"] table#boards tr.cat {
-    background: #fca;
+  background: #fca;
 }
 
 html[data-stylesheet="Futaba"] div.main a {
@@ -138,5 +138,5 @@ html[data-stylesheet="Futaba"] .catalog .container {
 }
 
 html[data-stylesheet="Futaba"] .catalog .container:hover {
-    background: #fed6af;
+  background: #fed6af;
 }

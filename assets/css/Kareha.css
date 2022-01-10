@@ -1,6 +1,6 @@
 /*@font-face {
-	font-family: 'submona';
-	src: url('fonts/submona.woff') format('woff');
+  font-family: 'submona';
+  src: url('fonts/submona.woff') format('woff');
 }*/
 
 html[data-stylesheet="Kareha"] body {
@@ -143,19 +143,19 @@ html[data-stylesheet="Kareha"] div.main, html[data-stylesheet="Kareha"] div.main
 }
 
 html[data-stylesheet="Kareha"] table#boards tr.cat {
-    background: #CFC;
+  background: #CFC;
 }
 
 html[data-stylesheet="Kareha"] table#boards tr.cat {
-    background: #EEF2FF;
-    border-left: 1px solid #9f9f9f;
-    border-top: 1px solid #9f9f9f;
-    border-bottom: 1px solid #fff;
-    border-right: 1px solid #fff;
+  background: #EEF2FF;
+  border-left: 1px solid #9f9f9f;
+  border-top: 1px solid #9f9f9f;
+  border-bottom: 1px solid #fff;
+  border-right: 1px solid #fff;
 }
 
 html[data-stylesheet="Kareha"] table#boards tr.cat h2 {
-    background: #EEF2FF;
+  background: #EEF2FF;
 }
 
 html[data-stylesheet="Kareha"] div.postingmode {

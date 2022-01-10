@@ -18,25 +18,25 @@ $output_html .= '<div class="page-info">
 </div>';
 
 
-$output_html .= '
+$output_html .= '<br>
 <div class="main">
 	<h2>Boards</h2>';
 
 	$output_html .= '<table id="boards">';
-	$output_html .= '<thead><tr><th><sub>Board</sub></th><th><sub>Description</sub></th><th><sub>Posts</sub></th></tr></thead>';
+	$output_html .= '<thead><tr><th><small>Board</small></th><th><small>Description</small></th><th><small>Posts</small></th></tr></thead>';
 	$output_html .= '<tbody>';
 	foreach ($config['cat'] as $cat) {
-		$output_html .= '<tr class="cat"><th><span class="small"></span></th><th><h2>' . $cat['name'] . '</h2></th><th><span class="small"></span></th>';
+		$output_html .= '<tr class="cat" id="' .  $cat['name'] . '"><th><span class="small"></span></th><th><h2>' . $cat['name'] . '</h2></th><th><span class="small"></span></th>';
 		foreach ($config['boards'] as $boards) {
-			if($boards['cat']==$cat['id']) {
+			if($boards['cat'] == $cat['id']) {
 				if ($boards['hidden'] === 0) {
 					$output_html .= '<tr><th><a href="' . $prefix_folder . '/' . $main_file . '?board=';
 					$output_html .= $boards['url'];
 					$output_html .= '">';
 					$output_html .= '/' . $boards['url'] . '/' . ' - ' . $boards['title'];
 					$output_html .= '</a></th><th>' . $boards['description'];
-					if($boards['nsfw']==1) {
-						$output_html .= '<span class="nsfw-1">[NSFW]</span>';
+					if($boards['nsfw'] == 1) {
+						$output_html .= ' <span class="nsfw-1">[NSFW]</span>';
 					}
 					$output_html .= '</th>';
 					$board_counter = file_get_contents($path . '/' . $database_folder . '/boards/' . $boards['url'] . '/counter.php') - 1;
@@ -46,7 +46,7 @@ $output_html .= '
 		}
 	}
 $output_html .= '</tr></tbody>';
-$output_html .= '</table>';
+$output_html .= '</table><br>';
 $output_html .= '</div>
 
 <br>

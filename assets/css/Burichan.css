@@ -5,10 +5,6 @@ html[data-stylesheet="Burichan"] body {
   color: #000;
 }
 
-html[data-stylesheet="Burichan"] table#boards tr.cat {
-    background: #98e;
-}
-
 html[data-stylesheet="Burichan"] div#post-form th {
   border: none;
   font-size: 12pt;
@@ -27,6 +23,10 @@ html[data-stylesheet="Burichan"] a:hover, html[data-stylesheet="Burichan"] a spa
 html[data-stylesheet="Burichan"] div.main a:hover {
   color: red;
   text-decoration: underline;
+}
+
+html[data-stylesheet="Burichan"] table#boards tr.cat {
+  background: #98e;
 }
 
 html[data-stylesheet="Burichan"] input[type="text"]:focus, html[data-stylesheet="Burichan"] input[type="password"]:focus, html[data-stylesheet="Burichan"] input:not([type]):focus, html[data-stylesheet="Burichan"] textarea:focus {
