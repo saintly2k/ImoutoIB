@@ -120,11 +120,11 @@ html[data-stylesheet="Tomorrow"] div.post details table {
 }
 
 html[data-stylesheet="Tomorrow"] table#boards tr.cat {
-    background: #1d1d21;
+  background: #1d1d21;
 }
 
 html[data-stylesheet="Tomorrow"] table#boards .cat h2 {
-    border: 0;
+  border: 0;
 }
 
 html[data-stylesheet="Tomorrow"] .pager {

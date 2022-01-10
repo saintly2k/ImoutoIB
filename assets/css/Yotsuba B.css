@@ -283,9 +283,9 @@ table#boards tr th {
     text-align: left;
 }
 
-table#boards thead th {
+/*table#boards thead th {
     text-decoration: underline;
-}
+}*/
 
 table#boards tr.cat {
     background: #98e;

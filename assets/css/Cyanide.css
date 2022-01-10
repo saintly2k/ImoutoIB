@@ -18,7 +18,7 @@ html[data-stylesheet="Cyanide"] a, html[data-stylesheet="Cyanide"] a:visited {
 }
 
 html[data-stylesheet="Cyanide"] span.name {
-	color: #ee88bc;
+  color: #ee88bc;
 }
 
 html[data-stylesheet="Cyanide"] .code {
@@ -40,7 +40,7 @@ html[data-stylesheet="Cyanide"] a:hover, html[data-stylesheet="Cyanide"] a span.
 }
 
 html[data-stylesheet="Cyanide"] div.main {
-	background: #000;
+  background: #000;
   border-color: #7FF;
 }
 
@@ -49,7 +49,7 @@ html[data-stylesheet="Cyanide"] img#captcha, html[data-stylesheet="Cyanide"] inp
 }
 
 html[data-stylesheet="Cyanide"] input[type="file"] {
-	color: #800;
+  color: #800;
 }
 
 html[data-stylesheet="Cyanide"] div.main h2 {
@@ -58,7 +58,7 @@ html[data-stylesheet="Cyanide"] div.main h2 {
 }
 
 html[data-stylesheet="Cyanide"] table#boards tr.cat {
-    background: #035;
+  background: #035;
 }
 
 html[data-stylesheet="Cyanide"] div.main a:hover {

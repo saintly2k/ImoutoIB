@@ -148,4 +148,3 @@ if ($config["boards"][$current_board]["type"] != "txt") {
 $output_html .= '<hr>';
 }
 
-
