@@ -1,3 +1,5 @@
+### Please don't use ImoutoIB. The Captcha is easily bypassed by bots. Use an updated, safer, better and 100% compatible Imageboard made by me: https://github.com/H33Tx/KoNaMiB
+
 ImoutoIB - Terrible imageboard software.
 ========================================================
 
