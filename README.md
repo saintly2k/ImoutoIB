@@ -1,6 +1,6 @@
-ImoutoIB-_plus_ - (Not so) Terrible imageboard software.
+ImoutoIB - Terrible imageboard software.
 ========================================================
-_Fork from ithrts/ImoutoIB._
+_Fork from ithrts/ImoutoIB. Looking for a not-so terrible imageboard software? Try out [ImoutoIB-plus](https://github.com/saintly2k/ImoutoIB-plus)!_
 
 But anon-san — if it's so terrible, Why should I use it?
 ------------
@@ -20,7 +20,7 @@ If even your shared hosting can't run this, you're being scammed or you messed u
 
 Here's a reliable [host](https://www.hostwinds.com/7694-2.html) you can use.
 
-Use PHP 7.3 or 7.4. Might work on 8, I don't know. QA is for people getting paid.
+The latest release should work with PHP 7.3 to 8.3, might work, might not. The older one doesn't work with 8 at all. AQ is for people getting paid.
 
 No database setup needed.
 
@@ -56,4 +56,4 @@ Gambare!!!
 
 License
 --------
-See [LICENSE.md](http://github.com/ithrts/ImoutoIB/blob/master/LICENSE.md).
+See [LICENSE.md](http://github.com/saintly2k/ImoutoIB/blob/master/LICENSE.md).

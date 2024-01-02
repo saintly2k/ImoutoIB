@@ -324,8 +324,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $new_session = crypt(md5(random_bytes(10) . $_POST['password']), $secure_hash);
 
     //set session in user file
-    setcookie("mod_user", $_POST['username'], 0, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true); //not bothering setting expiry, they'll be replaced anyways if old.
-    setcookie("mod_session", $new_session, 0, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+    setcookie("mod_user", $_POST['username'], 0, $cookie_location, $domain, isset($_SERVER["HTTPS"])); //not bothering setting expiry, they'll be replaced anyways if old.
+    setcookie("mod_session", $new_session, 0, $cookie_location, $domain, isset($_SERVER["HTTPS"]));
 
     if (isset($_POST['remember'])) {
         $remember_time = time(); //basically just says when the login session was created
@@ -344,6 +344,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $logged_in = true;
     $logged_in_as = $username;
     $mod_level = $user_mod_level;
+    header("Refresh: 0");
 }
 
 //CREATE FOLDER + DEFAULT USER

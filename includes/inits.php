@@ -74,11 +74,11 @@ if (!isset($_GET["board"])) {
     $_GET["board"] = '';
 }
 
-if ($prefix_folder == '') {
-    $cookie_location = '/';
-} else {
-    $cookie_location = $prefix_folder;
-}
+// if ($prefix_folder == '') {
+$cookie_location = '/';
+// } else {
+// $cookie_location = $prefix_folder;
+// }
 
 // SET THEME COOKIE FOR NO-JS USERS (CUZ IM COOL LIKE DAT)
 if (isset($_GET["board"]) && htmlspecialchars($_GET["board"]) != '') {

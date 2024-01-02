@@ -63,8 +63,8 @@ if (isset($_COOKIE['mod_user']) && isset($_COOKIE['mod_session'])) {
     include $path . '/' . $database_folder . '/users/' . $_COOKIE['mod_user'] . '.php';
 
     if ($_COOKIE['mod_session'] != $user_session) {
-        setcookie("mod_user", null, time() - 3600, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
-        setcookie("mod_session", null, time() - 3600, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+        // setcookie("mod_user", "", time() - 3600, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+        // setcookie("mod_session", "", time() - 3600, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
         error('Invalid or expired cookie session');
     } else {
         $logged_in = true;
@@ -73,8 +73,8 @@ if (isset($_COOKIE['mod_user']) && isset($_COOKIE['mod_session'])) {
     }
 
     if (($user_remember + 86400) < time()) { //1day if not remember me, otherwise using the +30days from remember time for 31days total
-        setcookie("mod_user", null, time() - 3600, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
-        setcookie("mod_session", null, time() - 3600, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+        // setcookie("mod_user", "", time() - 3600, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
+        // setcookie("mod_session", "", time() - 3600, $cookie_location, $domain, isset($_SERVER["HTTPS"]), true);
         $logged_in = false;
     }
 
