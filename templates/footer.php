@@ -78,7 +78,7 @@ $output_html .='</details>
 
 
 $output_html .= '<div class="footer">
-	<p>ImoutoIB</p>';
+	<p>ImoutoIB-plus</p>';
 	if ($display_version == true) { $output_html .= '<p>' . $version . '</p>'; } 
 		if ($config['generated_in'] === true) {
 			$end_time = microtime(true);
