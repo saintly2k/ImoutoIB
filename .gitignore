@@ -7,3 +7,4 @@ database/users/*
 database/bans/*
 database/frontpage.php
 api/*
+includes/custom.php

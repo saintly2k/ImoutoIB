@@ -4,7 +4,7 @@
 
 
 
-$prefix_folder = '/ib'; // empty for root dir
+$prefix_folder = '/ImoutoIB'; // empty for root dir
 $main_file = ''; //empty with handler using main.php as index
 
 $site_name = 'ImoutoIB';
