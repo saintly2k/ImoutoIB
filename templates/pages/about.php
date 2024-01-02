@@ -21,7 +21,7 @@ $page_content = '
 <div class="main">
 	<h2>Software</h2>
 	<p>
-	This imageboard runs on <b><a style="text-decoration:underline" href="https://github.com/ithrts/ImoutoIB">ImoutoIB</a></b>.
+	This imageboard runs on <b><a style="text-decoration:underline" href="https://github.com/saintly2k/ImoutoIB" target="_blank">ImoutoIB-plus</a></b>.
 	</p>
 </div>
 

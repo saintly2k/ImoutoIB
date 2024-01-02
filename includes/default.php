@@ -11,7 +11,7 @@ $version = file_get_contents(__dir__ . '/../version');;
 
 $site_name = 'ImoutoIB';
 $site_slogan = 'As if it were written by a literal child.';
-$domain = '3dpd.moe'; //MUST BE SET FOR COOKIES
+$domain = 'h33t.moe'; //MUST BE SET FOR COOKIES, formerly 3dpd.moe
 $captcha_required = true; //there is no anti-flood setting so you really should...
 $boardlist = "title"; //"url" for a shortening boardlist.
 

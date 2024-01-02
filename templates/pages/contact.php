@@ -21,7 +21,7 @@ $page_content = '
 <div class="main">
 	<h2>Contact</h2>
 	<p>
-	For general bugs <b><a style="text-decoration:underline" href="https://github.com/ithrts/ImoutoIB">ImoutoIB</a></b>. Bugs caused by big changes to the software by the board owner may be ignored and you should reach out to the board owner instead.
+	For general bugs <b><a style="text-decoration:underline" href="https://github.com/saintly2k/ImoutoIB" target="_blank">ImoutoIB-plus</a></b>. Bugs caused by big changes to the software by the board owner may be ignored and you should reach out to the board owner instead.
 	</p>
 </div>
 
