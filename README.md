@@ -1,6 +1,6 @@
 ImoutoIB - Terrible imageboard software.
 ========================================================
-_Fork from ithrts/ImoutoIB. Looking for a not-so terrible imageboard software? Try out [ImoutoIB-plus](https://github.com/saintly2k/ImoutoIB-plus)!_
+_Fork from ithrts/ImoutoIB. Looking for a not-so terrible imageboard software? Try out [ImoutoIB-plus](https://github.com/H33Tx/ImoutoIB-plus)!_
 
 But anon-san — if it's so terrible, Why should I use it?
 ------------
@@ -53,6 +53,8 @@ Support
 --------
 
 Gambare!!!
+
+From saintly: You can join our Discord to receive some help - https://discord.gg/uahG2fKVvg
 
 License
 --------
